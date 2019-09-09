@@ -18,11 +18,26 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {  
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const clearanceId = req.body.clearanceId;
+  const teamId = req.body.teamId;
   const queryText = 'INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING id';
   pool.query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500));
 });
+
+router.post('/register/team', (req, res, next) => {
+  const teamName = req.body.teamName;
+  const currentContest = 1;
+  const accessId = req.body.accessId;
+  const queryText = 'INSERT INTO "team" (name, current_contest, access_id) VALUES ($1, $2, $3);';
+  pool.query(queryText, [teamName, currentContest, accessId])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500));
+});
+
 
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route

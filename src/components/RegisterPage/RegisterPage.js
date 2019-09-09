@@ -7,13 +7,26 @@ class RegisterPage extends Component {
     lastName: '',
     username: '',
     password: '',
-    clearanceId: ''
+    clearanceId: '',
+    teamName: '',
+    accessId: ''
   };
 
   registerUser = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.firstName && this.state.lastName && this.state.username && this.state.password) {
+
+      generateAccessId();
+
+      this.props.dispatch({
+        type: 'TEAM_REGISTER',
+        payload: {
+          teamName: this.state.teamName,
+          accessId: this.state.accessId
+        }
+      })
+
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
@@ -32,6 +45,11 @@ class RegisterPage extends Component {
     });
     console.log('clearance id:', this.state.clearanceId);
     
+  }
+
+  generateAccessId() {
+    this.state.accessId = Math.floor(Math.random() * 90000000) + 10000000;
+    console.log('the access id is:', this.state.accessId);
   }
 
   render() {
@@ -102,13 +120,30 @@ class RegisterPage extends Component {
                 value="2"
                 onChange={this.handleInputChangeFor('clearanceId')}
               />
+              <label for="newteam">Yes</label>
               <input
                 type="radio"
                 name="newteam"
                 value="1"
                 onChange={this.handleInputChangeFor('clearanceId')}
               />
+              <label for="newteam">No</label>
             </label>
+          </div>
+          <div>
+            {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
+            {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
+          </div>
+          <div>
+            {this.state.clearanceId == 2 && <label htmlFor="teamName">
+              Enter your Team Name:
+              <input
+                type="text"
+                name="teamname"
+                value={this.state.teamName}
+                onChange={this.handleInputChangeFor('teamName')}
+              />
+            </label>}
           </div>
           <div>
             <input

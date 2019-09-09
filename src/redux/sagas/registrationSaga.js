@@ -12,18 +12,28 @@ function* registerUser(action) {
 
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });
-    
+
     // set to 'login' mode so they see the login screen
     // after registration or after they log out
-    yield put({type: 'SET_TO_LOGIN_MODE'});
+    yield put({ type: 'SET_TO_LOGIN_MODE' });
   } catch (error) {
-      console.log('Error with user registration:', error);
-      yield put({type: 'REGISTRATION_FAILED'});
+    console.log('Error with user registration:', error);
+    yield put({ type: 'REGISTRATION_FAILED' });
+  }
+}
+
+function* registerTeam(action) {
+  try {
+    yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
+
+    yield axios.post('api/user/register/team', action.payload)
+
   }
 }
 
 function* registrationSaga() {
-  yield takeLatest('REGISTER', registerUser);
-}
+    yield takeLatest('TEAM_REGISTER', registerTeam);
+    yield takeLatest('REGISTER', registerUser);
+  }
 
-export default registrationSaga;
+  export default registrationSaga;
