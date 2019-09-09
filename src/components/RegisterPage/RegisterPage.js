@@ -3,8 +3,11 @@ import {connect} from 'react-redux';
 
 class RegisterPage extends Component {
   state = {
+    firstName: '',
+    lastName: '',
     username: '',
     password: '',
+    clearanceId: ''
   };
 
   registerUser = (event) => {
@@ -27,10 +30,14 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+    console.log('clearance id:', this.state.clearanceId);
+    
   }
 
   render() {
+
     return (
+      
       <div>
         {this.props.errors.registrationMessage && (
           <h2
@@ -43,8 +50,30 @@ class RegisterPage extends Component {
         <form onSubmit={this.registerUser}>
           <h1>Register User</h1>
           <div>
+            <label htmlFor="firstname">
+              First Name:
+              <input
+                type="text"
+                name="firstname"
+                value={this.state.firstName}
+                onChange={this.handleInputChangeFor('firstName')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="lastname">
+              Last Name:
+              <input
+                type="text"
+                name="lastname"
+                value={this.state.lastName}
+                onChange={this.handleInputChangeFor('lastName')}
+              />
+            </label>
+          </div>
+          <div>
             <label htmlFor="username">
-              Username:
+              Email Address:
               <input
                 type="text"
                 name="username"
@@ -61,6 +90,23 @@ class RegisterPage extends Component {
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="newteam">
+              Are you creating a new team?
+              <input
+                type="radio"
+                name="newteam"
+                value="2"
+                onChange={this.handleInputChangeFor('clearanceId')}
+              />
+              <input
+                type="radio"
+                name="newteam"
+                value="1"
+                onChange={this.handleInputChangeFor('clearanceId')}
               />
             </label>
           </div>
