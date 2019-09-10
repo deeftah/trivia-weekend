@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
 class LoginPage extends Component {
   
@@ -10,7 +13,8 @@ class LoginPage extends Component {
 
   login = (event) => {
     event.preventDefault();
-
+    console.log('you are hitting the button');
+    
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'LOGIN',
@@ -32,6 +36,7 @@ class LoginPage extends Component {
 
   render() {
     return (
+      <Box textAlign="center">
       <div>
         {this.props.errors.loginMessage && (
           <h2
@@ -66,24 +71,11 @@ class LoginPage extends Component {
             </label>
           </div>
           <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
+            <Button color="primary" type="submit" name="submit" value="Log In">Login</Button>
           </div>
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-          >
-            Register
-          </button>
-        </center>
       </div>
+      </Box>
     );
   }
 }
@@ -95,4 +87,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default withRouter(connect(mapStateToProps)(LoginPage));

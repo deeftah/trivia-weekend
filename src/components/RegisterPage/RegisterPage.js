@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class RegisterPage extends Component {
 
@@ -46,6 +47,7 @@ class RegisterPage extends Component {
         }
       })
     }
+    this.props.history.push(`/main`);
   } // end register
 
   handleInputChangeFor = propertyName => (event) => {
@@ -172,15 +174,6 @@ class RegisterPage extends Component {
             />
           </div>
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-          >
-            Login
-          </button>
-        </center>
       </div>
     );
   }
@@ -195,5 +188,5 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default withRouter(connect(mapStateToProps)(RegisterPage));
 

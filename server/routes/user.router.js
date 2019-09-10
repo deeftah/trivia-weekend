@@ -21,7 +21,6 @@ router.post('/register', (req, res, next) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const clearanceId = req.body.clearanceId;
-  console.log('clearance id is:', clearanceId);
   const teamId = req.body.teamId;
   const accessId = req.body.accessId;
   if (clearanceId == 2) {
