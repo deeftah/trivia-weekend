@@ -5,3 +5,7 @@
 .PrivateTabScrollButton-root-86 {
     box-shadow: 'none';
 }
+
+img {
+    max-width: 500px;
+}
