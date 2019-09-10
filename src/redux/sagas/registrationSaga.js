@@ -27,7 +27,7 @@ function* registerTeam(action) {
     let registerTeamResponse = yield axios.post('api/user/register/team', action.payload)
     action.payload.teamId = registerTeamResponse.data[0].id
     yield put({
-      type: 'SET_USER_INFO',
+      type: 'USER_REGISTER',
       payload: action.payload
     })
     
@@ -37,30 +37,9 @@ function* registerTeam(action) {
   }
 }
 
-function* fetchTeamId(action) {
-  try {
-    console.log('the action.payload is', action.payload);
-    let teamName = action.payload;
-    console.log('and now here the team name is:', teamName);
-    
-    let teamIdResponse = yield axios.get(`api/user/register/team/${teamName}`)
-
-    console.log('saga response for Team ID:', teamIdResponse.data[0]);
-
-    yield put({
-      type: 'SET_TEAM_ID',
-      payload: teamIdResponse.data[0]
-    })
-  } catch (error) {
-    console.log('error in TEAM ID GET:', error);
-    
-  }
-}
-
 function* registrationSaga() {
     yield takeLatest('TEAM_REGISTER', registerTeam);
-    yield takeLatest('SET_USER_INFO', registerUser);
-    yield takeEvery('FETCH_TEAM_ID', fetchTeamId)
+    yield takeLatest('USER_REGISTER', registerUser);
   }
 
   export default registrationSaga;

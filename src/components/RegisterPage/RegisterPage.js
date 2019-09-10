@@ -25,7 +25,18 @@ class RegisterPage extends Component {
         type: 'TEAM_REGISTER',
         payload: {
           teamName: this.state.teamName,
+          username: this.state.username,
+          password: this.state.password,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          clearanceId: this.state.clearanceId,
           accessId: this.state.accessId,
+        }
+      })
+    } else if (this.state.clearanceId === '1') {
+      this.props.dispatch({
+        type: 'USER_REGISTER',
+        payload: {
           username: this.state.username,
           password: this.state.password,
           firstName: this.state.firstName,
@@ -138,6 +149,17 @@ class RegisterPage extends Component {
                 name="teamname"
                 value={this.state.teamName}
                 onChange={this.handleInputChangeFor('teamName')}
+              />
+            </label>}
+          </div>
+          <div>
+            {this.state.clearanceId == 1 && <label htmlFor="teamName">
+              Enter your team's Access ID:
+              <input
+                type="text"
+                name="accessid"
+                value={this.state.accessId}
+                onChange={this.handleInputChangeFor('accessId')}
               />
             </label>}
           </div>

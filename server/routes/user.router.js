@@ -21,12 +21,22 @@ router.post('/register', (req, res, next) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const clearanceId = req.body.clearanceId;
+  console.log('clearance id is:', clearanceId);
   const teamId = req.body.teamId;
+  const accessId = req.body.accessId;
+  if (clearanceId == 2) {
   const queryText = `INSERT INTO "user" (username, password, first_name, last_name, clearance_id, team_id)
                     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;`;
   pool.query(queryText, [username, password, firstName, lastName, clearanceId, teamId])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500));
+  } else {
+    const queryText = `INSERT INTO "user" (username, password, first_name, last_name, clearance_id, team_id)
+    VALUES($1, $2, $3, $4, $5, (SELECT id FROM "team" WHERE access_id = $6));`;
+  pool.query(queryText, [username, password, firstName, lastName, clearanceId, accessId])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500));
+  }
 });
 
 router.post('/register/team', (req, res, next) => {
