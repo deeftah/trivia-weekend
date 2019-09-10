@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class RegisterPage extends Component {
+
   state = {
     firstName: '',
     lastName: '',
@@ -12,50 +13,44 @@ class RegisterPage extends Component {
     accessId: ''
   };
 
-  registerUser = (event) => {
+  registerTeam = (event) => {
+
     event.preventDefault();
 
-    if (this.state.firstName && this.state.lastName && this.state.username && this.state.password) {
+    if (this.state.clearanceId === '2') {
 
-      generateAccessId();
+      this.generateAccessId();
 
       this.props.dispatch({
         type: 'TEAM_REGISTER',
         payload: {
           teamName: this.state.teamName,
-          accessId: this.state.accessId
-        }
-      })
-
-      this.props.dispatch({
-        type: 'REGISTER',
-        payload: {
+          accessId: this.state.accessId,
           username: this.state.username,
           password: this.state.password,
-        },
-      });
-    } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          clearanceId: this.state.clearanceId,
+          accessId: this.state.accessId,
+        }
+      })
     }
-  } // end registerUser
+  } // end register
 
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
-    console.log('clearance id:', this.state.clearanceId);
-    
   }
 
   generateAccessId() {
     this.state.accessId = Math.floor(Math.random() * 90000000) + 10000000;
-    console.log('the access id is:', this.state.accessId);
   }
 
   render() {
 
     return (
-      
+
       <div>
         {this.props.errors.registrationMessage && (
           <h2
@@ -65,8 +60,9 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+
+        <form onSubmit={this.registerTeam}>
+          <h1>Register</h1>
           <div>
             <label htmlFor="firstname">
               First Name:
@@ -150,7 +146,7 @@ class RegisterPage extends Component {
               className="register"
               type="submit"
               name="submit"
-              value="Register"
+              value="Register Team"
             />
           </div>
         </form>
@@ -158,7 +154,7 @@ class RegisterPage extends Component {
           <button
             type="button"
             className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
+            onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
           >
             Login
           </button>
@@ -168,11 +164,13 @@ class RegisterPage extends Component {
   }
 }
 
+
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(RegisterPage);

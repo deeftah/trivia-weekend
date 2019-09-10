@@ -22,22 +22,23 @@ router.post('/register', (req, res, next) => {
   const lastName = req.body.lastName;
   const clearanceId = req.body.clearanceId;
   const teamId = req.body.teamId;
-  const queryText = 'INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING id';
-  pool.query(queryText, [username, password])
+  const queryText = `INSERT INTO "user" (username, password, first_name, last_name, clearance_id, team_id)
+                    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;`;
+  pool.query(queryText, [username, password, firstName, lastName, clearanceId, teamId])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500));
 });
 
 router.post('/register/team', (req, res, next) => {
+  console.log('req.body is:', req.body);
   const teamName = req.body.teamName;
-  const currentContest = 1;
   const accessId = req.body.accessId;
-  const queryText = 'INSERT INTO "team" (name, current_contest, access_id) VALUES ($1, $2, $3);';
-  pool.query(queryText, [teamName, currentContest, accessId])
-    .then(() => res.sendStatus(201))
+  const queryText = `INSERT INTO "team" (name, access_id) VALUES ($1, $2) RETURNING id;`;
+  pool.query(queryText, [teamName, accessId])
+    .then(response => {
+    res.send(response.rows)})
     .catch(() => res.sendStatus(500));
 });
-
 
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
