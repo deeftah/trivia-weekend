@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class LoginButton extends Component {
 
     handleLogin = () => {
-        this.props.history.push(`/login`);
+        this.props.history.push(`/main`);
     }
 
     render() {
 
         return (
+            
             <div>
-                <Button onClick={this.handleLogin}>Login</Button>
+                {!this.props.user.first_name && <Button onClick={this.handleLogin}>Login</Button>}
+                {!this.props.user.first_name && <span>/</span>}
             </div>
         )
 
@@ -20,4 +23,7 @@ class LoginButton extends Component {
 
 }
 
-export default withRouter(LoginButton);
+const mapStateToProps = state => ({
+    user: state.user,
+});
+export default withRouter(connect(mapStateToProps)(LoginButton));

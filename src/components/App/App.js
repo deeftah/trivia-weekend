@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //Navigation
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
+import TabPanel from '../NavBar/Tab';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
@@ -35,41 +36,41 @@ class App extends Component {
           <div>
             <NavBar />
             {/* <Switch> */}
-              {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-              {/* <Redirect exact from="/" to="/home" /> */}
-              {/* Visiting localhost:3000/about will show the about page.
+            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+            {/* <Redirect exact from="/" to="/home" /> */}
+            {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
 
-              {/* For protected routes, the view could show one of several things on the same route.
+            {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-              <Container maxWidth="sm">
-                <Typography color="secondary">
-              <ProtectedRoute
-                exact
-                path="/main"
-                component={UserPage}
-              />
-              {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
-              <ProtectedRoute
-                exact
-                path="/info"
-                component={InfoPage}
-              />
-                  <Route
-                    exact path="/login"
-                    component={LoginPage}
-                  />
-              <Route
-                exact path="/register"
-                component={RegisterPage}
+            <Container maxWidth="sm">
+              <Typography color="secondary">
+                <ProtectedRoute
+                  exact
+                  path="/main"
+                  component={UserPage}
                 />
-              {/* If none of the other routes matched, we will show a 404. */}
-              {/* <Route render={() => <h1>404</h1>} /> */}
+                {/* This works the same as the other protected route, except that if the user is logged in,
+            they will see the info page instead. */}
+                <ProtectedRoute
+                  exact
+                  path="/info"
+                  component={InfoPage}
+                />
+                <Route
+                  exact path="/login"
+                  component={LoginPage}
+                />
+                <Route
+                  exact path="/register"
+                  component={RegisterPage}
+                />
+                {/* If none of the other routes matched, we will show a 404. */}
+                {/* <Route render={() => <h1>404</h1>} /> */}
               </Typography>
-              </Container>
+            </Container>
             {/* </Switch> */}
           </div>
         </Router>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {AccountCircle} from '@material-ui/icons';
 
 class RegisterButton extends Component {
 
@@ -12,7 +14,8 @@ class RegisterButton extends Component {
 
         return (
             <div>
-                <Button onClick={this.handleRegister}>Register</Button>
+                {!this.props.user.first_name && <Button onClick={this.handleRegister}>Register</Button>}
+                {this.props.user.first_name && <Button><AccountCircle style={{ marginRight: 5 }}/>{this.props.user.first_name}</Button>}
             </div>
         )
 
@@ -20,4 +23,7 @@ class RegisterButton extends Component {
 
 }
 
-export default withRouter(RegisterButton);
+const mapStateToProps = state => ({
+    user: state.user,
+});
+export default withRouter(connect(mapStateToProps)(RegisterButton));

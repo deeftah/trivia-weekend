@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
 
 class RegisterPage extends Component {
 
@@ -63,118 +64,119 @@ class RegisterPage extends Component {
   render() {
 
     return (
+      <Box textAlign="center">
+        <div>
+          {this.props.errors.registrationMessage && (
+            <h2
+              className="alert"
+              role="alert"
+            >
+              {this.props.errors.registrationMessage}
+            </h2>
+          )}
 
-      <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
-
-        <form onSubmit={this.registerTeam}>
-          <h1>Register</h1>
-          <div>
-            <label htmlFor="firstname">
-              First Name:
+          <form onSubmit={this.registerTeam}>
+            <h1>Register</h1>
+            <div>
+              <label htmlFor="firstname">
+                First Name:
               <input
-                type="text"
-                name="firstname"
-                value={this.state.firstName}
-                onChange={this.handleInputChangeFor('firstName')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="lastname">
-              Last Name:
+                  type="text"
+                  name="firstname"
+                  value={this.state.firstName}
+                  onChange={this.handleInputChangeFor('firstName')}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="lastname">
+                Last Name:
               <input
-                type="text"
-                name="lastname"
-                value={this.state.lastName}
-                onChange={this.handleInputChangeFor('lastName')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="username">
-              Email Address:
+                  type="text"
+                  name="lastname"
+                  value={this.state.lastName}
+                  onChange={this.handleInputChangeFor('lastName')}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="username">
+                Email Address:
               <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
+                  type="text"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleInputChangeFor('username')}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="password">
+                Password:
               <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="newteam">
-              Are you creating a new team?
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChangeFor('password')}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="newteam">
+                Are you creating a new team?
               <input
-                type="radio"
-                name="newteam"
-                value="2"
-                onChange={this.handleInputChangeFor('clearanceId')}
-              />
-              <label for="newteam">Yes</label>
+                  type="radio"
+                  name="newteam"
+                  value="2"
+                  onChange={this.handleInputChangeFor('clearanceId')}
+                />
+                <label for="newteam">Yes</label>
+                <input
+                  type="radio"
+                  name="newteam"
+                  value="1"
+                  onChange={this.handleInputChangeFor('clearanceId')}
+                />
+                <label for="newteam">No</label>
+              </label>
+            </div>
+            <div>
+              {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
+              {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
+            </div>
+            <div>
+              {this.state.clearanceId == 2 && <label htmlFor="teamName">
+                Enter your Team Name:
               <input
-                type="radio"
-                name="newteam"
-                value="1"
-                onChange={this.handleInputChangeFor('clearanceId')}
-              />
-              <label for="newteam">No</label>
-            </label>
-          </div>
-          <div>
-            {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
-            {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
-          </div>
-          <div>
-            {this.state.clearanceId == 2 && <label htmlFor="teamName">
-              Enter your Team Name:
+                  type="text"
+                  name="teamname"
+                  value={this.state.teamName}
+                  onChange={this.handleInputChangeFor('teamName')}
+                />
+              </label>}
+            </div>
+            <div>
+              {this.state.clearanceId == 1 && <label htmlFor="teamName">
+                Enter your team's Access ID:
               <input
-                type="text"
-                name="teamname"
-                value={this.state.teamName}
-                onChange={this.handleInputChangeFor('teamName')}
-              />
-            </label>}
-          </div>
-          <div>
-            {this.state.clearanceId == 1 && <label htmlFor="teamName">
-              Enter your team's Access ID:
+                  type="text"
+                  name="accessid"
+                  value={this.state.accessId}
+                  onChange={this.handleInputChangeFor('accessId')}
+                />
+              </label>}
+            </div>
+            <div>
               <input
-                type="text"
-                name="accessid"
-                value={this.state.accessId}
-                onChange={this.handleInputChangeFor('accessId')}
+                className="register"
+                type="submit"
+                name="submit"
+                value="Register Team"
               />
-            </label>}
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register Team"
-            />
-          </div>
-        </form>
-      </div>
+            </div>
+          </form>
+        </div>
+      </Box>
     );
   }
 }
