@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Typography } from "@material-ui/core";
 import CountDown from '../CountDown/CountDown'
-import { Schedule } from '@material-ui/icons';
+import { Edit, Schedule, Undo } from '@material-ui/icons';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -65,7 +65,7 @@ class Home extends Component {
                         <Card>
                             <CardContent>
                                 <Typography>
-                                    <b>Upload a Logo</b>
+                                    {!this.props.home.logo_url ? <b>Upload a Logo</b> : <b>Team Logo</b>}
                                     <br /><br />
                                     {!this.props.home.logo_url && <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg" />}
                                     {this.props.home.logo_url && <img src={this.props.home.logo_url} />}
@@ -74,10 +74,14 @@ class Home extends Component {
                                 </Typography>
                             </CardContent >
                             <CardActions>
-                                {/* Display button to navigate into movie details page */}
+                                {!this.state.editImage &&
                                 <Button onClick={this.toggleImageEdit}>
-                                    Edit
-                         </Button>
+                                    <Edit style={{ marginRight: 3 }} />Edit
+                         </Button>}
+                                {this.state.editImage && 
+                                <Button onClick={this.toggleImageEdit}>
+                                    <Undo style={{ marginRight: 3 }} />Undo
+                         </Button>}
                             </CardActions>
                         </Card >
                     </Grid >
@@ -91,7 +95,7 @@ class Home extends Component {
                             </CardContent >
                             <CardActions>
                                 <Button>
-                                    Edit
+                                    <Edit style={{ marginRight: 3 }} />Edit
                          </Button>
                             </CardActions>
                         </Card >
