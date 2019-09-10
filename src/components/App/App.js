@@ -8,9 +8,12 @@ import TabPanel from '../NavBar/Tab';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
+import Home from '../Home/Home';
+import Visual from '../Visual/Visual';
+import Schedule from '../Schedule/Schedule';
+import Live from '../Live/Live';
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -56,8 +59,23 @@ class App extends Component {
             they will see the info page instead. */}
                 <ProtectedRoute
                   exact
-                  path="/info"
-                  component={InfoPage}
+                  path="/home"
+                  component={Home}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/visual"
+                  component={Visual}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/schedule"
+                  component={Schedule}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/live"
+                  component={Live}
                 />
                 <Route
                   exact path="/login"

@@ -4,15 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
+import {Home, Photo, Schedule, Radio} from '@material-ui/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -72,10 +70,10 @@ export default function ScrollableTabsButtonForce() {
                     textColor="secondary"
                     aria-label="scrollable force tabs example"
                 >
-                    <Tab label="Home" icon={<PhoneIcon />} {...a11yProps(0)} />
-                    <Tab label="Visual" icon={<FavoriteIcon />} {...a11yProps(1)} />
-                    <Tab label="Schedule" icon={<PersonPinIcon />} {...a11yProps(2)} />
-                    <Tab label="Live" icon={<HelpIcon />} {...a11yProps(3)} />
+                    <Tab label="Home" component={Link} to="/home" icon={<Home />} {...a11yProps(0)} />
+                    <Tab label="Visual" component={Link} to="/visual" icon={<Photo />} {...a11yProps(1)} />
+                    <Tab label="Schedule" component={Link} to="/schedule" icon={<Schedule />} {...a11yProps(2)} />
+                    <Tab label="Live" component={Link} to="/live" icon={<Radio />} {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
         </div>
