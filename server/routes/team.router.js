@@ -3,11 +3,11 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //TEAM IMAGE GET
-router.get('/image', (req, res) => {
-    const sqlText = `SELECT logo_url FROM "team" WHERE id = $1;`;
+router.get('/', (req, res) => {
+    const sqlText = `SELECT * FROM "team" WHERE id = $1;`;
     pool.query(sqlText, [req.user.team_id])
     .then((result) => {
-        console.log('Team Image GET from database:', result);
+        console.log('Team GET from database:', result);
         res.send(result.rows);    
     })
     .catch((error) => {

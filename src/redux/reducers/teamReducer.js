@@ -1,10 +1,10 @@
-const homeReducer = (state = {}, action) => {
+const teamReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_IMAGE':
+        case 'SET_TEAM_DETAILS':
             return action.payload;
         default:
             return state;
     }
 }
 
-export default homeReducer;
+export default teamReducer;

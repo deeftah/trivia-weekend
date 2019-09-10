@@ -19,17 +19,16 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getImage();
+        this.getTeamDetails();
     }
 
-    getImage() {
+    getTeamDetails() {
         this.props.dispatch({
-            type: 'FETCH_IMAGE'
+            type: 'FETCH_TEAM_DETAILS'
         })
     }
 
     toggleImageEdit = () => {
-        console.log('the image is:', this.props.home)
         this.setState({
             editImage: !this.state.editImage
         })
@@ -62,20 +61,20 @@ class Home extends Component {
                 <br /><br />
                 <Grid container spacing={2} justify="center">
                     <Grid item sm={6} align="center">
-                        <Card>
+                        <Card style={{ backgroundColor: "#494A49" }}>
                             <CardContent>
                                 <Typography>
-                                    {!this.props.home.logo_url ? <b>Upload a Logo</b> : <b>Team Logo</b>}
+                                    {!this.props.team.logo_url ? <b>Upload a Logo</b> : <b>{this.props.team.name}</b>}
                                     <br /><br />
-                                    {!this.props.home.logo_url && <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg" />}
-                                    {this.props.home.logo_url && <img src={this.props.home.logo_url} />}
+                                    {!this.props.team.logo_url && <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg" />}
+                                    {this.props.team.logo_url && <img src={this.props.team.logo_url} />}
                                     {this.state.editImage && <input onChange={this.handleChangeFor('newImage')} placeholder="enter image url" />}
                                     {this.state.editImage && <Button onClick={this.handleImageSave}>Save</Button>}
                                 </Typography>
                             </CardContent >
                             <CardActions>
                                 {!this.state.editImage &&
-                                <Button onClick={this.toggleImageEdit}>
+                                    <Button color="primary" onClick={this.toggleImageEdit}>
                                     <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                                 {this.state.editImage && 
@@ -94,7 +93,7 @@ class Home extends Component {
                                 </Typography>
                             </CardContent >
                             <CardActions>
-                                <Button>
+                                <Button color="primary">
                                     <Edit style={{ marginRight: 3 }} />Edit
                          </Button>
                             </CardActions>
@@ -113,6 +112,6 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    home: state.home
+    team: state.team
 });
 export default withRouter(connect(mapStateToProps)(Home));
