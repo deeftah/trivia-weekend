@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchTeamDetails(action) {
@@ -27,9 +27,23 @@ function* updateImage(action) {
     }
 }
 
-function* homeSaga() {
-    yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
-    yield takeEvery('UPDATE_IMAGE', updateImage);
+function* updateBoilerplate(action) {
+    try {
+        let boilerplateUpdateResponse = yield axios.put('/team/boilerplate', action.payload)
+        console.log('boilerplate update saga response!', action.payload.boilerplate);
+        yield put({
+            type: 'FETCH_TEAM_DETAILS',
+            payload: boilerplateUpdateResponse.data
+        })
+    } catch (err) {
+        console.log('error in BOILERPLATE PUT', err);
+    }
 }
 
-export default homeSaga;
+function* teamSaga() {
+    yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
+    yield takeLatest('UPDATE_IMAGE', updateImage);
+    yield takeLatest('UPDATE_BOILERPLATE', updateBoilerplate);
+}
+
+export default teamSaga;

@@ -38,10 +38,11 @@ class Home extends Component {
 
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
-            newImage: {
+            
                 [propertyName]: event.target.value
-            }
+            
         });
+        console.log('the handle change for is being called!')
     }
 
     handleBoilerplateSave = () => {
@@ -72,8 +73,9 @@ class Home extends Component {
                                     </Typography>
                                     <br/><br/>
                                     <Typography color="secondary">
-                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')} placeholder="enter team information" />}
-                                    {this.state.editBoilerplate && <Button onClick={this.handleBoilerplateSave}>Save</Button>}
+                                    <p>{this.props.team.boilerplate}</p>
+                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')}/>}
+                                    {this.state.editBoilerplate && <Button color="primary" onClick={this.handleBoilerplateSave}>Save</Button>}
                                 </Typography>
                             </CardContent >
                             <CardActions>
@@ -82,7 +84,7 @@ class Home extends Component {
                                         <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                                 {this.state.editBoilerplate &&
-                                    <Button onClick={this.toggleBoilerplateEdit}>
+                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit}>
                                         <Undo style={{ marginRight: 3 }} />Undo
                          </Button>}
                             </CardActions>

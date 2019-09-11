@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//TEAM IMAGE GET
+//TEAM DATA GET
 router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM "team" WHERE id = $1;`;
     pool.query(sqlText, [req.user.team_id])
@@ -22,6 +22,20 @@ router.put('/image', (req, res) => {
     SET "logo_url" = $1
     WHERE "id" = $2;`;
     pool.query(sqlText, [req.body.newImage, req.user.team_id])
+    .then(result => {
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        res.sendStatus(500);
+    })
+})
+
+//TEAM BOILERPLATE PUT
+router.put('/boilerplate', (req, res) => {
+    const sqlText = `UPDATE "team"
+    SET "boilerplate" = $1
+    WHERE "id" = $2;`;
+    pool.query(sqlText, [req.body.boilerplate, req.user.team_id])
     .then(result => {
         res.sendStatus(200);
     })

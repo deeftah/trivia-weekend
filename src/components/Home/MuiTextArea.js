@@ -40,7 +40,21 @@ const useStyles = makeStyles(theme => ({
     },
     input: {
         color: "white"
-    }
+    },
+    
+    cssLabel: {
+        '&$cssFocused': {
+            color: "white",
+        },
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: "white",
+        },
+    },
+    cssFocused: {},
+    notchedOutline: {borderColor: "white"},
+
 }));
 
 export default function MuiTextArea() {
@@ -48,19 +62,20 @@ export default function MuiTextArea() {
     const [values, setValues] = React.useState({
         name: 'Cat in the Hat',
         age: '',
-        multiline: `What's new with the team?`,
+        multiline: ``,
         currency: 'EUR',
     });
 
     const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value });
+        setValues({ ...values, [name]: event.target.value });    
+        console.log('event is', event.target.value)
     };
 
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <TextField
                 id="outlined-multiline-flexible"
-                label="Team Information"
+                label="Share information"
                 color="white"
                 multiline
                 rowsMax="10"
@@ -68,12 +83,19 @@ export default function MuiTextArea() {
                 onChange={handleChange('multiline')}
                 className={classes.textField}
                 margin="normal"
-                helperText="share info with the team!"
                 variant="outlined"
                 InputProps={{
+                    className: classes.input,
+                    classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                    }
+                }}
+                InputLabelProps={{
                     className: classes.input
                 }}
-                style={{ width: 500 }}
+                style={{ width: 550 }}
             />
         </form>
     );

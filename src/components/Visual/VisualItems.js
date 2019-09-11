@@ -1,0 +1,61 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+import { Grid, Typography } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+class VisualItems extends Component {
+
+    render() {
+
+        return (
+            <Grid item sm={3} align="center">
+                <Card>
+                    <CardMedia
+                        component="img"
+                        alt={this.props.visual.image_number}
+                        style={{ width: '35%', marginTop: 10 }}
+                        image={this.props.visual.url}
+                        title={this.props.visual.image_number}
+                    />
+                    <CardContent>
+                        <CardActionArea>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header">
+                                    <Typography>
+                                        <b>Visual #{this.props.visual.image_number}</b>
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography>
+                                        <p>{this.props.visual.match_level}</p>
+                                        <p>{this.props.visual.comment}</p>
+                                    </Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </CardActionArea>
+                    </CardContent>
+                    <CardActions>
+                        <Button>
+                            Edit
+                    </Button>
+                    </CardActions>
+                </Card>
+            </Grid>
+        )
+    }
+}
+
+export default withRouter(connect()(VisualItems));

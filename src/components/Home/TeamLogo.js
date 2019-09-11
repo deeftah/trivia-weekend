@@ -63,7 +63,7 @@ class TeamLogo extends Component {
                                 {!this.props.team.logo_url ? <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg"/>
                                     : <img src={this.props.team.logo_url}/>}
                                 {this.state.editImage && <input onChange={this.handleChangeFor('newImage')} placeholder="enter image url" />}
-                                {this.state.editImage && <Button onClick={this.handleImageSave}>Save</Button>}
+                                {this.state.editImage && <Button color="primary" onClick={this.handleImageSave}>Save</Button>}
                             </Typography>
                         </CardContent >
                         <CardActions>
@@ -72,7 +72,7 @@ class TeamLogo extends Component {
                                     <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                             {this.state.editImage &&
-                                <Button onClick={this.toggleImageEdit}>
+                                <Button color="secondary" onClick={this.toggleImageEdit}>
                                     <Undo style={{ marginRight: 3 }} />Undo
                          </Button>}
                         </CardActions>
