@@ -11,27 +11,28 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import TeamLogo from './TeamLogo';
+import MuiTextArea from './MuiTextArea';
 
 class Home extends Component {
 
     state = {
-        editImage: false,
-        newImage: ''
+        editBoilerplate: false,
+        boilerplate: ''
     }
 
-    componentDidMount() {
-        this.getTeamDetails();
-    }
+    // componentDidMount() {
+    //     this.getTeamDetails();
+    // }
 
-    getTeamDetails() {
-        this.props.dispatch({
-            type: 'FETCH_TEAM_DETAILS'
-        })
-    }
+    // getTeamDetails() {
+    //     this.props.dispatch({
+    //         type: 'FETCH_TEAM_DETAILS'
+    //     })
+    // }
 
-    toggleImageEdit = () => {
+    toggleBoilerplateEdit = () => {
         this.setState({
-            editImage: !this.state.editImage
+            editBoilerplate: !this.state.editBoilerplate
         })
     }
 
@@ -43,13 +44,13 @@ class Home extends Component {
         });
     }
 
-    handleImageSave = () => {
+    handleBoilerplateSave = () => {
         this.props.dispatch({
-            type: 'UPDATE_IMAGE',
-            payload: this.state.newImage
+            type: 'UPDATE_BOILERPLATE',
+            payload: this.state.boilerplate
         })
         this.setState({
-            editImage: !this.state.editImage
+            editImage: !this.state.editBoilerplate
         })
     }
 
@@ -61,31 +62,36 @@ class Home extends Component {
                 <Schedule /> <CountDown />
                 <br /><br />
                 <Grid container spacing={2} justify="center">
-                    <TeamLogo/>
+                    <TeamLogo />
 
-                    <Grid item sm={6} align="center">
-                        <Card>
+                    <Grid item sm={6}>
+                        <Card style={{ backgroundColor: "#494A49" }}>
                             <CardContent>
-                                <Typography>
+                                <Typography color="secondary" align="center">
                                     <b>Team News</b>
+                                    </Typography>
+                                    <br/><br/>
+                                    <Typography color="secondary">
+                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')} placeholder="enter team information" />}
+                                    {this.state.editBoilerplate && <Button onClick={this.handleBoilerplateSave}>Save</Button>}
                                 </Typography>
                             </CardContent >
                             <CardActions>
-                                <Button color="primary">
-                                    <Edit style={{ marginRight: 3 }} />Edit
-                         </Button>
+                                {!this.state.editBoilerplate &&
+                                    <Button color="primary" onClick={this.toggleBoilerplateEdit}>
+                                        <Edit style={{ marginRight: 3 }} />Edit
+                         </Button>}
+                                {this.state.editBoilerplate &&
+                                    <Button onClick={this.toggleBoilerplateEdit}>
+                                        <Undo style={{ marginRight: 3 }} />Undo
+                         </Button>}
                             </CardActions>
                         </Card >
                     </Grid >
-
                 </Grid>
-
-
             </div >
         )
-
     }
-
 }
 
 const mapStateToProps = state => ({
