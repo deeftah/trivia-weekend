@@ -10,6 +10,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import TeamLogo from './TeamLogo';
 
 class Home extends Component {
 
@@ -60,30 +61,7 @@ class Home extends Component {
                 <Schedule /> <CountDown />
                 <br /><br />
                 <Grid container spacing={2} justify="center">
-                    <Grid item sm={6} align="center">
-                        <Card style={{ backgroundColor: "#494A49" }}>
-                            <CardContent>
-                                <Typography>
-                                    {!this.props.team.logo_url ? <b>Upload a Logo</b> : <b>{this.props.team.name}</b>}
-                                    <br /><br />
-                                    {!this.props.team.logo_url && <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg" />}
-                                    {this.props.team.logo_url && <img src={this.props.team.logo_url} />}
-                                    {this.state.editImage && <input onChange={this.handleChangeFor('newImage')} placeholder="enter image url" />}
-                                    {this.state.editImage && <Button onClick={this.handleImageSave}>Save</Button>}
-                                </Typography>
-                            </CardContent >
-                            <CardActions>
-                                {!this.state.editImage &&
-                                    <Button color="primary" onClick={this.toggleImageEdit}>
-                                    <Edit style={{ marginRight: 3 }} />Edit
-                         </Button>}
-                                {this.state.editImage && 
-                                <Button onClick={this.toggleImageEdit}>
-                                    <Undo style={{ marginRight: 3 }} />Undo
-                         </Button>}
-                            </CardActions>
-                        </Card >
-                    </Grid >
+                    <TeamLogo/>
 
                     <Grid item sm={6} align="center">
                         <Card>
