@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 //Navigation
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
-import TabPanel from '../NavBar/Tab';
-import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
 import RegisterPage from '../RegisterPage/RegisterPage';

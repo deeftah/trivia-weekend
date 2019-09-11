@@ -18,16 +18,36 @@ class VisualItems extends Component {
     render() {
 
         return (
-            <Grid item sm={3} align="center">
+            <Grid item sm={4} align="center">
+                
                 <Card>
+                    <CardContent>
+                        <CardActionArea>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header">
+                                    <Typography>
+                                        <b>Visual #{this.props.visual.image_number}</b> ({this.props.visual.match_level})
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography>
+                                        <p>{this.props.visual.comment}</p>
+                                    </Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </CardActionArea>
+                    </CardContent>
                     <CardMedia
                         component="img"
-                        alt={this.props.visual.image_number}
-                        style={{ width: '35%', marginTop: 10 }}
+                        alt={this.props.visual.comment}
+                        style={{ width: '90%', marginTop: 10 }}
                         image={this.props.visual.url}
-                        title={this.props.visual.image_number}
+                        title={this.props.visual.comment}
                     />
-                    <CardContent>
+                    {/* <CardContent>
                         <CardActionArea>
                             <ExpansionPanel>
                                 <ExpansionPanelSummary
@@ -46,7 +66,7 @@ class VisualItems extends Component {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </CardActionArea>
-                    </CardContent>
+                    </CardContent> */}
                     <CardActions>
                         <Button>
                             Edit

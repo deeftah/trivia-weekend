@@ -13,7 +13,7 @@ class Visual extends Component {
 
     getVisual() {
         this.props.dispatch({
-            type: 'FETCH_VISUAL'
+            type: 'FETCH_VISUAL',
         })
     }
 
@@ -21,8 +21,8 @@ class Visual extends Component {
 
         return (
 
-            <div style={{ marginTop: 20, padding: 30 }}>
-                <Grid container spacing={4} justify="center">
+            <div style={{ marginTop: 80, padding: 30 }}>
+                <Grid container spacing={6} justify="center">
                     {this.props.visual.map((visual, i) => (<VisualItems key={i} visual={visual} />))}
                 </Grid>
             </div>

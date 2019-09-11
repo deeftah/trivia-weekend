@@ -1,6 +1,6 @@
 const visualReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_TEAM_DETAILS':
+        case 'SET_VISUAL_DETAILS':
             return action.payload;
         default:
             return state;

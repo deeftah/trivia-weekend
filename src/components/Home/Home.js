@@ -58,7 +58,7 @@ class Home extends Component {
     render() {
 
         return (
-            <div style={{ marginTop: 20, padding: 30 }}>
+            <div style={{ marginTop: 80, padding: 30 }}>
                 {/* Establish spacing between cards */}
                 <Schedule /> <CountDown />
                 <br /><br />
