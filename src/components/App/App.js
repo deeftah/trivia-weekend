@@ -12,6 +12,7 @@ import Home from '../Home/Home';
 import Visual from '../Visual/Visual';
 import Schedule from '../Schedule/Schedule';
 import Live from '../Live/Live';
+import Profile from '../Profile/Profile';
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -74,6 +75,11 @@ class App extends Component {
                   exact
                   path="/live"
                   component={Live}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/profile"
+                  component={Profile}
                 />
                 <Route
                   exact path="/login"

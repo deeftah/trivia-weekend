@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class LoginButton extends Component {
 
     handleLogin = () => {
-        this.props.history.push(`/main`);
+        this.props.history.push(`/home`);
     }
 
     render() {

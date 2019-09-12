@@ -80,7 +80,7 @@ class Visual extends Component {
                 {this.state.toggleAdd && <input onChange={this.handleChangeFor('url')} type="text" placeholder="enter image url" style={{ marginLeft: 15 }} />}
                 {this.state.toggleAdd &&
                     <Button color="primary" onClick={this.handleVisualAdd}>
-                        <AddCircle style={{ marginRight: 3 }} />Add Visual
+                        <AddCircle style={{ marginRight: 3 }} />Add To Gallery
                          </Button>}
 
                 <Grid container spacing={6} justify="center" style={{ marginTop: 5 }}>

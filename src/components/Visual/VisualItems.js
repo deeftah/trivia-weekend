@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { Grid, Typography } from "@material-ui/core";
-import { Cancel, Edit, Save } from '@material-ui/icons';
+import { Cancel, Delete, Edit, Save } from '@material-ui/icons';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -54,7 +54,7 @@ class VisualItems extends Component {
         console.log('user edits:', propertyName)
     }
 
-    handleSetVisualId = (id) => {
+    handleEditVisual = (id) => {
         this.setState({
             editVisual: !this.state.editVisual,
             userEdits: {
@@ -62,7 +62,13 @@ class VisualItems extends Component {
                 newVisualId: id
             }
         })
-        console.log('and the visual id set is:', this.state.userEdits.newVisualId)
+    }
+
+    handleDeleteVisual = (id) => {
+        this.props.dispatch({
+            type: 'DELETE_VISUAL',
+            payload: id
+        })
     }
 
     render() {
@@ -113,15 +119,19 @@ class VisualItems extends Component {
                     </CardContent>
                     <CardActions>
                         {!this.state.editVisual &&
-                            <Button color="primary" onClick={() => this.handleSetVisualId(this.props.visual.id)}>
+                            <Button color="secondary" onClick={() => this.handleEditVisual(this.props.visual.id)} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
+                        {!this.state.editVisual &&
+                            <Button color="primary" onClick={() => this.handleDeleteVisual(this.props.visual.id)} style={{ marginLeft: "auto", marginRight: 0 }}>
+                                <Delete style={{ marginRight: 3 }} />Delete
+                         </Button>}
                         {this.state.editVisual &&
-                            <Button color="secondary" onClick={this.toggleVisualEdit}>
+                            <Button color="secondary" onClick={this.toggleVisualEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                         {this.state.editVisual &&
-                            <Button color="primary" onClick={this.handleVisualSave}>
+                            <Button color="primary" onClick={this.handleVisualSave} style={{ marginLeft: "auto", marginRight: 0 }}>
                                 <Save style={{ marginRight: 3 }} />Save
                          </Button>}
                     </CardActions>

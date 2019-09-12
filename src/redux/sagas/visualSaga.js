@@ -40,10 +40,24 @@ function* addVisual(action) {
     }
 }
 
+function* deleteVisual(action) {
+    try {
+        let visualDeleteResponse = yield axios.delete(`/visual/${action.payload}`)
+        console.log('visual delete saga repsonse!', action.payload);
+        yield put({
+            type: 'FETCH_VISUAL',
+            payload: visualDeleteResponse.data
+        })
+    } catch (err) {
+        console.log('error in VISUAL DELETE', err);
+    }
+}
+
 function* visualSaga() {
     yield takeEvery('FETCH_VISUAL', fetchVisual);
     yield takeLatest('UPDATE_VISUAL', updateVisual);
     yield takeLatest('ADD_VISUAL', addVisual);
+    yield takeEvery('DELETE_VISUAL', deleteVisual);
 }
 
 export default visualSaga;
