@@ -6,15 +6,22 @@ import { Grid, Typography } from "@material-ui/core";
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import { Add, AddCircle, Remove, Save } from '@material-ui/icons';
+import Axios from 'axios';
 
 class Visual extends Component {
 
     state = {
-        toggleAdd: false
+        toggleAdd: false,
+        addVisual: {
+            visualNumber:'',
+            url: '',
+            contestId: 0
+        }
     }
 
     componentDidMount() {
         this.getVisual();
+        this.getTeamDetails();
     }
 
     getVisual() {
@@ -23,25 +30,38 @@ class Visual extends Component {
         })
     }
 
-    handleAddClick = () => {
-        this.setState({
-            toggleAdd: !this.state.toggleAdd
+    getTeamDetails() {
+        this.props.dispatch({
+            type: 'FETCH_TEAM_DETAILS'
         })
-        console.log('toggleAdd testing:', this.state.toggleAdd)
+    }
+
+    handleAddClick = (id) => {
+        this.setState({
+            toggleAdd: !this.state.toggleAdd,
+            addVisual: {
+                ...this.state.addVisual,
+                contestId: id
+            }
+        })
+        console.log('contestId testing:', this.state.addVisual.contestId)
     }
 
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
-            userEdits: {
-                ...this.state.userEdits,
+            addVisual: {
+                ...this.state.addVisual,
                 [propertyName]: event.target.value
             }
         });
-        console.log('add visual url:', propertyName)
+        console.log('add visual url:', this.state.addVisual.url)
     }
 
     handleVisualAdd = (url) => {
-
+        this.props.dispatch({
+            type: 'ADD_VISUAL',
+            payload: this.state.addVisual
+        })
     }
 
     render() {
@@ -49,14 +69,15 @@ class Visual extends Component {
         return (
 
             <div style={{ marginTop: 70, padding: 30 }}>
-                {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" onClick={this.handleAddClick}>
+                {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" onClick={() => this.handleAddClick(this.props.team.current_contest)}>
                     <Add />
                 </Fab> :
                     <Fab color="secondary" aria-label="remove" onClick={this.handleAddClick}>
                         <Remove />
                     </Fab>
                 }
-                {this.state.toggleAdd && <input onChange={this.handleChangeFor('newImage')} placeholder="enter image url" style={{marginLeft: 15}} />}
+                {this.state.toggleAdd && <input onChange={this.handleChangeFor('visualNumber')} type="number" placeholder="enter image number" style={{ marginLeft: 15 }} />}
+                {this.state.toggleAdd && <input onChange={this.handleChangeFor('url')} type="text" placeholder="enter image url" style={{ marginLeft: 15 }} />}
                 {this.state.toggleAdd &&
                     <Button color="primary" onClick={this.handleVisualAdd}>
                         <AddCircle style={{ marginRight: 3 }} />Add Visual
@@ -72,6 +93,7 @@ class Visual extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    team: state.team,
     visual: state.visual
 });
 

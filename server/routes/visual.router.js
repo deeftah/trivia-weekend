@@ -23,10 +23,24 @@ router.put('/', (req, res) => {
     console.log('the req.body for the visual data put is:', req.body);
     const sqlText = `UPDATE "visual"
     SET "match_level" = $1, "comment" = $2
-    WHERE "image_number" = $3;`;
+    WHERE "id" = $3;`;
     pool.query(sqlText, [req.body.newMatchLevel, req.body.newVisualComment, req.body.newVisualId])
         .then(result => {
             res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
+//VISUAL DATA POST (ADD IMAGE URL TO GALLERY)
+router.post('/', (req, res) => {
+    console.log('the req.body for the visual POST is:', req.body);
+    const sqlText = `INSERT INTO "visual" ("image_number", "url", "contest_id")
+    VALUES ($1, $2, $3);`;
+    pool.query(sqlText, [req.body.visualNumber, req.body.url, req.body.contestId])
+        .then(result => {
+            res.sendStatus(201);
         })
         .catch(error => {
             res.sendStatus(500);

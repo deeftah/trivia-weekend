@@ -27,9 +27,23 @@ function* updateVisual(action) {
     }
 }
 
+function* addVisual(action) {
+    try {
+        let visualAddResponse = yield axios.post('/visual', action.payload)
+        console.log('visual add saga repsonse!', action.payload);
+        yield put({
+            type: 'FETCH_VISUAL',
+            payload: visualAddResponse.data
+        })
+    } catch (err) {
+        console.log('error in VISUAL ADD', err);
+    }
+}
+
 function* visualSaga() {
     yield takeEvery('FETCH_VISUAL', fetchVisual);
     yield takeLatest('UPDATE_VISUAL', updateVisual);
+    yield takeLatest('ADD_VISUAL', addVisual);
 }
 
 export default visualSaga;
