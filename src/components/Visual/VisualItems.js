@@ -17,11 +17,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 class VisualItems extends Component {
 
     state = {
+        userEdits: {
+            newVisualComment: this.props.visual.comment,
+            newMatchLevel: this.props.visual.match_level,
+            newVisualId: 0
+        },
         editVisual: false,
-        newVisual: '',
-        newMatchLevel: '',
         defaultComment: this.props.visual.comment,
         defaultMatchLevel: this.props.visual.match_level
+
     }
 
     toggleVisualEdit = () => {
@@ -30,10 +34,35 @@ class VisualItems extends Component {
         })
     }
 
+    handleVisualSave = () => {
+        this.props.dispatch({
+            type: 'UPDATE_VISUAL',
+            payload: this.state.userEdits
+        })
+        this.setState({
+            editVisual: !this.state.editVisual,
+        })
+    }
+
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
-            [propertyName]: event.target.value
+            userEdits: {
+                ...this.state.userEdits,
+                [propertyName]: event.target.value
+            }
         });
+        console.log('user edits:', propertyName)
+    }
+
+    handleSetVisualId = (id) => {
+        this.setState({
+            editVisual: !this.state.editVisual,
+            userEdits: {
+                ...this.state.userEdits,
+                newVisualId: id
+            }
+        })
+        console.log('and the visual id set is:', this.state.userEdits.newVisualId)
     }
 
     render() {
@@ -75,16 +104,16 @@ class VisualItems extends Component {
                                 <option value="Maybe Found">Maybe Found</option>
                                 <option value="Not Found">Not Found</option>
                             </select>}
-                            {this.state.editVisual && <br/>}
-                            {this.state.editVisual && <br/>}
+                            {this.state.editVisual && <br />}
+                            {this.state.editVisual && <br />}
                             {this.state.editVisual &&
-                            <textarea style={{width: "95%"}} onChange={this.handleChangeFor('newVisual')} placeholder="enter any ideas or sources"
-                                defaultValue={this.state.defaultComment} />}
+                                <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('newVisualComment')} placeholder="enter any ideas or sources"
+                                    defaultValue={this.state.defaultComment} />}
                         </Typography>
                     </CardContent>
                     <CardActions>
                         {!this.state.editVisual &&
-                            <Button color="primary" onClick={this.toggleVisualEdit}>
+                            <Button color="primary" onClick={() => this.handleSetVisualId(this.props.visual.id)}>
                                 <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                         {this.state.editVisual &&
@@ -92,7 +121,7 @@ class VisualItems extends Component {
                                 <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                         {this.state.editVisual &&
-                            <Button color="primary" onClick={this.toggleVisualEdit}>
+                            <Button color="primary" onClick={this.handleVisualSave}>
                                 <Save style={{ marginRight: 3 }} />Save
                          </Button>}
                     </CardActions>

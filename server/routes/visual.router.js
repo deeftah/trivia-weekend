@@ -18,4 +18,19 @@ router.get('/', (req, res) => {
         })
 });
 
+//VISUAL DATA PUT (MATCH LEVEL AND COMMENT)
+router.put('/', (req, res) => {
+    console.log('the req.body for the visual data put is:', req.body);
+    const sqlText = `UPDATE "visual"
+    SET "match_level" = $1, "comment" = $2
+    WHERE "image_number" = $3;`;
+    pool.query(sqlText, [req.body.newMatchLevel, req.body.newVisualComment, req.body.newVisualId])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;
