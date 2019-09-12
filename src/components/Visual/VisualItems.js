@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { Grid, Typography } from "@material-ui/core";
-import { Edit, Undo } from '@material-ui/icons';
+import { Cancel, Edit, Save } from '@material-ui/icons';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -16,25 +16,44 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class VisualItems extends Component {
 
+    state = {
+        editVisual: false,
+        newVisual: '',
+        newMatchLevel: '',
+        defaultComment: this.props.visual.comment,
+        defaultMatchLevel: this.props.visual.match_level
+    }
+
+    toggleVisualEdit = () => {
+        this.setState({
+            editVisual: !this.state.editVisual
+        })
+    }
+
+    handleChangeFor = (propertyName) => (event) => {
+        this.setState({
+            [propertyName]: event.target.value
+        });
+    }
+
     render() {
 
         return (
-            <Grid item sm={4} align="center">
-                
+            <Grid item sm={4} align="center" >
                 <Card style={{ backgroundColor: "#494A49" }}>
                     <CardContent>
                         <CardActionArea>
                             <ExpansionPanel style={{ backgroundColor: "#777877" }}>
                                 <ExpansionPanelSummary
-                                    expandIcon={<ExpandMoreIcon />}
+                                    expandIcon={<ExpandMoreIcon color="secondary" />}
                                     aria-controls="panel1a-content"
                                     id="panel1a-header">
-                                    <Typography>
+                                    <Typography color="secondary">
                                         <b>Visual #{this.props.visual.image_number}</b> ({this.props.visual.match_level})
                                     </Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <Typography>
+                                    <Typography color="secondary">
                                         <p>{this.props.visual.comment}</p>
                                     </Typography>
                                 </ExpansionPanelDetails>
@@ -48,10 +67,34 @@ class VisualItems extends Component {
                         image={this.props.visual.url}
                         title={this.props.visual.comment}
                     />
+                    <CardContent>
+                        <Typography color="secondary">
+                            {this.state.editVisual && <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
+                                value={this.state.value} defaultValue={this.state.defaultMatchLevel}>
+                                <option value="Found">Found</option>
+                                <option value="Maybe Found">Maybe Found</option>
+                                <option value="Not Found">Not Found</option>
+                            </select>}
+                            {this.state.editVisual && <br/>}
+                            {this.state.editVisual && <br/>}
+                            {this.state.editVisual &&
+                            <textarea style={{width: "95%"}} onChange={this.handleChangeFor('newVisual')} placeholder="enter any ideas or sources"
+                                defaultValue={this.state.defaultComment} />}
+                        </Typography>
+                    </CardContent>
                     <CardActions>
-                        <Button>
-                            <Edit style={{ marginRight: 3 }} />Edit
-                    </Button>
+                        {!this.state.editVisual &&
+                            <Button color="primary" onClick={this.toggleVisualEdit}>
+                                <Edit style={{ marginRight: 3 }} />Edit
+                         </Button>}
+                        {this.state.editVisual &&
+                            <Button color="secondary" onClick={this.toggleVisualEdit}>
+                                <Cancel style={{ marginRight: 3 }} />Cancel
+                         </Button>}
+                        {this.state.editVisual &&
+                            <Button color="primary" onClick={this.toggleVisualEdit}>
+                                <Save style={{ marginRight: 3 }} />Save
+                         </Button>}
                     </CardActions>
                 </Card>
             </Grid>

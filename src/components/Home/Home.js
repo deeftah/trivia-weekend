@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Typography } from "@material-ui/core";
 import CountDown from '../CountDown/CountDown'
-import { Edit, Schedule, Undo } from '@material-ui/icons';
+import { Cancel, Edit, Schedule } from '@material-ui/icons';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -85,7 +85,7 @@ class Home extends Component {
                          </Button>}
                                 {this.state.editBoilerplate &&
                                     <Button color="secondary" onClick={this.toggleBoilerplateEdit}>
-                                        <Undo style={{ marginRight: 3 }} />Undo
+                                        <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                             </CardActions>
                         </Card >

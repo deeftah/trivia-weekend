@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from '@material-ui/core/Button';
 import CardActions from "@material-ui/core/CardActions";
-import { Edit, Undo } from '@material-ui/icons';
+import { Cancel, Edit} from '@material-ui/icons';
 
 class TeamLogo extends Component {
 
@@ -73,7 +73,7 @@ class TeamLogo extends Component {
                          </Button>}
                             {this.state.editImage &&
                                 <Button color="secondary" onClick={this.toggleImageEdit}>
-                                    <Undo style={{ marginRight: 3 }} />Undo
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                         </CardActions>
                     </Card >
