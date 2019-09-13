@@ -7,6 +7,10 @@ import AccountButton from './AccountButton';
 
 class RegisterButton extends Component {
 
+state = {
+    name: 'anyname'
+}
+
     handleRegister = () => {
         this.props.history.push(`/register`);
     }
@@ -16,7 +20,7 @@ class RegisterButton extends Component {
         return (
             <div>
                 {!this.props.user.first_name && <Button onClick={this.handleRegister}>Register</Button>}
-                {this.props.user.first_name && <AccountButton />}
+                {this.props.user.first_name && <AccountButton name={this.state.name}/>}
                 
                 {/* <Button aria-controls="simple-menu" aria-haspopup="true"><AccountCircle style={{ marginRight: 5 }}/>{this.props.user.first_name}</Button> */}
             </div>

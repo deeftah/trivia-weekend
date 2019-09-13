@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { AccountCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom'
 
-export default function AccountButton() {
+export default function AccountButton(name) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {

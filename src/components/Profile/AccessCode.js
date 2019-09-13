@@ -18,12 +18,24 @@ const styles = theme => ({
 
 class AccessCode extends Component {
 
+    componentDidMount() {
+        this.getTeamDetails();
+    }
+
+    getTeamDetails() {
+        this.props.dispatch({
+            type: 'FETCH_TEAM_DETAILS'
+        })
+    }
+
     render() {
 
         return (
 
             <div>
-                This is the Access Code.
+                <b>Access Code</b>
+                <br/>
+                {this.props.team.access_id}
             </div>
         )
 

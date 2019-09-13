@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import AccessCode from './AccessCode';
+import ProfileDetails from './ProfileDetails';
+import NewContest from './NewContest';
 
 const styles = theme => ({
     root: {
@@ -30,13 +32,13 @@ class Profile extends Component {
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <Paper className={classes.paper}>Test Text.<AccessCode /></Paper>
+                        <Paper className={classes.paper}><AccessCode /></Paper>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.paper}>Profile</Paper>
+                        <Paper className={classes.paper}><ProfileDetails/></Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}>Create a New Contest</Paper>
+                        <Paper className={classes.paper}><NewContest/></Paper>
                     </Grid>
                     <Grid item xs={6}>
                         <Paper className={classes.paper}>Set the Current Contest</Paper>

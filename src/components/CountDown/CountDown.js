@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import Countdown from 'react-countdown-now';
+import { Grid, Typography } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 class CountDown extends Component {
 
     render() {
+        let daysWord = 'days'
+
+        let hoursWord = 'hours'
+
+        let minutesWord = 'minutes'
+
+        let secondsWord = 'seconds'
 
         const futureDate = 1581717600000;
 
@@ -17,27 +27,27 @@ class CountDown extends Component {
         // Renderer callback with condition
         const renderer = ({ days, hours, minutes, seconds, completed }) => {
             if (days === 1) {
-                days = days += ' day'
+                daysWord = 'day'
             } else {
-                days = days += ' days'
+                daysWord = 'days'
             }
 
             if (hours === 1) {
-                hours = hours += ' hour'
+                hoursWord = 'hour'
             } else {
-                hours = hours += ' hours'
+                hoursWord = 'hours'
             }
 
             if (minutes === 1) {
-                minutes = minutes += ' minute'
+                minutesWord = 'minute'
             } else {
-                minutes = minutes += ' minutes'
+                minutesWord = 'minutes'
             }
 
             if (seconds === 1) {
-                seconds = seconds += ' second'
+                secondsWord = 'second'
             } else {
-                seconds = seconds += ' seconds'
+                secondsWord = 'seconds'
             }
 
             if (completed) {
@@ -45,7 +55,57 @@ class CountDown extends Component {
                 return <Completionist />
             } else {
                 // Render a countdown
-                return <span>{days}, {hours}, {minutes}, and {seconds} until Trivia 2020!</span>;
+                return (
+                    <Grid container spacing={2} justify="center">
+                        <Grid item sm={3}>
+                            <Card style={{ backgroundColor: "#494A49"}}>
+                                <CardContent>
+                                    <Typography color="secondary" align="center" style={{fontSize: 80}}>
+                                        {days}
+                                </Typography>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 20 }}>
+                                        {daysWord}
+                                </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3}>
+                            <Card style={{ backgroundColor: "#494A49" }}>
+                                <CardContent>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 80 }}>
+                                        {hours}
+                                </Typography>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 20 }}>
+                                        {hoursWord}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3}>
+                            <Card style={{ backgroundColor: "#494A49" }}>
+                                <CardContent>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 80 }}>
+                                        {minutes}
+                                </Typography>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 20 }}>
+                                        {minutesWord}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3}>
+                            <Card style={{ backgroundColor: "#494A49" }}>
+                                <CardContent>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 80 }}>
+                                        {seconds}
+                                </Typography>
+                                    <Typography color="secondary" align="center" style={{ fontSize: 20 }}>
+                                        {secondsWord}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>)
             }
         };
 

@@ -38,9 +38,9 @@ class Home extends Component {
 
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
-            
-                [propertyName]: event.target.value
-            
+
+            [propertyName]: event.target.value
+
         });
         console.log('the handle change for is being called!')
     }
@@ -60,27 +60,26 @@ class Home extends Component {
         return (
             <div style={{ marginTop: 80, padding: 30 }}>
                 {/* Establish spacing between cards */}
-                <Schedule /> <CountDown />
                 <br /><br />
-                <Grid container spacing={2} justify="center">
+                <CountDown />
+                <Grid container spacing={2} justify="center" style={{marginTop: 5}}>
                     <TeamLogo />
-
                     <Grid item sm={6}>
                         <Card style={{ backgroundColor: "#494A49" }}>
                             <CardContent>
-                                <Typography color="secondary" align="center">
-                                    <b>Team News</b>
-                                    </Typography>
-                                    <br/><br/>
-                                    <Typography color="secondary">
+                                <Typography color="primary" align="center" style={{ fontSize: 20 }}>
+                                    Team News
+                                </Typography>
+                                <br /><br />
+                                <Typography color="secondary">
                                     <p>{this.props.team.boilerplate}</p>
-                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')}/>}
+                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')} />}
                                     {this.state.editBoilerplate && <Button color="primary" onClick={this.handleBoilerplateSave}>Save</Button>}
                                 </Typography>
                             </CardContent >
                             <CardActions>
                                 {!this.state.editBoilerplate &&
-                                    <Button color="primary" onClick={this.toggleBoilerplateEdit}>
+                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit}>
                                         <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                                 {this.state.editBoilerplate &&
