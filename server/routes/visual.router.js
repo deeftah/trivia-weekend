@@ -5,10 +5,12 @@ const router = express.Router();
 //VISUAL DATA GET
 router.get('/', (req, res) => {
     console.log('this is the GET req.user.team_id', req.user.team_id);
-    
-    const sqlText = `SELECT * FROM "visual" WHERE contest_id = (
-                    SELECT current_contest FROM "team" WHERE id = $1);`;
-    pool.query(sqlText, [req.user.team_id])
+    let teamId = req.user.team_id
+    const sqlText = `SELECT "visual"."id", "url", "contest_id", "image_number", "match_level", "comment" FROM "visual"
+                    JOIN "team" ON "visual".contest_id = "team".current_contest
+                    WHERE "team".id = $1
+                    ORDER BY "visual".image_number ASC;`;
+    pool.query(sqlText, [teamId])
         .then((result) => {
             console.log('Visual GET from database:', result);
             res.send(result.rows);
@@ -48,7 +50,7 @@ router.post('/', (req, res) => {
         })
 })
 
-//VISUAL DELETE DELETE (REMOVE IMAGE FROM GALLERY)
+//VISUAL DELETE (REMOVE IMAGE FROM GALLERY)
 router.delete('/:id', (req, res) => {
     const sqlText = `DELETE FROM "visual" WHERE id=$1;`;
     pool.query(sqlText, [req.params.id])

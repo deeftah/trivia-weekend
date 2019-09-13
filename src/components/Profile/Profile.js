@@ -16,6 +16,7 @@ const styles = theme => ({
 
         textAlign: 'center',
         background: '#494A49',
+        color: 'white'
 
     },
 });
@@ -28,6 +29,8 @@ class Profile extends Component {
 
     render() {
 
+        const { classes } = this.props
+
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <Grid container spacing={3}>
@@ -35,10 +38,10 @@ class Profile extends Component {
                         <Paper className={classes.paper}><AccessCode /></Paper>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.paper}><ProfileDetails/></Paper>
+                        <Paper className={classes.paper}><ProfileDetails /></Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><NewContest/></Paper>
+                        <Paper className={classes.paper}><NewContest /></Paper>
                     </Grid>
                     <Grid item xs={6}>
                         <Paper className={classes.paper}>Set the Current Contest</Paper>
@@ -54,8 +57,6 @@ class Profile extends Component {
         )
     }
 }
-
-const classes = withStyles();
 
 const mapStateToProps = state => ({
     user: state.user,

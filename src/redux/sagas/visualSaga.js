@@ -4,7 +4,7 @@ import axios from 'axios';
 function* fetchVisual(action) {
     try {
         let visualResponse = yield axios.get('/visual')
-        console.log('visual saga response!', action.payload);
+        console.log('visual saga response!', visualResponse);
         yield put({
             type: 'SET_VISUAL_DETAILS',
             payload: visualResponse.data
