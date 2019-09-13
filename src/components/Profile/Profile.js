@@ -1,26 +1,64 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import { Grid, Paper, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import AccessCode from './AccessCode';
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+
+        textAlign: 'center',
+        background: '#494A49',
+
+    },
+});
 
 class Profile extends Component {
 
     state = {
+
     }
 
     render() {
 
         return (
-            <div style={{ marginTop: 80, padding: 30 }}>
-                This is the Profile page! 
+            <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <Paper className={classes.paper}>Test Text.<AccessCode /></Paper>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Paper className={classes.paper}>Profile</Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}>Create a New Contest</Paper>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Paper className={classes.paper}>Set the Current Contest</Paper>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Paper className={classes.paper}>Change the Team Name</Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}>Table with Team Members</Paper>
+                    </Grid>
+                </Grid>
             </div >
         )
     }
 }
+
+const classes = withStyles();
 
 const mapStateToProps = state => ({
     user: state.user,
     team: state.team
 });
 
-export default withRouter(connect(mapStateToProps)(Profile));
+// export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
+export default withStyles(styles)(Profile);

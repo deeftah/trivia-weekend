@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import VisualItems from './VisualItems.js';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import { Add, AddCircle, Remove, Save } from '@material-ui/icons';

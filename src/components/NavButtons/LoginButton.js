@@ -26,4 +26,5 @@ class LoginButton extends Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
+
 export default withRouter(connect(mapStateToProps)(LoginButton));

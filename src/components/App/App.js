@@ -32,8 +32,7 @@ class App extends Component {
   render() {
 
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+
         <Router>
           <div>
             <NavBar />
@@ -96,7 +95,7 @@ class App extends Component {
             {/* </Switch> */}
           </div>
         </Router>
-      </ThemeProvider>
+
     )
   }
 }
