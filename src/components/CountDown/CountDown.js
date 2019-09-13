@@ -36,8 +36,8 @@ class CountDown extends Component {
         let a = '2020-02-14T06:00:00-06:00';
         let b = '17:00:00-06:00';
 
-        let c = this.props.contest[0]
-        let d = this.props.contest
+        let c = this.props.contest.start_date
+        let d = this.props.contest.start_time
 
         console.log ('c and d are', c, d)
 

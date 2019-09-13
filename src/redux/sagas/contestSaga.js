@@ -7,7 +7,7 @@ function* fetchContestDetails(action) {
         console.log('contest saga response!', contestDetailsResponse);
         yield put({
             type: 'SET_CONTEST_DETAILS',
-            payload: contestDetailsResponse.data
+            payload: contestDetailsResponse.data[0]
         })
     } catch (err) {
         console.log('error in CONTEST DETAILS GET', err);
