@@ -16,7 +16,7 @@ const styles = theme => ({
 
         textAlign: 'center',
         background: '#494A49',
-        color: 'white'
+        color: 'white',
 
     },
 });

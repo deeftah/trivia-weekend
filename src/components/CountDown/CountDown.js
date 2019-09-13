@@ -33,29 +33,28 @@ class CountDown extends Component {
         //START OF COUNTDOWN LOGIC
         let moment = require('moment');
 
-        let a = '2020-02-14T06:00:00-06:00';
-        let b = '17:00:00-06:00';
+        // let a = '2020-02-14T06:00:00-06:00';
+        // let b = '17:00:00-06:00';
 
-        let c = this.props.contest.start_date
-        let d = this.props.contest.start_time
+        let originalDate = this.props.contest.start_date
+        let convertedDate = moment(originalDate).valueOf();
 
-        console.log ('c and d are', c, d)
+        //one hour is 3600000 milliseconds
+            //when creating contest:  midnight is -3600000 (to fix Eastern Time to Central), 1 am is 0, 2 am is 3600000, 3 am is 7200000, etc.
+            //THEN, we can do this: let d = this.props.contest.start_time
+            //FOR NOW: 61200000 milliseconds is 5 p.m.
 
-        let timeToConvert = '';
+        let originalTime = 57600000
 
-        for (let i = 0; i < 11; i++) {
-            timeToConvert = timeToConvert + a[i];
-        }
-
-        timeToConvert = timeToConvert + b
-
-        let finalTime = moment().valueOf(timeToConvert)
+        let finalTime = convertedDate + originalTime;
 
         console.log('the final display time is', finalTime)
 
         // console.log('this is the b.value of', moment().valueOf(timeToConvert))
 
-        const futureDate = 1581717600000;
+        // const futureDate = 1581717600000;
+
+        let futureDate = finalTime
 
         let currentDate = Date.now();
 

@@ -9,10 +9,10 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    paper: {
-
+    accessCode: {
         textAlign: 'center',
-
+        fontSize: 36,
+        color: theme.palette.primary.main
     },
 });
 
@@ -30,19 +30,20 @@ class AccessCode extends Component {
 
     render() {
 
+        const { classes } = this.props
+
         return (
 
             <div>
-                <b>Access Code</b>
-                <br/>
-                {this.props.team.access_id}
+                <h2>Team Access Code</h2>
+                <span className={classes.accessCode}>{this.props.team.access_id}</span>
+                <h4>Your team members will need this to successfully join your team!</h4>
             </div>
         )
 
     }
 
 }
-const classes = withStyles();
 
 const mapStateToProps = state => ({
     user: state.user,
