@@ -30,7 +30,7 @@ function* updateImage(action) {
 function* updateBoilerplate(action) {
     try {
         let boilerplateUpdateResponse = yield axios.put('/team/boilerplate', action.payload)
-        console.log('boilerplate update saga response!', action.payload.boilerplate);
+        console.log('boilerplate update saga response!', action.payload);
         yield put({
             type: 'FETCH_TEAM_DETAILS',
             payload: boilerplateUpdateResponse.data

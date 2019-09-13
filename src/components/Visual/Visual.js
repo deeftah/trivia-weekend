@@ -69,6 +69,8 @@ class Visual extends Component {
         return (
 
             <div style={{ marginTop: 70, padding: 30 }}>
+                <h1>Visual Trivia</h1>
+                {!this.props.visual.id && <h3>Let's upload this contest's visual trivia.  Click + to get started.</h3>}
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" onClick={() => this.handleAddClick(this.props.team.current_contest)}>
                     <Add />
                 </Fab> :

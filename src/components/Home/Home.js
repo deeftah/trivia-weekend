@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Typography } from "@material-ui/core";
 import CountDown from '../CountDown/CountDown'
-import { Cancel, Edit, Schedule } from '@material-ui/icons';
+import { Cancel, Edit, Save } from '@material-ui/icons';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -20,15 +20,15 @@ class Home extends Component {
         boilerplate: ''
     }
 
-    // componentDidMount() {
-    //     this.getTeamDetails();
-    // }
+    componentDidMount() {
+        this.getTeamDetails();
+    }
 
-    // getTeamDetails() {
-    //     this.props.dispatch({
-    //         type: 'FETCH_TEAM_DETAILS'
-    //     })
-    // }
+    getTeamDetails() {
+        this.props.dispatch({
+            type: 'FETCH_TEAM_DETAILS'
+        })
+    }
 
     toggleBoilerplateEdit = () => {
         this.setState({
@@ -42,17 +42,15 @@ class Home extends Component {
             [propertyName]: event.target.value
 
         });
-        console.log('the handle change for is being called!')
+        console.log('the handle change for is being called!', event.target.value)
     }
 
     handleBoilerplateSave = () => {
         this.props.dispatch({
             type: 'UPDATE_BOILERPLATE',
-            payload: this.state.boilerplate
+            payload: this.state
         })
-        this.setState({
-            editImage: !this.state.editBoilerplate
-        })
+        this.toggleBoilerplateEdit()
     }
 
     render() {
@@ -62,7 +60,7 @@ class Home extends Component {
                 {/* Establish spacing between cards */}
                 <br /><br />
                 <CountDown />
-                <Grid container spacing={2} justify="center" style={{marginTop: 5}}>
+                <Grid container spacing={2} justify="center" style={{marginTop: 6}}>
                     <TeamLogo />
                     <Grid item sm={6}>
                         <Card style={{ backgroundColor: "#494A49" }}>
@@ -73,19 +71,23 @@ class Home extends Component {
                                 <br /><br />
                                 <Typography color="secondary">
                                     <p>{this.props.team.boilerplate}</p>
-                                    {this.state.editBoilerplate && <MuiTextArea onChange={this.handleChangeFor('boilerplate')} />}
-                                    {this.state.editBoilerplate && <Button color="primary" onClick={this.handleBoilerplateSave}>Save</Button>}
+                                    {this.state.editBoilerplate && <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('boilerplate')}
+                                    placeholder="What do you want your team to know?" defaultValue={this.props.team.boilerplate} />}
                                 </Typography>
                             </CardContent >
                             <CardActions>
                                 {!this.state.editBoilerplate &&
-                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit}>
+                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                         <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                                 {this.state.editBoilerplate &&
-                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit}>
+                                    <Button color="secondary" onClick={this.toggleBoilerplateEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                         <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
+                                {this.state.editBoilerplate &&
+                                    <Button color="primary" onClick={this.handleBoilerplateSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                                        <Save style={{ marginRight: 3 }} />Save
+                            </Button>}
                             </CardActions>
                         </Card >
                     </Grid >

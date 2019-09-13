@@ -4,9 +4,10 @@ const router = express.Router();
 
 //VISUAL DATA GET
 router.get('/', (req, res) => {
-    const sqlText = `SELECT * FROM "visual"
-                WHERE "visual".contest_id = $1
-                ORDER BY "visual".image_number ASC;`;
+    console.log('this is the GET req.user.team_id', req.user.team_id);
+    
+    const sqlText = `SELECT * FROM "visual" WHERE contest_id = (
+                    SELECT current_contest FROM "team" WHERE id = $1);`;
     pool.query(sqlText, [req.user.team_id])
         .then((result) => {
             console.log('Visual GET from database:', result);

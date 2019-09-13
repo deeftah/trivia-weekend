@@ -32,6 +32,8 @@ router.put('/image', (req, res) => {
 
 //TEAM BOILERPLATE PUT
 router.put('/boilerplate', (req, res) => {
+    console.log('this is the boilerplate req.body', req.body);
+    
     const sqlText = `UPDATE "team"
     SET "boilerplate" = $1
     WHERE "id" = $2;`;

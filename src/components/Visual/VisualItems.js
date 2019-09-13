@@ -23,9 +23,6 @@ class VisualItems extends Component {
             newVisualId: 0
         },
         editVisual: false,
-        defaultComment: this.props.visual.comment,
-        defaultMatchLevel: this.props.visual.match_level
-
     }
 
     toggleVisualEdit = () => {
@@ -105,7 +102,7 @@ class VisualItems extends Component {
                     <CardContent>
                         <Typography color="secondary">
                             {this.state.editVisual && <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
-                                value={this.state.value} defaultValue={this.state.defaultMatchLevel}>
+                                value={this.state.value} defaultValue={this.props.visual.match_level}>
                                 <option value="Found">Found</option>
                                 <option value="Maybe Found">Maybe Found</option>
                                 <option value="Not Found">Not Found</option>
@@ -114,7 +111,7 @@ class VisualItems extends Component {
                             {this.state.editVisual && <br />}
                             {this.state.editVisual &&
                                 <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('newVisualComment')} placeholder="enter any ideas or sources"
-                                    defaultValue={this.state.defaultComment} />}
+                                    defaultValue={this.props.visual.comment} />}
                         </Typography>
                     </CardContent>
                     <CardActions>
