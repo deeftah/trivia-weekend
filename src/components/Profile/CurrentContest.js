@@ -8,22 +8,23 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    accessCode: {
+    currentContest: {
         textAlign: 'center',
-        fontSize: 36,
+        fontSize: 18,
         color: theme.palette.primary.main
     },
 });
 
-class ProfileDetails extends Component {
+class CurrentContest extends Component {
 
     componentDidMount() {
-        this.getTeamDetails();
+        this.getContestDetails();
     }
 
-    getTeamDetails() {
+    getContestDetails() {
         this.props.dispatch({
-            type: 'FETCH_TEAM_DETAILS'
+            type: 'FETCH_CONTEST_DETAILS',
+            payload: this.props.user
         })
     }
 
@@ -34,9 +35,10 @@ class ProfileDetails extends Component {
         return (
 
             <div>
-                <h2>Team & Email</h2>
-                <span className={classes.accessCode}>{this.props.team.name}</span>
-                <h4>Email: {this.props.user.username}</h4>
+                <h3>Change the Current Contest</h3>
+                <span className={classes.currentContest}>{this.props.contest.contest_name}</span>
+                <br/><br/>
+                <Button color="secondary">Current Contest</Button>
             </div>
         )
 
@@ -46,7 +48,7 @@ class ProfileDetails extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    team: state.team
+    contest: state.contest
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(ProfileDetails)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(CurrentContest)));

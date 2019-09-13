@@ -15,7 +15,7 @@ const styles = theme => ({
     },
 });
 
-class NewContest extends Component {
+class TeamMembers extends Component {
 
     render() {
 
@@ -24,8 +24,7 @@ class NewContest extends Component {
         return (
 
             <div>
-                <h3>Create a New Contest</h3>
-                <Button color="primary">New Contest</Button>
+                <h2>Your Team</h2>
             </div>
         )
 
@@ -37,4 +36,4 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(NewContest)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(TeamMembers)));

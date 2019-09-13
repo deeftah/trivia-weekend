@@ -5,7 +5,7 @@ const router = express.Router();
 //CONTEST DETAILS GET
 router.get('/', (req, res) => {
     console.log('this is the CONTEST DETAILS req.body', req.user.id);
-    const sqlText = `SELECT "contest".id, "contest".start_date, "contest".start_time FROM "contest"
+    const sqlText = `SELECT "contest".id, "contest".start_date, "contest".start_time, "contest".contest_name FROM "contest"
                     JOIN "team" ON "contest".id = "team".current_contest
                     JOIN "user" ON "team".id = "user".team_id
                     WHERE "user".id = $1;`;

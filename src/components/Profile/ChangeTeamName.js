@@ -8,14 +8,14 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    accessCode: {
+    teamName: {
         textAlign: 'center',
-        fontSize: 36,
+        fontSize: 18,
         color: theme.palette.primary.main
     },
 });
 
-class ProfileDetails extends Component {
+class ChangeTeamName extends Component {
 
     componentDidMount() {
         this.getTeamDetails();
@@ -34,9 +34,10 @@ class ProfileDetails extends Component {
         return (
 
             <div>
-                <h2>Team & Email</h2>
-                <span className={classes.accessCode}>{this.props.team.name}</span>
-                <h4>Email: {this.props.user.username}</h4>
+                <h3>Change your Team's Name</h3>
+                <span className={classes.teamName}>{this.props.team.name}</span>
+                <br /><br />
+                <Button color="secondary">Change Name</Button>
             </div>
         )
 
@@ -49,4 +50,4 @@ const mapStateToProps = state => ({
     team: state.team
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(ProfileDetails)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(ChangeTeamName)));

@@ -7,6 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 import AccessCode from './AccessCode';
 import ProfileDetails from './ProfileDetails';
 import NewContest from './NewContest';
+import CurrentContest from './CurrentContest';
+import ChangeTeamName from './ChangeTeamName';
+import TeamMembers from './TeamMembers';
 
 const styles = theme => ({
     root: {
@@ -23,10 +26,6 @@ const styles = theme => ({
 
 class Profile extends Component {
 
-    state = {
-
-    }
-
     render() {
 
         const { classes } = this.props
@@ -40,17 +39,17 @@ class Profile extends Component {
                     <Grid item xs={6}>
                         <Paper className={classes.paper}><ProfileDetails /></Paper>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={4}>
+                        <Paper className={classes.paper}><CurrentContest/></Paper>
+                    </Grid>
+                    <Grid item xs={4}>
                         <Paper className={classes.paper}><NewContest /></Paper>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper}>Set the Current Contest</Paper>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper}>Change the Team Name</Paper>
+                    <Grid item xs={4}>
+                        <Paper className={classes.paper}><ChangeTeamName/></Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}>Table with Team Members</Paper>
+                        <Paper className={classes.paper}><TeamMembers/></Paper>
                     </Grid>
                 </Grid>
             </div >
