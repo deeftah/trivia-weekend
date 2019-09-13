@@ -38,7 +38,7 @@ class CurrentContest extends Component {
                 <h3>Change the Current Contest</h3>
                 <span className={classes.currentContest}>{this.props.contest.contest_name}</span>
                 <br/><br/>
-                <Button color="secondary">Current Contest</Button>
+                <i>This will change the current contest for the team.</i>
             </div>
         )
 

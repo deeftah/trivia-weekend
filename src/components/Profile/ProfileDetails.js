@@ -36,7 +36,7 @@ class ProfileDetails extends Component {
             <div>
                 <h2>Team & Email</h2>
                 <span className={classes.accessCode}>{this.props.team.name}</span>
-                <h4>Email: {this.props.user.username}</h4>
+                <h4>Username/Email: {this.props.user.username}</h4>
             </div>
         )
 
