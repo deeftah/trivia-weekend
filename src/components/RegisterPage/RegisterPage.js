@@ -157,7 +157,7 @@ class RegisterPage extends Component {
             </div>
             <div>
               {this.state.clearanceId == 1 && <label htmlFor="teamName">
-                Enter your team's Access ID:
+                Enter your team's Access Code:
               <input
                   type="text"
                   name="accessid"

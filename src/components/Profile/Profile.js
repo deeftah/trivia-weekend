@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Paper as Card, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import AccessCode from './AccessCode';
+import AccessCode from './AccessCode/AccessCode';
 import ProfileDetails from './ProfileDetails';
 import NewContest from './NewContest';
 import CurrentContest from './CurrentContest';
@@ -15,7 +15,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    paper: {
+    card: {
 
         textAlign: 'center',
         background: '#494A49',
@@ -34,22 +34,22 @@ class Profile extends Component {
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <Paper className={classes.paper}><AccessCode /></Paper>
+                        <Card className={classes.card}><AccessCode /></Card>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.paper}><ProfileDetails /></Paper>
+                        <Card className={classes.card}><ProfileDetails /></Card>
                     </Grid>
                     <Grid item xs={4}>
-                        <Paper className={classes.paper}><CurrentContest/></Paper>
+                        <Card className={classes.card}><CurrentContest/></Card>
                     </Grid>
                     <Grid item xs={4}>
-                        <Paper className={classes.paper}><NewContest /></Paper>
+                        <Card className={classes.card}><NewContest /></Card>
                     </Grid>
                     <Grid item xs={4}>
-                        <Paper className={classes.paper}><ChangeTeamName/></Paper>
+                        <Card className={classes.card}><ChangeTeamName/></Card>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><TeamMembers/></Paper>
+                        <Card className={classes.card}><TeamMembers/></Card>
                     </Grid>
                 </Grid>
             </div >

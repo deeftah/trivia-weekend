@@ -40,10 +40,24 @@ function* updateBoilerplate(action) {
     }
 }
 
+function* updateAccessId(action) {
+    try{
+        let accessIdUpdateResponse = yield axios.put('team/accessId', action.payload)
+        console.log('access id update saga response!', action.payload);
+        yield put({
+            type: 'FETCH_TEAM_DETAILS',
+            payload: accessIdUpdateResponse.data
+        })
+    } catch (err) {
+        console.log('error in ACCESS ID PUT', err);
+    }
+}
+
 function* teamSaga() {
     yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
     yield takeLatest('UPDATE_IMAGE', updateImage);
     yield takeLatest('UPDATE_BOILERPLATE', updateBoilerplate);
+    yield takeLatest('UPDATE_ACCESS_ID', updateAccessId);
 }
 
 export default teamSaga;
