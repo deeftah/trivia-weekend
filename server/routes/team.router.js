@@ -46,14 +46,12 @@ router.put('/boilerplate', (req, res) => {
     })
 })
 
-module.exports = router;
-
 //TEAM ACCESS ID PUT
 router.put('/accessId', (req, res) => {
     console.log('this is the access id req.body', req.body);
     const sqlText = `UPDATE "team"
                     SET "access_id" = $1
-                    WHERE "id" = $2;`
+                    WHERE "id" = $2;`;
     pool.query(sqlText, [req.body.accessId, req.user.team_id])
     .then(result => {
         res.sendStatus(200);
@@ -62,3 +60,20 @@ router.put('/accessId', (req, res) => {
         res.sendStatus(500);
     })
 })
+
+//TEAM NAME PUT
+router.put('/teamName', (req, res) => {
+    console.log('this is the teamName req.body', req.body);
+    const sqlText = `UPDATE "team"
+                    SET "name" = $1
+                    WHERE "id" = $2;`;
+    pool.query(sqlText, [req.body.teamName, req.user.team_id])
+    .then(result => {
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        res.sendStatus(500);
+    })
+})
+
+module.exports = router;

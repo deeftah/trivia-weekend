@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Card, Grid, Typography, CardActions, CardContent } from '@material-ui/core';
+import { Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
 import { Refresh } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -64,7 +64,7 @@ class AccessCode extends Component {
                     <span className={classes.accessId}>{this.props.team.access_id}</span>
                 </CardContent>
                 <CardActions>
-                    <Button color="secondary" onClick={() => this.handleResetCode()} style={{ marginRight: 20, marginLeft: 0 }}>
+                    <Button color="primary" onClick={() => this.handleResetCode()} style={{ marginLeft: "auto", marginRight: 0 }}>
                         <Refresh style={{ marginRight: 3 }} />Reset Code
                          </Button>
                 </CardActions>

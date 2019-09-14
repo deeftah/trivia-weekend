@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import { Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
+import { Cancel, Edit, Save } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
@@ -8,7 +10,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    accessCode: {
+    teamName: {
         textAlign: 'center',
         fontSize: 36,
         color: theme.palette.primary.main
@@ -17,6 +19,11 @@ const styles = theme => ({
 
 class ProfileDetails extends Component {
 
+    state = {
+        teamNameEdit: false,
+        teamName: ''
+    }
+    
     componentDidMount() {
         this.getTeamDetails();
     }
@@ -27,6 +34,26 @@ class ProfileDetails extends Component {
         })
     }
 
+    toggleTeamNameEdit = () => {
+        this.setState({
+            teamNameEdit: !this.state.teamNameEdit
+        })
+    }
+
+    handleChangeFor = (propertyName) => (event) => {
+        this.setState({
+            [propertyName]: event.target.value
+        });
+    }
+
+    handleTeamNameSave = () => {
+        this.props.dispatch({
+            type: 'UPDATE_TEAM_NAME',
+            payload: this.state
+        })
+        this.toggleTeamNameEdit()
+    }
+
     render() {
 
         const { classes } = this.props
@@ -34,9 +61,28 @@ class ProfileDetails extends Component {
         return (
 
             <div>
-                <h2>Team & Email</h2>
-                <span className={classes.accessCode}>{this.props.team.name}</span>
-                <h4>Username/Email: {this.props.user.username}</h4>
+                <CardContent>
+                <h2>Team Name</h2>
+                <span className={classes.teamName}>{this.props.team.name}</span>
+                    <Typography color="secondary">
+                        {this.state.teamNameEdit && <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('teamName')}
+                            defaultValue={this.props.team.name} />}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    {!this.state.teamNameEdit &&
+                        <Button color="secondary" onClick={this.toggleTeamNameEdit} style={{ marginRight: 20, marginLeft: 0 }}>
+                            <Edit style={{ marginRight: 3 }} />Edit
+                         </Button>}
+                    {this.state.teamNameEdit &&
+                        <Button color="secondary" onClick={this.toggleTeamNameEdit} style={{ marginRight: 20, marginLeft: 0 }}>
+                            <Cancel style={{ marginRight: 3 }} />Cancel
+                         </Button>}
+                    {this.state.teamNameEdit &&
+                        <Button color="primary" onClick={this.handleTeamNameSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                            <Save style={{ marginRight: 3 }} />Save
+                            </Button>}
+                </CardActions>
             </div>
         )
 

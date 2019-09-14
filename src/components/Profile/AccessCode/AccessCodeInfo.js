@@ -34,7 +34,7 @@ export default function AlertDialogSlide() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle style={{ backgroundColor: '#494A49', color:'#fff'}} id="alert-dialog-slide-title">{"What's the Team Access Code?"}</DialogTitle>
+                <DialogTitle style={{ backgroundColor: '#494A49', color:'#fff'}} id="alert-dialog-slide-title">{"What is the Team Access Code?"}</DialogTitle>
                 <DialogContent style={{ backgroundColor: '#494A49',}}>
                     <DialogContentText id="alert-dialog-slide-description" style={{ color: '#fff' }}>
                         Your team will need this code when they register for Trivia Weekend to access your trivia team's portal.  This is only needed upon registration.

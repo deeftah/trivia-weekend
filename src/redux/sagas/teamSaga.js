@@ -53,11 +53,25 @@ function* updateAccessId(action) {
     }
 }
 
+function* updateTeamName(action) {
+    try{
+        let teamNameUpdateResponse = yield axios.put('team/teamName', action.payload)
+        console.log('team name update saga response!', action.payload);
+        yield put({
+            type: 'FETCH_TEAM_DETAILS',
+            payload: teamNameUpdateResponse.data
+        })
+    } catch (err) {
+        console.log('error in TEAM NAME PUT', err);
+    }
+}
+
 function* teamSaga() {
     yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
     yield takeLatest('UPDATE_IMAGE', updateImage);
     yield takeLatest('UPDATE_BOILERPLATE', updateBoilerplate);
     yield takeLatest('UPDATE_ACCESS_ID', updateAccessId);
+    yield takeLatest('UPDATE_TEAM_NAME', updateTeamName);
 }
 
 export default teamSaga;
