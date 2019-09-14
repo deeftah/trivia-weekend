@@ -102,7 +102,7 @@ class VisualItems extends Component {
                     <CardContent>
                         <Typography color="secondary">
                             {this.state.editVisual && <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
-                                value={this.state.value} defaultValue={this.props.visual.match_level}>
+                                defaultValue={this.props.visual.match_level}>
                                 <option value="Found">Found</option>
                                 <option value="Maybe Found">Maybe Found</option>
                                 <option value="Not Found">Not Found</option>

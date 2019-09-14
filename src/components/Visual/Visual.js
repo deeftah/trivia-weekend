@@ -22,6 +22,7 @@ class Visual extends Component {
     componentDidMount() {
         this.getVisual();
         this.getTeamDetails();
+        this.getContestDetails();
     }
 
     getVisual() {
@@ -33,6 +34,13 @@ class Visual extends Component {
     getTeamDetails() {
         this.props.dispatch({
             type: 'FETCH_TEAM_DETAILS'
+        })
+    }
+
+    getContestDetails() {
+        this.props.dispatch({
+            type: 'FETCH_CURRENT_CONTEST',
+            payload: this.props.user
         })
     }
 
@@ -69,6 +77,7 @@ class Visual extends Component {
         return (
             <div style={{ marginTop: 70, padding: 30 }}>
                 <h1>Visual Trivia</h1>
+                <h3><i>{this.props.currentContest.contest_name}</i></h3>
                 {!this.props.visual.id && <h3>Let's upload this contest's visual trivia.  Click + to get started.</h3>}
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" onClick={() => this.handleAddClick(this.props.team.current_contest)}>
                     <Add />
@@ -95,7 +104,8 @@ class Visual extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     team: state.team,
-    visual: state.visual
+    visual: state.visual,
+    currentContest: state.currentContest
 });
 
 export default withRouter(connect(mapStateToProps)(Visual));

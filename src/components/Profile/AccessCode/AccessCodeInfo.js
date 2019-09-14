@@ -43,7 +43,7 @@ export default function AlertDialogSlide() {
                 </DialogContent >
                 <DialogActions style={{ backgroundColor: '#494A49'}}>
                     <Button onClick={handleClose} color="primary">
-                        OK
+                        Close
           </Button>
                 </DialogActions>
             </Dialog>

@@ -4,7 +4,8 @@ import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import teamSaga from './teamSaga';
 import visualSaga from './visualSaga';
-import contestSaga from './contestSaga';
+import currentContestSaga from './currentContestSaga';
+import allContestsSaga from './allContestsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     teamSaga(),
     visualSaga(),
-    contestSaga()
+    currentContestSaga(),
+    allContestsSaga()
   ]);
 }

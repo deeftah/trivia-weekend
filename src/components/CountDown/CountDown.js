@@ -15,7 +15,7 @@ class CountDown extends Component {
 
     getContestDetails() {
         this.props.dispatch({
-            type: 'FETCH_CONTEST_DETAILS',
+            type: 'FETCH_CURRENT_CONTEST',
             payload: this.props.user
         })
     }
@@ -36,12 +36,12 @@ class CountDown extends Component {
         // let a = '2020-02-14T06:00:00-06:00';
         // let b = '17:00:00-06:00';
 
-        let originalDate = this.props.contest.start_date
+        let originalDate = this.props.currentContest.start_date
         let convertedDate = moment(originalDate).valueOf();
 
         //one hour is 3600000 milliseconds
             //when creating contest:  midnight is -3600000 (to fix Eastern Time to Central), 1 am is 0, 2 am is 3600000, 3 am is 7200000, etc.
-            //THEN, we can do this: let d = this.props.contest.start_time
+            //THEN, we can do this: let d = this.props.currentContest.start_time
             //FOR NOW: 61200000 milliseconds is 5 p.m.
 
         let originalTime = 57600000
@@ -160,7 +160,7 @@ class CountDown extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     team: state.team,
-    contest: state.contest
+    currentContest: state.currentContest
 });
 
 export default withRouter(connect(mapStateToProps)(CountDown));
