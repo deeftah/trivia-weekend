@@ -144,7 +144,7 @@ class NewContestForm extends Component {
                 >
                     <CardContent className={classes.form}>
 
-                        <h1 className={classes.h1}>New Contest</h1>
+                        <h1 className={classes.h1}>Enter Contest Details</h1>
                         <form onSubmit={this.addContest}>
                             <div>
                                 <label htmlFor="contestName">

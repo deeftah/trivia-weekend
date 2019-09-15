@@ -1,4 +1,4 @@
-import { put, takeEvery} from 'redux-saga/effects';
+import { put, takeEvery, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchCurrentContest(action) {
@@ -26,9 +26,22 @@ function* updateCurrentContest(action) {
     }
 }
 
+function* updateCurrentContestDetails(action) {
+    try {
+        let updateCurrentContestDetailsResponse = yield axios.put ('/currentContest/details', action.payload)
+        console.log('update current contest details saga response!', updateCurrentContestDetailsResponse);
+        yield put({
+            type: 'FETCH_CURRENT_CONTEST'
+        })
+    } catch (err) {
+        console.log('error in CURRENT CONTEST DETAILS PUT', err);
+    }
+}
+
 function* currentContestSaga() {
     yield takeEvery('FETCH_CURRENT_CONTEST', fetchCurrentContest);
     yield takeEvery('UPDATE_CURRENT_CONTEST', updateCurrentContest);
+    yield takeLatest('UPDATE_CURRENT_CONTEST_DETAILS', updateCurrentContestDetails);
 }
 
 export default currentContestSaga;

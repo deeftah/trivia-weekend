@@ -36,17 +36,27 @@ class CountDown extends Component {
         // let a = '2020-02-14T06:00:00-06:00';
         // let b = '17:00:00-06:00';
 
+        let daylightSavingCheckContest = moment(this.props.currentContest.start_date).isDST()
+        let daylightSavingCheckNow = moment().isDST();
+
         let originalDate = this.props.currentContest.start_date
         let convertedDate = moment(originalDate).valueOf();
 
         //one hour is 3600000 milliseconds
+
+        let contestStartTime = (this.props.currentContest.start_time - 1) * 3600000
+
+        if (daylightSavingCheckNow === true && daylightSavingCheckContest === false) {
+            contestStartTime += 3600000
+        } else if (daylightSavingCheckNow === false && daylightSavingCheckContest === true) {
+            contestStartTime -= 3600000
+        }
+
             //when creating contest:  midnight is -3600000 (to fix Eastern Time to Central), 1 am is 0, 2 am is 3600000, 3 am is 7200000, etc.
             //THEN, we can do this: let d = this.props.currentContest.start_time
             //FOR NOW: 61200000 milliseconds is 5 p.m.
 
-        let originalTime = 57600000
-
-        let finalTime = convertedDate + originalTime;
+        let finalTime = convertedDate + contestStartTime;
 
         console.log('the final display time is', finalTime)
 
@@ -61,7 +71,7 @@ class CountDown extends Component {
         let dateDifference = futureDate - currentDate;
 
         // Random component
-        const Completionist = () => <span>Trivia 2020 has started!  Good luck, trivia players!</span>;
+        const Completionist = () => <span><h2>{this.props.currentContest.contest_name} has started!  Good luck, trivia players!</h2></span>;
 
         // Renderer callback with condition
         const renderer = ({ days, hours, minutes, seconds, completed }) => {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Grid, Paper as Card, Typography } from '@material-ui/core';
-import { LaptopMac, People } from '@material-ui/icons';
+import { LaptopMac, People, Settings } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import AccessCode from './AccessCode/AccessCode';
 import ProfileDetails from './ProfileDetails';
-import NewContest from './NewContest';
+import UpdateContest from './UpdateContest';
 import CurrentContest from './CurrentContest';
 import TeamMembers from './TeamMembers';
 import NewContestForm from './NewContestForm';
@@ -33,7 +33,7 @@ const styles = theme => ({
         textAlign: 'right'
     },
     newContestButton: {
-        textAlign: 'right'
+        textAlign: 'left'
     }
 });
 
@@ -59,7 +59,7 @@ class Profile extends Component {
 
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
-                <h1 className={classes.h1}>Settings</h1>
+                <h1 className={classes.h1}>Settings<Settings className={classes.icon}/></h1>
                 <div className={classes.newContestButton}><NewContestForm /></div>
                 {/* {JSON.stringify(this.props.teamUsers)} */}
                 <h2>Contest<LaptopMac className={classes.icon} /></h2>
@@ -68,7 +68,7 @@ class Profile extends Component {
                         <Card className={classes.card}><CurrentContest /></Card>
                     </Grid>
                     <Grid item xs={6}>
-                        <Card className={classes.card}><NewContest /></Card>
+                        <Card className={classes.card}><UpdateContest /></Card>
                     </Grid>
                     <Grid item xs={12}>
                         <Card className={classes.card}></Card>

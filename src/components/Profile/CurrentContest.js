@@ -74,7 +74,7 @@ class CurrentContest extends Component {
 
             <div>
                 <CardContent>
-                <h2>Set the Current Contest</h2>
+                <h2>Current Contest</h2>
                 <span className={classes.currentContest}>{this.props.currentContest.contest_name}</span>
                 </CardContent>
                         {this.state.currentContestEdit && <select name="current_contest" onChange={this.handleChangeFor('currentContest')}

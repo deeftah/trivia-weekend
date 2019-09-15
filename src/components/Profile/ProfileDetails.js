@@ -65,7 +65,7 @@ class ProfileDetails extends Component {
                 <h2>Team Name</h2>
                 <span className={classes.teamName}>{this.props.team.name}</span>
                     <Typography color="secondary">
-                        {this.state.teamNameEdit && <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('teamName')}
+                        {this.state.teamNameEdit && <input type="text" style={{ width: "95%" }} onChange={this.handleChangeFor('teamName')}
                             defaultValue={this.props.team.name} />}
                     </Typography>
                 </CardContent>
