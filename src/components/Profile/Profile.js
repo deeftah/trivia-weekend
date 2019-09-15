@@ -10,6 +10,7 @@ import ProfileDetails from './ProfileDetails';
 import NewContest from './NewContest';
 import CurrentContest from './CurrentContest';
 import TeamMembers from './TeamMembers';
+import NewContestForm from './NewContestForm';
 
 const styles = theme => ({
     root: {
@@ -29,6 +30,9 @@ const styles = theme => ({
         marginBottom: -8,
     },
     h1: {
+        textAlign: 'right'
+    },
+    newContestButton: {
         textAlign: 'right'
     }
 });
@@ -56,27 +60,28 @@ class Profile extends Component {
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <h1 className={classes.h1}>Settings</h1>
-                {JSON.stringify(this.props.teamUsers)}
-                <span><h2>Team<People className={classes.icon} /></h2></span>
+                <div className={classes.newContestButton}><NewContestForm /></div>
+                {/* {JSON.stringify(this.props.teamUsers)} */}
+                <h2>Contest<LaptopMac className={classes.icon} /></h2>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <Card className={classes.card}><AccessCode /></Card>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Card className={classes.card}><ProfileDetails /></Card>
-                    </Grid>
-                </Grid>
-                <br/>
-                <h2>Contest<LaptopMac className={classes.icon}/></h2>
-                <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                        <Card className={classes.card}><CurrentContest/></Card>
+                        <Card className={classes.card}><CurrentContest /></Card>
                     </Grid>
                     <Grid item xs={6}>
                         <Card className={classes.card}><NewContest /></Card>
                     </Grid>
                     <Grid item xs={12}>
                         <Card className={classes.card}></Card>
+                    </Grid>
+                </Grid>
+                <br/>
+                <h2>Team<People className={classes.icon} /></h2>
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <Card className={classes.card}><AccessCode /></Card>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Card className={classes.card}><ProfileDetails /></Card>
                     </Grid>
                 </Grid>
             </div >

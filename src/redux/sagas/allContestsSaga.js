@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchAllContests(action) {
@@ -14,8 +14,22 @@ function* fetchAllContests(action) {
     }
 }
 
+function* addContest(action) {
+    try {
+        let addContestResponse = yield axios.post('/allContests', action.payload)
+        console.log('add contest saga response!', addContestResponse);
+        yield put({
+            type: 'FETCH_ALL_CONTESTS',
+            payload: addContestResponse.data
+        })
+    } catch (err) {
+        console.log('error in ADD CONTEST POST', err);
+    }
+}
+
 function* allContestsSaga() {
     yield takeEvery('FETCH_ALL_CONTESTS', fetchAllContests);
+    yield takeLatest('ADD_CONTEST', addContest);
 }
 
 export default allContestsSaga;

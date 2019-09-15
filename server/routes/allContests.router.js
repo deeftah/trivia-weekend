@@ -19,4 +19,20 @@ router.get('/', (req, res) => {
         })
 });
 
+//ADD NEW CONTEST
+router.post('/', (req, res) => {
+    console.log('this is the ADD CONTEST req.body', req.body);
+    const sqlText = `INSERT INTO "contest" ("contest_name", "start_date", "start_time", "number_of_hours", "number_of_questions", "team_id") 
+                    VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool.query(sqlText, [req.body.contestName, req.body.startDate, req.body.startTime, req.body.numberOfHours, req.body.numberOfQuestions, req.user.team_id])
+        .then((result) => {
+            console.log('ADD CONTEST POST from database:', result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error POSTing new contest: ${sqlText}`, error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;
