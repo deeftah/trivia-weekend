@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 //TEAM USERS GET
 router.get('/users', (req, res) => {
-    const sqlText = `SELECT "user".first_name, "user".last_name, "user".username, "user".clearance_id FROM "user"
+    const sqlText = `SELECT "user".id, "user".first_name, "user".last_name, "user".username, "user".clearance_id FROM "user"
                     WHERE "user".team_id = $1
                     ORDER BY "user".first_name ASC;`;
     pool.query(sqlText, [req.user.team_id])
@@ -28,6 +28,27 @@ router.get('/users', (req, res) => {
     })
     .catch((error) => {
         console.log('Error in Team User GET from database:', error)
+    })
+})
+
+//TEAM USERS CAPTAIN PUT
+router.put('/users', (req, res) => {
+    if (req.body.clearanceId == 1) {
+        req.body.clearanceId = 2
+    } else {
+        req.body.clearanceId = 1
+    }
+    console.log ('the new clearance id is', req.body.clearanceId)
+    const sqlText = `UPDATE "user"
+                    SET "clearance_id" = $1
+                    WHERE "id" = $2;`;
+    pool.query(sqlText, [req.body.clearanceId, req.body.id])
+    .then(result => {
+        console.log('Team User Captain PUT from database:', result);
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        res.sendStatus(500);
     })
 })
 

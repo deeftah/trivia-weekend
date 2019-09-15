@@ -27,6 +27,19 @@ function* fetchTeamUsers(action) {
     }
 }
 
+function* updateCaptain(action) {
+    try {
+        let updateCaptainResponse = yield axios.put('/team/users', action.payload)
+        console.log('captain update saga response!', action.payload);
+        yield put({
+            type: 'FETCH_TEAM_USERS',
+            payload: updateCaptainResponse.data
+        })
+    } catch (err) {
+        console.log('error in TEAM CAPTAIN REMOVE (PUT)', err)
+    }
+}
+
 function* updateImage(action) {
     try {
         let imageUpdateResponse = yield axios.put('/team/image', action.payload)
@@ -82,6 +95,7 @@ function* updateTeamName(action) {
 function* teamSaga() {
     yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
     yield takeEvery('FETCH_TEAM_USERS', fetchTeamUsers);
+    yield takeEvery('UPDATE_CAPTAIN', updateCaptain);
     yield takeLatest('UPDATE_IMAGE', updateImage);
     yield takeLatest('UPDATE_BOILERPLATE', updateBoilerplate);
     yield takeLatest('UPDATE_ACCESS_ID', updateAccessId);

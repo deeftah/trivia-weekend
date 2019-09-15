@@ -14,7 +14,7 @@ const styles = theme => ({
     },
     currentContest: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 18,
         color: theme.palette.primary.main
     },
 });
@@ -137,9 +137,9 @@ class UpdateContest extends Component {
 
             <div>
                 <CardContent>
-                    <h2>Contest Details</h2>
-                    <span className={classes.currentContest}>{this.props.currentContest.contest_name} is<br/>
-                    {this.props.currentContest.number_of_hours} hours long, with {this.props.currentContest.number_of_questions} questions per hour.
+                    <h2>{this.props.currentContest.contest_name}</h2>
+                    <span className={classes.currentContest}>
+                    {this.props.currentContest.number_of_hours} hours long, {this.props.currentContest.number_of_questions} questions per hour.
                     <br/>It begins <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date}/> at {contestTime}.</span>
                     <Typography color="secondary">
                         {this.state.editContest && <br/>}

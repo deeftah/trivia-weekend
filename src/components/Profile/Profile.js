@@ -33,7 +33,7 @@ const styles = theme => ({
         textAlign: 'right'
     },
     newContestButton: {
-        textAlign: 'left'
+        textAlign: 'right'
     }
 });
 
@@ -53,15 +53,10 @@ class Profile extends Component {
 
         const { classes } = this.props
 
-        // let teamList = this.props.team.map(member => {
-        //     return <TeamMembers member={member} />
-        // })
-
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <h1 className={classes.h1}>Settings<Settings className={classes.icon}/></h1>
                 <div className={classes.newContestButton}><NewContestForm /></div>
-                {/* {JSON.stringify(this.props.teamUsers)} */}
                 <h2>Contest<LaptopMac className={classes.icon} /></h2>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
@@ -82,6 +77,9 @@ class Profile extends Component {
                     </Grid>
                     <Grid item xs={6}>
                         <Card className={classes.card}><ProfileDetails /></Card>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Card className={classes.card}><TeamMembers/></Card>
                     </Grid>
                 </Grid>
             </div >
