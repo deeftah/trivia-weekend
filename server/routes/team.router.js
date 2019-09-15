@@ -16,6 +16,21 @@ router.get('/', (req, res) => {
     })
 });
 
+//TEAM USERS GET
+router.get('/users', (req, res) => {
+    const sqlText = `SELECT "user".first_name, "user".last_name, "user".username, "user".clearance_id FROM "user"
+                    WHERE "user".team_id = $1
+                    ORDER BY "user".first_name ASC;`;
+    pool.query(sqlText, [req.user.team_id])
+    .then((result) => {
+        console.log('Team User GET from database:', result);
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log('Error in Team User GET from database:', error)
+    })
+})
+
 //TEAM IMAGE PUT
 router.put('/image', (req, res) => {
     const sqlText = `UPDATE "team"

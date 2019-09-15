@@ -38,7 +38,7 @@ export default function AlertDialogSlide() {
                 <DialogContent style={{ backgroundColor: '#494A49',}}>
                     <DialogContentText id="alert-dialog-slide-description" style={{ color: '#fff' }}>
                         Your team will need this code when they register for Trivia Weekend to access your trivia team's portal.  This is only needed upon registration.
-                        <br/><br/>Do not distribute this code to other teams.
+                        <br/><br/>Do not distribute this code to other teams.  If you would like a new code, you may click the "Reset Code" button after closing this window.
           </DialogContentText>
                 </DialogContent >
                 <DialogActions style={{ backgroundColor: '#494A49'}}>

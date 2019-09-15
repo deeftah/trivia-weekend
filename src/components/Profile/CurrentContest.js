@@ -16,6 +16,7 @@ const styles = theme => ({
         color: theme.palette.primary.main
     },
 });
+
 class CurrentContest extends Component {
 
     state = {
@@ -76,17 +77,13 @@ class CurrentContest extends Component {
                 <h2>Set the Current Contest</h2>
                 <span className={classes.currentContest}>{this.props.currentContest.contest_name}</span>
                 </CardContent>
-                <CardContent>
-                    <Typography color="secondary">
                         {this.state.currentContestEdit && <select name="current_contest" onChange={this.handleChangeFor('currentContest')}
                             defaultValue="-- Select a Contest --">
                             <option value="null">-- Select a Contest --</option>
                             {this.props.allContests.map((contest, i) => 
                             <option key={i} value={contest.id}>{contest.contest_name}</option>
                             )}
-                        </select>}
-                    </Typography>         
-                </CardContent>
+                        </select>}      
                 <CardActions>
                     {!this.state.currentContestEdit &&
                         <Button color="secondary" onClick={this.toggleCurrentContestEdit} style={{ marginRight: 20, marginLeft: 0 }}>

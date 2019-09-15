@@ -35,14 +35,29 @@ const styles = theme => ({
 
 class Profile extends Component {
 
+    componentDidMount() {
+        this.getUserDetails();
+    }
+
+    getUserDetails() {
+        this.props.dispatch({
+            type: 'FETCH_TEAM_USERS'
+        })
+    }
+
     render() {
 
         const { classes } = this.props
 
+        // let teamList = this.props.team.map(member => {
+        //     return <TeamMembers member={member} />
+        // })
+
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
-                <h1 className={classes.h1}>Profile</h1>
-                <span><h2>Team Settings<People className={classes.icon} /></h2></span>
+                <h1 className={classes.h1}>Settings</h1>
+                {JSON.stringify(this.props.teamUsers)}
+                <span><h2>Team<People className={classes.icon} /></h2></span>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <Card className={classes.card}><AccessCode /></Card>
@@ -52,7 +67,7 @@ class Profile extends Component {
                     </Grid>
                 </Grid>
                 <br/>
-                <h2>Contest Settings<LaptopMac className={classes.icon}/></h2>
+                <h2>Contest<LaptopMac className={classes.icon}/></h2>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <Card className={classes.card}><CurrentContest/></Card>
@@ -61,7 +76,7 @@ class Profile extends Component {
                         <Card className={classes.card}><NewContest /></Card>
                     </Grid>
                     <Grid item xs={12}>
-                        <Card className={classes.card}><TeamMembers/></Card>
+                        <Card className={classes.card}></Card>
                     </Grid>
                 </Grid>
             </div >
@@ -71,8 +86,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    team: state.team
+    team: state.team,
+    teamUsers: state.teamUsers
 });
 
-// export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
-export default withStyles(styles)(Profile);
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
