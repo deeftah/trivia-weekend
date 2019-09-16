@@ -27,24 +27,42 @@ const styles = theme => ({
 class HourSlider extends Component {
 
     state = {
-        slider: 1
+        slider: {
+            sliderStartingValue: 1,
+            sliderCurrentHour: 1
+        }
     };
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.currentContest !== prevProps.currentContest) {
             this.setState({
-                slider: this.getHour()
+                slider: {
+                    ...this.state.slider,
+                    sliderStartingValue: this.getHour(),
+                    sliderCurrentHour: this.getHour()
+                }
             })
         }
     }
 
     handleSliderChange = (value) => {
         this.setState({
-            slider: value
+            slider: {
+                ...this.state.slider,
+                sliderCurrentHour: value
+            }
         });
-        console.log('the slider label value is:', this.state.sliders);
     };
+
+    handleCurrent = () => {
+        this.setState({
+            slider: {
+                ...this.state.slider,
+                sliderCurrentHour: this.state.slider.sliderStartingValue
+            }
+        });
+    }
 
     getHour() {
 
@@ -72,9 +90,6 @@ class HourSlider extends Component {
 
         let sliderDefaultHour = (Math.floor(timeSinceContestStartInHours) + 1)
 
-        console.log('slider default hour:', sliderDefaultHour)
-        console.log('the slide value is', this.props.slide)
-        
         if (contestStartDateAndTime > currentDate) {
             return 1;
         }
@@ -84,29 +99,37 @@ class HourSlider extends Component {
         }
 
         return sliderDefaultHour;
-    }    
-    
-    
+    }
+
+
     render() {
 
-        const { classes } = this.props;
-        
+        const { classes } = this.props
+
+        let currentHourButton;
+
+        if (this.state.slider.sliderStartingValue !== this.state.slider.sliderCurrentHour) {
+
+            currentHourButton = <Button color="primary" onClick={this.handleCurrent}>Jump to Current Hour</Button>
+        }
+
         return (
 
             <div className={classes.root}>
-                <h2 className={classes.h2}>Hour {this.state.slider}</h2>
+                <h2 className={classes.h2}>Hour {this.state.slider.sliderCurrentHour}</h2>
                 <Slider
                     min={1}
                     max={this.props.currentContest.number_of_hours}
                     step={1}
                     marks
-                    value={this.state.slider}
+                    value={this.state.slider.sliderCurrentHour}
                     aria-labelledby="label"
                     valueLabelDisplay="auto"
                     onChange={(event, value) => this.handleSliderChange(value)}
                 />
-                viewing hour: {this.state.slider}
-                <br/><br/>
+                {currentHourButton}
+                <br/>
+                the contest is currently in hour: {this.state.slider.sliderStartingValue}
                 {/* Testing (current date):  {currentDate}
                 <br/><br/>
                 Computer Contest Start Date/Time: {contestStartDateAndTime}
