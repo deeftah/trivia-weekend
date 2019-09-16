@@ -53,7 +53,7 @@ class TeamMembers extends Component {
                     <td>{member.first_name}</td>
                     <td>{member.last_name}</td>
                     <td>{member.username}</td>
-                    {captain == true && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}>Remove Captain</Button></td>}
+                    {captain == true && <td><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}>Remove Captain</Button></td>}
                     {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}>Make Captain</Button></td>}
                     {captain == null && <td>Team Captain</td>}
                     {captain == true && <td><Button variant="contained" color="primary">Delete</Button></td>}

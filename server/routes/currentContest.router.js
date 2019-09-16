@@ -40,7 +40,7 @@ router.put('/details', (req, res) => {
     console.log('this is the UPDATE CURRENT CONTEST DETAILS req', req.body);
     let startTimeNumber = Number(req.body.newStartTime);
     let numberOfHoursNumber = Number(req.body.newNumberOfHours);
-    let numberOfQuestionsNumber = Number(req.body.newNumberOfHours);
+    let numberOfQuestionsNumber = Number(req.body.newNumberOfQuestions);
     const sqlText = `UPDATE "contest"
                     SET "contest_name" = $1, "start_date" = $2, "start_time" = $3, "number_of_hours" = $4, "number_of_questions" = $5
                     WHERE "id" = $6;`;
