@@ -70,7 +70,7 @@ class CountDown extends Component {
 
         let dateDifference = futureDate - currentDate;
 
-        // Random component
+        // End countdown message
         const Completionist = () => <span><h2>{this.props.currentContest.contest_name} has started!  Good luck, trivia players!</h2></span>;
 
         // Renderer callback with condition

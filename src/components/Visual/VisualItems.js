@@ -86,7 +86,7 @@ class VisualItems extends Component {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <Typography color="secondary">
-                                        <p>{this.props.visual.comment}</p>
+                                        <br/>{this.props.visual.comment}
                                     </Typography>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>

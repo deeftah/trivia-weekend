@@ -70,7 +70,7 @@ class Home extends Component {
                                 </Typography>
                                 <br /><br />
                                 <Typography color="secondary">
-                                    <p>{this.props.team.boilerplate}</p>
+                                    {this.props.team.boilerplate}
                                     {this.state.editBoilerplate && <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('boilerplate')}
                                     placeholder="What do you want your team to know?" defaultValue={this.props.team.boilerplate} />}
                                 </Typography>

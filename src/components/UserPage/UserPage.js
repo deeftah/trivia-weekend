@@ -7,8 +7,8 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 // and then instead of `props.user.username` you could use `user.username`
 const UserPage = (props) => (
   <div style={{ marginTop: 70, padding: 30 }}>
-    <p>Welcome to Trivia Weekend!  Use the bar at the top to navigate.</p>
-    <p><b>Or, disappoint your teammates and log out!</b></p>
+    <br/><br/>Welcome to Trivia Weekend!  Use the bar at the top to navigate.
+    <br /><br /><b>Or, disappoint your teammates and log out!</b>
     <LogOutButton className="log-in" />
   </div>
 );

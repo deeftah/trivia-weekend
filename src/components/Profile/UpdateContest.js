@@ -85,6 +85,7 @@ class UpdateContest extends Component {
         const { classes } = this.props
 
         let moment = require('moment');
+        let converter = require('number-to-words');
 
         let contestTime = this.props.currentContest.start_time;
         let stringContestTime = '' + contestTime;
@@ -132,6 +133,23 @@ class UpdateContest extends Component {
 
         console.log('formatted date is', this.props.currentContest.start_date);
         
+        // let hoursAsNummber = Number(this.props.currentContest.number_of_hours);
+
+        let hours = this.props.currentContest.number_of_hours;
+
+        let hoursAsWords = converter.toWords(hours ? hours : 0);
+
+        let numberOfQuestions = this.props.currentContest.number_of_questions;
+
+        let numberOfQuestionsAsWords = converter.toWords(numberOfQuestions ? numberOfQuestions : 0);
+
+        let name = hoursAsWords
+        let nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+
+        let capitalize = (s) => {
+            if (typeof s !== 'string') return ''
+            return s.charAt(0).toUpperCase() + s.slice(1)
+        }
 
         return (
 
@@ -139,8 +157,8 @@ class UpdateContest extends Component {
                 <CardContent>
                     <h2>{this.props.currentContest.contest_name}</h2>
                     <span className={classes.currentContest}>
-                    {this.props.currentContest.number_of_hours} hours long, {this.props.currentContest.number_of_questions} questions per hour.
-                    <br/>It begins <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date}/> at {contestTime}.</span>
+                        {nameCapitalized} hours long, {numberOfQuestionsAsWords} questions per hour.
+                    <br/>Beginning <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date}/> at {contestTime}.</span>
                     <Typography color="secondary">
                         {this.state.editContest && <br/>}
                         {this.state.editContest && 
