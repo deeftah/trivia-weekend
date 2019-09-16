@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
+import { Card, CardActions, CardContent, Grid, Typography } from '@material-ui/core';
+import { AddCircle, Delete, RemoveCircle } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
@@ -11,6 +12,8 @@ const styles = theme => ({
     },
     main: {
         textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 16,
         color: theme.palette.secondary.main
     },
@@ -35,6 +38,13 @@ class TeamMembers extends Component {
         })
     }
 
+    handleDeleteTeamMember = (id) => {
+        this.props.dispatch({
+            type: 'DELETE_TEAM_MEMBER',
+            payload: id
+        })
+    }
+
     render() {
 
 
@@ -53,11 +63,11 @@ class TeamMembers extends Component {
                     <td>{member.first_name}</td>
                     <td>{member.last_name}</td>
                     <td>{member.username}</td>
-                    {captain == true && <td><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}>Remove Captain</Button></td>}
-                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}>Make Captain</Button></td>}
+                    {captain == true && <td><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><RemoveCircle style={{ marginRight: 3}}/>Revoke</Button></td>}
+                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><AddCircle style={{ marginRight: 3 }} />Add</Button></td>}
                     {captain == null && <td>Team Captain</td>}
-                    {captain == true && <td><Button variant="contained" color="primary">Delete</Button></td>}
-                    {captain == false && <td><Button variant="contained" color="primary">Delete</Button></td>}
+                    {captain == true && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
+                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
                     {captain == null && <td></td>}
                 </tr>
 
@@ -72,13 +82,13 @@ class TeamMembers extends Component {
                 <div className={classes.main}>
                     <h2>Your Team</h2>
                     <br />
-                    <table>
+                    <table className="center">
                         <thead>
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
-                                <th>Captain</th>
+                                <th>Admin Access</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>

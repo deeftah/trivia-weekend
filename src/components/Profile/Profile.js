@@ -21,6 +21,8 @@ const styles = theme => ({
         textAlign: 'center',
         background: '#494A49',
         color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
     icon: {
@@ -78,8 +80,12 @@ class Profile extends Component {
                     <Grid item xs={6}>
                         <Card className={classes.card}><ProfileDetails /></Card>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={1}> 
+                    </Grid>
+                    <Grid item xs={10}>
                         <Card className={classes.card}><TeamMembers/></Card>
+                    </Grid>
+                    <Grid item xs={1}>
                     </Grid>
                 </Grid>
             </div >
@@ -90,7 +96,7 @@ class Profile extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     team: state.team,
-    teamUsers: state.teamUsers
+    teamUsers: state.teamUsers,
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));

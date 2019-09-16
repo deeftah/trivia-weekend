@@ -67,7 +67,7 @@ class UpdateContest extends Component {
                 [propertyName]: event.target.value
             }
         });
-        console.log('contest edits:', propertyName)
+        console.log('contest edits:', this.state.contestEdits)
     }
 
     handleEditContest = (id) => {
@@ -75,12 +75,18 @@ class UpdateContest extends Component {
             editContest: !this.state.editContest,
             contestEdits: {
                 ...this.state.contestEdits,
-                newContestId: id
+                newContestId: id,
+                newContestName: this.props.currentContest.contest_name,
+                newStartDate: this.props.currentContest.start_date,
+                newStartTime: this.props.currentContest.start_time,
+                newNumberOfHours: this.props.currentContest.number_of_hours,
+                newNumberOfQuestions: this.props.currentContest.number_of_questions
             }
         })
     }
 
     render() {
+        console.log('the state upon refresh is:', this.state.contestEdits)
 
         const { classes } = this.props
 
@@ -152,10 +158,10 @@ class UpdateContest extends Component {
         }
 
         return (
-
             <div>
                 <CardContent>
                     <h2>{this.props.currentContest.contest_name}</h2>
+                    {console.log('the state upon refresh is:', this.state.contestEdits)}
                     <span className={classes.currentContest}>
                         {nameCapitalized} hours long, {numberOfQuestionsAsWords} questions per hour.
                     <br/>Beginning <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date}/> at {contestTime}.</span>

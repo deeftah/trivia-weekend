@@ -69,6 +69,7 @@ class VisualItems extends Component {
     }
 
     render() {
+        console.log('the state on page load is', this.state.userEdits)
 
         return (
             <Grid item sm={4} align="center" >

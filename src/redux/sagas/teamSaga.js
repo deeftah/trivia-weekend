@@ -67,7 +67,7 @@ function* updateBoilerplate(action) {
 }
 
 function* updateAccessId(action) {
-    try{
+    try {
         let accessIdUpdateResponse = yield axios.put('team/accessId', action.payload)
         console.log('access id update saga response!', action.payload);
         yield put({
@@ -80,7 +80,7 @@ function* updateAccessId(action) {
 }
 
 function* updateTeamName(action) {
-    try{
+    try {
         let teamNameUpdateResponse = yield axios.put('team/teamName', action.payload)
         console.log('team name update saga response!', action.payload);
         yield put({
@@ -92,6 +92,19 @@ function* updateTeamName(action) {
     }
 }
 
+function* deleteTeamMember(action) {
+    try {
+        let deleteTeamMemberResponse = yield axios.delete(`team/${action.payload}`)
+        console.log('delete team member saga response!', action.payload);
+        yield put({
+            type: 'FETCH_TEAM_USERS',
+            payload: deleteTeamMemberResponse.data
+        })
+    } catch (err) {
+        console.log('error in TEAM MEMBER DELETE', err);
+    }
+}
+
 function* teamSaga() {
     yield takeEvery('FETCH_TEAM_DETAILS', fetchTeamDetails);
     yield takeEvery('FETCH_TEAM_USERS', fetchTeamUsers);
@@ -100,6 +113,7 @@ function* teamSaga() {
     yield takeLatest('UPDATE_BOILERPLATE', updateBoilerplate);
     yield takeLatest('UPDATE_ACCESS_ID', updateAccessId);
     yield takeLatest('UPDATE_TEAM_NAME', updateTeamName);
+    yield takeLatest('DELETE_TEAM_MEMBER', deleteTeamMember);
 }
 
 export default teamSaga;
