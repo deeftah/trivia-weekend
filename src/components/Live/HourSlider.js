@@ -27,8 +27,17 @@ const styles = theme => ({
 class HourSlider extends Component {
 
     state = {
-        slider: 16
+        slider: 1
     };
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.currentContest !== prevProps.currentContest) {
+            this.setState({
+                slider: this.getHour()
+            })
+        }
+    }
 
     handleSliderChange = (value) => {
         this.setState({
@@ -37,35 +46,58 @@ class HourSlider extends Component {
         console.log('the slider label value is:', this.state.sliders);
     };
 
-    render() {
-
-        const { classes } = this.props
+    getHour() {
 
         let moment = require('moment');
 
-        //Grab the current date
-        let currentDate = Date.now();
+        let currentDate = Date.now(); //Grab the current date
 
-        //Determine if the contest start date is during Daylight Saving Time
+        let contestStartDate = this.props.currentContest.start_date;  //Grab start date in long date format
 
-        let contestStartDate = this.props.currentContest.start_date
-        let convertedDate = moment(contestStartDate).valueOf();
+        let convertedDate = moment(contestStartDate).valueOf();  //Grab start date in Epoch/UNIX time format
 
-        let contestStartTime = (this.props.currentContest.start_time) * 3600000
+        let contestStartTime = (this.props.currentContest.start_time) * 3600000  //Set start time in Epoch/UNIX time format
 
-        let contestStartDateAndTime = convertedDate + contestStartTime;
+        let contestStartDateAndTime = convertedDate + contestStartTime; //Combine Start Date/Time in Epoch/UNIX time format
 
+        let numberOfHours = this.props.currentContest.number_of_hours; //Set number of hours to common variable
+
+        let contestLength = numberOfHours * 3600000; //Length of contest in Epoch/UNIX time format
+
+        let contestEndDateAndTime = contestStartDateAndTime + contestLength
+
+        let timeSinceContestStart = currentDate - contestStartDateAndTime; //How long since beginning of contest in Epoch/UNIX time
+
+        let timeSinceContestStartInHours = timeSinceContestStart / 3600000 //How much time in hours since contest began
+
+        let sliderDefaultHour = (Math.floor(timeSinceContestStartInHours) + 1)
+
+        console.log('slider default hour:', sliderDefaultHour)
+        console.log('the slide value is', this.props.slide)
         
+        if (contestStartDateAndTime > currentDate) {
+            return 1;
+        }
 
+        if (currentDate > contestEndDateAndTime) {
+            return this.props.currentContest.number_of_hours
+        }
+
+        return sliderDefaultHour;
+    }    
+    
+    
+    render() {
+
+        const { classes } = this.props;
+        
         return (
 
             <div className={classes.root}>
-                {JSON.stringify(this.props.currentContest)}
                 <h2 className={classes.h2}>Hour {this.state.slider}</h2>
                 <Slider
-                    defaultValue={1}
                     min={1}
-                    max={50}
+                    max={this.props.currentContest.number_of_hours}
                     step={1}
                     marks
                     value={this.state.slider}
@@ -75,11 +107,17 @@ class HourSlider extends Component {
                 />
                 viewing hour: {this.state.slider}
                 <br/><br/>
-                Testing (current date):  {currentDate}
+                {/* Testing (current date):  {currentDate}
                 <br/><br/>
                 Computer Contest Start Date/Time: {contestStartDateAndTime}
                 <br/>
                 Human Contest Start Date/Time: <Moment format="MM/DD/YYYY h:mm:ss a" date={contestStartDateAndTime} />
+                <br/>
+                Human Contest End Date/Time: <Moment format="MM/DD/YYYY h:mm:ss a" date={contestEndDateAndTime}/>
+                <br/><br/>
+                Time since the contest began (in hours): {timeSinceContestStartInHours}
+                <br/><br/>
+                Slider default hour: {sliderDefaultHour} */}
             </div >
         )
 
@@ -88,9 +126,9 @@ class HourSlider extends Component {
 }
 
 const mapStateToProps = state => ({
+    currentContest: state.currentContest,
     user: state.user,
-    team: state.team,
-    currentContest: state.currentContest
+    team: state.team
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(HourSlider)));

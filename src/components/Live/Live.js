@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid, Paper as Card, Typography } from '@material-ui/core';
 import { Radio } from '@material-ui/icons';
 import HourSlider from './HourSlider';
+import Moment from 'react-moment';
 
 const styles = theme => ({
     root: {
@@ -53,7 +54,7 @@ class Live extends Component {
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <h1 className={classes.h1}>Live<Radio className={classes.icon} /></h1>
                 <Grid container spacing={3}>
-                     <HourSlider/>
+                    <HourSlider/>
                 </Grid>
             </div >
         )
