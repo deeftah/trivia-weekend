@@ -40,13 +40,24 @@ const styles = theme => ({
 class Questions extends Component {
 
     state = {
-
+        currentHourContestData: {
+            contestId: 0,
+            currentHour: 0
+        }
     }
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.contest !== prevProps.contest) {
-            this.getCurrentHourQuestions(this.props.contest)
+            console.log('AND THE SLIDER IS AT', this.props.slider)
+            let contest = {
+                contestId: this.props.contest,
+                currentHour: this.props.hourGetter
+            }
+            console.log('THE CONTEST INFORMATION IS', contest)
+            let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
+            console.log('THE QUERY STRING IS:', queryString)
+            this.getCurrentHourQuestions(queryString)
         }
     }
 

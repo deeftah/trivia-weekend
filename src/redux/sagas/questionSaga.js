@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function* fetchCurrentHourQuestions(action) {
     try {
-        let contestId = action.payload
-        console.log('the contest ID in the saga is', contestId)
-        let currentHourQuestionsResponse = yield axios.get(`/question/${contestId}`)
+        let contest = action.payload
+        console.log('the contest ID in the saga is', contest)
+        let currentHourQuestionsResponse = yield axios.get(`/question/${contest}`)
         console.log('question get saga response!', currentHourQuestionsResponse);
         yield put({
             type: 'SET_QUESTION_DETAILS',

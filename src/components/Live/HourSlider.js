@@ -174,7 +174,7 @@ class HourSlider extends Component {
                     <Fab color="secondary" className={classes.fab}>9</Fab>
                     <br/><br/>
    
-                    <Questions slider={this.state.slider.sliderCurrentHour} contest={this.props.currentContest.id}/>
+                    <Questions slider={this.state.slider.sliderCurrentHour} contest={this.props.currentContest.id} hourGetter={this.getHour()}/>
                 </div>
                 {/* Testing (current date):  {currentDate}
                 <br/><br/>
