@@ -69,7 +69,6 @@ class Questions extends Component {
         }
     }
 
-
     getCurrentHourQuestions(contest) {
         this.props.dispatch({
             type: 'FETCH_CURRENT_HOUR_QUESTIONS',
@@ -100,9 +99,16 @@ class Questions extends Component {
 
         console.log('the question details', this.props.question.question_description)
 
+        // let questionFabs = this.props.question.map(question => {
+        //     if (question.question_number === undefined)
+        // })
+
         return (
             <div>
                 {JSON.stringify(this.props.question)}
+                <br/><br/>
+                
+                <br/><br/>
                 The Questions will display here!
                 <br />
                 {this.props.slider}

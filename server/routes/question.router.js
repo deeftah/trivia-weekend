@@ -5,62 +5,47 @@ const router = express.Router();
 router.get('/:contest', (req, res) => {
     console.log('the question req.body', req.params.contest)
 
-    let contestAsArray=[]
+    let newContestId = ''
+    let newContestHour = ''
 
+    let contestAsArray=[]
+    let ampersandIndex;
+
+    //ARRAY FOR REQ.BODY
     for (let each of req.params.contest) {
         contestAsArray.push(each)
+        if (each == '&') {
+            ampersandIndex = contestAsArray.indexOf(each)
+        }
     }
 
-    let contestId = [contestAsArray[10]];
-    let currentHour = [];
-    let sqlContestId;
-    let sqlCurrentHour;
+     //LOGIC FOR CONTEST ID
+    let newContestIdArray = contestAsArray.slice(10, ampersandIndex)
 
-    if (contestAsArray[11] >= 0 && contestAsArray[11] <= 9) {
-        contestId.push(contestAsArray[11])
-    }
-    if (contestAsArray[24] >= 0 && contestAsArray[24] <= 9) {
-        currentHour.push(contestAsArray[24])
-    }
-    if (contestAsArray[25] >= 0 && contestAsArray[25] <= 9) {
-        currentHour.push(contestAsArray[25])
-    }
-    if (contestAsArray[26] >= 0 && contestAsArray[26] <= 9) {
-        currentHour.push(contestAsArray[26])
+    for (let each of newContestIdArray) {
+        newContestId += each
     }
 
-    console.log('THE CONTEST AS ARRAY', currentHour)
+    newContestId = Number(newContestId)
 
-    if (contestId.length === 2) {
-        let numOne = contestId[0]
-        let numTwo = contestId[1]
-        let numAsStringOne = numOne.toString()
-        let numAsStringTwo = numTwo.toString()
-        sqlContestId = numAsStringOne + numAsStringTwo
-        sqlContestId = Number(sqlContestId)
-    } else if (contestId.length === 1) {
-        sqlContestId = Number(contestId[0])
-    }
+    console.log('THE NEW CONTEST ID IS', newContestId)
 
-    if (currentHour.length === 2) {
-        let numOne = currentHour[0]
-        let numTwo = currentHour[1]
-        let numAsStringOne = numOne.toString()
-        let numAsStringTwo = numTwo.toString()
-        sqlCurrentHour = numAsStringOne + numAsStringTwo
-        sqlCurrentHour = Number(sqlCurrentHour)
+    //LOGIC FOR CONTEST HOUR
+    let hourNumOneIndex = contestAsArray.length - 2
+    let hourNumTwoIndex = contestAsArray.length - 1
+    let hourNumOne = contestAsArray[hourNumOneIndex]
+    let hourNumTwo = contestAsArray[hourNumTwoIndex]
+
+    if (hourNumOne == '=') {
+        newContestHour = Number(hourNumTwo)
     } else {
-        sqlCurrentHour = Number(currentHour[0])
+        newContestHour = Number(hourNumOne + hourNumTwo)
     }
 
-    console.log('the sqlCurrentHour', sqlCurrentHour)
-    console.log('the initial current hour is', currentHour)
-    console.log('the sqlContestId', sqlContestId)
-    
     const sqlText = `SELECT * FROM "questions"
                     WHERE "questions".contest_id = $1 AND "questions"."hour" = $2
                     ORDER BY "questions".question_number;`;
-    pool.query(sqlText, [sqlContestId, sqlCurrentHour])
+    pool.query(sqlText, [newContestId, newContestHour])
         .then((result) => {
             console.log('Question GET from database:', result);
             res.send(result.rows);
