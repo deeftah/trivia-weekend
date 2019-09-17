@@ -49,17 +49,26 @@ class Questions extends Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.contest !== prevProps.contest) {
-            console.log('AND THE SLIDER IS AT', this.props.slider)
             let contest = {
                 contestId: this.props.contest,
-                currentHour: this.props.hourGetter
+                currentHour: this.props.slider
             }
-            console.log('THE CONTEST INFORMATION IS', contest)
             let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
-            console.log('THE QUERY STRING IS:', queryString)
+            this.getCurrentHourQuestions(queryString)
+        }
+        if (this.props.slider !== prevProps.slider) {
+            console.log('this is triggering')
+            let contest = {
+                contestId: this.props.contest,
+                currentHour: this.props.slider
+            }
+            console.log('FINAL CONTEST ID:', contest.contestId)
+            console.log('FINAL CURRENT HOUR:', contest.currentHour)
+            let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
             this.getCurrentHourQuestions(queryString)
         }
     }
+
 
     getCurrentHourQuestions(contest) {
         this.props.dispatch({
