@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper as Card, Typography } from '@material-ui/core';
+import { Fab, Grid, Paper as Card, Typography } from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
 import Moment from 'react-moment';
 
@@ -17,11 +17,25 @@ const styles = theme => ({
         background: '#494A49',
         color: 'white',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     h2: {
         textAlign: 'left'
     },
+    hour: {
+        color: 'white',
+        background: theme.palette.background.default
+    },
+    jumpToCurrentHour: {
+        textAlign: 'right'
+    },
+    fab: {
+        margin: theme.spacing(1)
+    },
+    sliderMinAndMaxNum: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    }
 });
 
 class HourSlider extends Component {
@@ -67,27 +81,16 @@ class HourSlider extends Component {
     getHour() {
 
         let moment = require('moment');
-
         let currentDate = Date.now(); //Grab the current date
-
         let contestStartDate = this.props.currentContest.start_date;  //Grab start date in long date format
-
         let convertedDate = moment(contestStartDate).valueOf();  //Grab start date in Epoch/UNIX time format
-
         let contestStartTime = (this.props.currentContest.start_time) * 3600000  //Set start time in Epoch/UNIX time format
-
         let contestStartDateAndTime = convertedDate + contestStartTime; //Combine Start Date/Time in Epoch/UNIX time format
-
         let numberOfHours = this.props.currentContest.number_of_hours; //Set number of hours to common variable
-
         let contestLength = numberOfHours * 3600000; //Length of contest in Epoch/UNIX time format
-
         let contestEndDateAndTime = contestStartDateAndTime + contestLength
-
         let timeSinceContestStart = currentDate - contestStartDateAndTime; //How long since beginning of contest in Epoch/UNIX time
-
         let timeSinceContestStartInHours = timeSinceContestStart / 3600000 //How much time in hours since contest began
-
         let sliderDefaultHour = (Math.floor(timeSinceContestStartInHours) + 1)
 
         if (contestStartDateAndTime > currentDate) {
@@ -100,7 +103,6 @@ class HourSlider extends Component {
 
         return sliderDefaultHour;
     }
-
 
     render() {
 
@@ -116,20 +118,45 @@ class HourSlider extends Component {
         return (
 
             <div className={classes.root}>
-                <h2 className={classes.h2}>Hour {this.state.slider.sliderCurrentHour}</h2>
-                <Slider
-                    min={1}
-                    max={this.props.currentContest.number_of_hours}
-                    step={1}
-                    marks
-                    value={this.state.slider.sliderCurrentHour}
-                    aria-labelledby="label"
-                    valueLabelDisplay="auto"
-                    onChange={(event, value) => this.handleSliderChange(value)}
-                />
-                {currentHourButton}
-                <br/>
-                the contest is currently in hour: {this.state.slider.sliderStartingValue}
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <h2 className={classes.h2}>Hour {this.state.slider.sliderCurrentHour}</h2>
+                    </Grid>
+                    <Grid item xs={6} className={classes.jumpToCurrentHour} style={{ paddingTop: 34 }}>
+                        {currentHourButton}
+                    </Grid>
+                    <Grid item xs={.5} className={classes.sliderMinAndMaxNum}>
+                        1
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Slider
+                            min={1}
+                            max={this.props.currentContest.number_of_hours}
+                            step={1}
+                            marks
+                            value={this.state.slider.sliderCurrentHour}
+                            aria-labelledby="label"
+                            valueLabelDisplay="auto"
+                            onChange={(event, value) => this.handleSliderChange(value)}
+                        />
+                        the contest is currently in hour: {this.state.slider.sliderStartingValue}
+                    </Grid>
+                    <Grid item xs={.5} className={classes.sliderMinAndMaxNum}>
+                        {this.props.currentContest.number_of_hours}
+                    </Grid>
+                </Grid>
+                <br /><br />
+                <div style={{ textAlign: 'center' }}>
+                    <Fab color="primary" className={classes.fab}>1</Fab>
+                    <Fab color="primary" className={classes.fab}>2</Fab>
+                    <Fab color="primary" className={classes.fab}>3</Fab>
+                    <Fab color="primary" className={classes.fab}>4</Fab>
+                    <Fab color="primary" className={classes.fab}>5</Fab>
+                    <Fab color="primary" className={classes.fab}>6</Fab>
+                    <Fab color="secondary" className={classes.fab}>7</Fab>
+                    <Fab color="secondary" className={classes.fab}>8</Fab>
+                    <Fab color="secondary" className={classes.fab}>9</Fab>
+                </div>
                 {/* Testing (current date):  {currentDate}
                 <br/><br/>
                 Computer Contest Start Date/Time: {contestStartDateAndTime}
