@@ -7,6 +7,7 @@ import visual from './visualReducer';
 import currentContest from './currentContestReducer';
 import allContests from './allContestsReducer';
 import teamUsers from './teamUsersReducer';
+import question from './questionReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   visual,
   currentContest,
   allContests,
-  teamUsers
+  teamUsers,
+  question
 });
 
 export default rootReducer;

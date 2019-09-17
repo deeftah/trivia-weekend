@@ -14,6 +14,7 @@ const teamRouter = require('./routes/team.router');
 const visualRouter = require('./routes/visual.router');
 const currentContestRouter = require('./routes/currentContest.router');
 const allContestsRouter = require('./routes/allContests.router');
+const questionRouter = require('./routes/question.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,6 +33,7 @@ app.use('/team', teamRouter);
 app.use('/visual', visualRouter);
 app.use('/currentContest', currentContestRouter);
 app.use('/allContests', allContestsRouter);
+app.use('/question', questionRouter);
 
 // Serve static files
 app.use(express.static('build'));

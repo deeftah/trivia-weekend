@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Fab, Grid, Paper as Card, Typography } from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
 import Moment from 'react-moment';
+import Questions from './Questions';
 
 const styles = theme => ({
     root: {
@@ -30,6 +31,21 @@ const styles = theme => ({
         textAlign: 'right'
     },
     fab: {
+        margin: theme.spacing(1)
+    },
+    fabRed: {
+        backgroundColor: '#f56c64',
+        "&:hover": { backgroundColor: '#b05145'},
+        margin: theme.spacing(1)
+    },
+    fabYellow: {
+        backgroundColor: '#f7f78d',
+        "&:hover": { backgroundColor: '#abab61'},
+        margin: theme.spacing(1)
+    },
+    fabGreen: {
+        backgroundColor: '#55d685',
+        "&:hover": { backgroundColor: '#3fa163' },
         margin: theme.spacing(1)
     },
     sliderMinAndMaxNum: {
@@ -148,14 +164,17 @@ class HourSlider extends Component {
                 <br /><br />
                 <div style={{ textAlign: 'center' }}>
                     <Fab color="primary" className={classes.fab}>1</Fab>
-                    <Fab color="primary" className={classes.fab}>2</Fab>
-                    <Fab color="primary" className={classes.fab}>3</Fab>
-                    <Fab color="primary" className={classes.fab}>4</Fab>
+                    <Fab className={classes.fabRed}>2</Fab>
+                    <Fab className={classes.fabGreen}>3</Fab>
+                    <Fab className={classes.fabYellow}>4</Fab>
                     <Fab color="primary" className={classes.fab}>5</Fab>
                     <Fab color="primary" className={classes.fab}>6</Fab>
                     <Fab color="secondary" className={classes.fab}>7</Fab>
                     <Fab color="secondary" className={classes.fab}>8</Fab>
                     <Fab color="secondary" className={classes.fab}>9</Fab>
+                    <br/><br/>
+   
+                    <Questions slider={this.state.slider.sliderCurrentHour} contest={this.props.currentContest.id}/>
                 </div>
                 {/* Testing (current date):  {currentDate}
                 <br/><br/>

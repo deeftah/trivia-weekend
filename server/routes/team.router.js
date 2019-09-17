@@ -99,7 +99,7 @@ router.put('/accessId', (req, res) => {
 
 //TEAM NAME PUT
 router.put('/teamName', (req, res) => {
-    console.log('this is the teamName req.body', req.body);
+    console.log('this is the teamName req.body', req.user.team_id);
     const sqlText = `UPDATE "team"
                     SET "name" = $1
                     WHERE "id" = $2;`;
