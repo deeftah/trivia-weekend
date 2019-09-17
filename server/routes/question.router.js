@@ -13,12 +13,14 @@ router.get('/:contest', (req, res) => {
 
     let contestId = [contestAsArray[10]];
     let currentHour = [];
-    let lastIndex = 0
     let sqlContestId;
     let sqlCurrentHour;
 
     if (contestAsArray[11] >= 0 && contestAsArray[11] <= 9) {
         contestId.push(contestAsArray[11])
+    }
+    if (contestAsArray[24] >= 0 && contestAsArray[24] <= 9) {
+        currentHour.push(contestAsArray[24])
     }
     if (contestAsArray[25] >= 0 && contestAsArray[25] <= 9) {
         currentHour.push(contestAsArray[25])
@@ -26,9 +28,8 @@ router.get('/:contest', (req, res) => {
     if (contestAsArray[26] >= 0 && contestAsArray[26] <= 9) {
         currentHour.push(contestAsArray[26])
     }
-    if (contestAsArray[27] >= 0 && contestAsArray[27] <= 9) {
-        currentHour.push(contestAsArray[27])
-    }
+
+    console.log('THE CONTEST AS ARRAY', currentHour)
 
     if (contestId.length === 2) {
         let numOne = contestId[0]
@@ -38,7 +39,7 @@ router.get('/:contest', (req, res) => {
         sqlContestId = numAsStringOne + numAsStringTwo
         sqlContestId = Number(sqlContestId)
     } else if (contestId.length === 1) {
-        sqlContestId = contestId[0]
+        sqlContestId = Number(contestId[0])
     }
 
     if (currentHour.length === 2) {
@@ -48,9 +49,13 @@ router.get('/:contest', (req, res) => {
         let numAsStringTwo = numTwo.toString()
         sqlCurrentHour = numAsStringOne + numAsStringTwo
         sqlCurrentHour = Number(sqlCurrentHour)
-    } else if (contestId.length === 1) {
-        sqlCurrentHour = currentHour[0]
+    } else {
+        sqlCurrentHour = Number(currentHour[0])
     }
+
+    console.log('the sqlCurrentHour', sqlCurrentHour)
+    console.log('the initial current hour is', currentHour)
+    console.log('the sqlContestId', sqlContestId)
     
     const sqlText = `SELECT * FROM "questions"
                     WHERE "questions".contest_id = $1 AND "questions"."hour" = $2
