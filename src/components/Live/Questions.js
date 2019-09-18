@@ -18,22 +18,30 @@ const styles = theme => ({
         justifyContent: 'center'
     },
     fab: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(2),
+        fontSize: 22,
+        textAlign: 'center'
     },
     fabRed: {
         backgroundColor: '#f56c64',
         "&:hover": { backgroundColor: '#b05145' },
-        margin: theme.spacing(1)
+        margin: theme.spacing(2),
+        fontSize: 22,
+        textAlign: 'center',
     },
     fabYellow: {
         backgroundColor: '#f7f78d',
         "&:hover": { backgroundColor: '#abab61' },
-        margin: theme.spacing(1)
+        margin: theme.spacing(2),
+        fontSize: 22,
+        textAlign: 'center'
     },
     fabGreen: {
         backgroundColor: '#55d685',
         "&:hover": { backgroundColor: '#3fa163' },
-        margin: theme.spacing(1)
+        margin: theme.spacing(2),
+        fontSize: 22,
+        textAlign: 'center'
     }
 });
 
@@ -43,7 +51,8 @@ class Questions extends Component {
         currentHourContestData: {
             contestId: 0,
             currentHour: 0
-        }
+        },
+        ready: false
     }
 
     componentDidUpdate(prevProps) {
@@ -66,6 +75,9 @@ class Questions extends Component {
             console.log('FINAL CURRENT HOUR:', contest.currentHour)
             let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
             this.getCurrentHourQuestions(queryString)
+            this.setState({
+                ready: true
+            })
         }
     }
 
@@ -89,9 +101,9 @@ class Questions extends Component {
 
         let listOfQuestions = [];
 
-        // for (let i = 1; i <= numberOfQuestions; i++) {
-        //     listOfQuestions.push(i);
-        // }
+        for (let i = 1; i <= numberOfQuestions; i++) {
+            listOfQuestions.push(i);
+        }
 
         console.log('the contest being sent to Axios:', this.props.contest)
 
@@ -103,15 +115,70 @@ class Questions extends Component {
         //     if (question.question_number === undefined)
         // })
 
+        let fabClasses = []
+        let button = {}
+
+        if (this.props.question[0]) {
+            for (let i = 0; i < listOfQuestions.length; i++) {
+                /**
+                 * listOfQuestions, 0-8
+                 * this.props.question[0] = question 1
+                 * this.props.question[1] = question 2
+                 * this.props.question[2] = question 3
+                 * this.props.question[3] = question 4
+                 * this.props.question[4] = question 5
+                 * this.props.question[5] = question 6
+                 * this.props.question[6] = question 7
+                 * this.props.question[7] = question 9
+                 * 
+                 */
+
+                // find the question that is number "i+1"
+                let questionMatch = null;
+                for (let each of this.props.question) {
+                    if (each.question_number == i + 1) {
+                        questionMatch = each;
+                        break;
+                    }
+                }
+                if (questionMatch) {
+                    // found my question, set its color appropriately                    
+                    if (questionMatch.correct == null || questionMatch.correct == 'NULL') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabYellow })
+                        console.log('pushing yellow')
+                    } else if (questionMatch.correct == 'true') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabGreen })
+                        console.log('pushing green')
+                    } else if (questionMatch.correct == 'false') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabRed })
+                        console.log('pushing red')
+                    }
+                } else {
+                    // no question in the DB for i+1, so use default color
+                    fabClasses.push(button = { number: i + 1, color: classes.fab })
+                }
+            }
+        } else {
+            for (let each of listOfQuestions) {
+                fabClasses.push(button = { number: each, color: classes.fab })
+            }
+        }
+
+        let fabDisplay;
+
+        fabDisplay = (fabClasses.map((fab) => {
+            return <Fab key={fab.number} value={fab.number} className={fab.color}>{fab.number}</Fab>
+        }))
+        if (fabClasses.length > 0) {
+            console.log('and SERIOUSLY the fab classes are', fabClasses)
+        }
+
         return (
             <div>
+                {fabDisplay}
+                <br /><br />
                 {JSON.stringify(this.props.question)}
-                <br/><br/>
                 
-                <br/><br/>
-                The Questions will display here!
-                <br />
-                {this.props.slider}
             </div>
         )
 

@@ -8,10 +8,10 @@ router.get('/:contest', (req, res) => {
     let newContestId = ''
     let newContestHour = ''
 
-    let contestAsArray=[]
+    //ARRAY FOR REQ.BODY
+    let contestAsArray = []
     let ampersandIndex;
 
-    //ARRAY FOR REQ.BODY
     for (let each of req.params.contest) {
         contestAsArray.push(each)
         if (each == '&') {
@@ -27,8 +27,6 @@ router.get('/:contest', (req, res) => {
     }
 
     newContestId = Number(newContestId)
-
-    console.log('THE NEW CONTEST ID IS', newContestId)
 
     //LOGIC FOR CONTEST HOUR
     let hourNumOneIndex = contestAsArray.length - 2

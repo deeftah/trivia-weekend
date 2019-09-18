@@ -163,17 +163,6 @@ class HourSlider extends Component {
                 </Grid>
                 <br /><br />
                 <div style={{ textAlign: 'center' }}>
-                    <Fab color="primary" className={classes.fab}>1</Fab>
-                    <Fab className={classes.fabRed}>2</Fab>
-                    <Fab className={classes.fabGreen}>3</Fab>
-                    <Fab className={classes.fabYellow}>4</Fab>
-                    <Fab color="primary" className={classes.fab}>5</Fab>
-                    <Fab color="primary" className={classes.fab}>6</Fab>
-                    <Fab color="secondary" className={classes.fab}>7</Fab>
-                    <Fab color="secondary" className={classes.fab}>8</Fab>
-                    <Fab color="secondary" className={classes.fab}>9</Fab>
-                    <br/><br/>
-   
                     <Questions slider={this.state.slider.sliderCurrentHour} contest={this.props.currentContest.id} hourGetter={this.getHour()}/>
                 </div>
                 {/* Testing (current date):  {currentDate}
