@@ -81,21 +81,63 @@ class QuestionDetails extends Component {
         questionDetail: {
             pointValue: null,
             questionDescription: null,
-            answer: null,
             correct: null,
+            answer: null,
         }
     }
 
-    componentDidMount() {
-        this.getCurrentHourQuestions();
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.question !== prevProps.question || this.props.selection !== prevProps.selection) {
+            console.log('this is the props dot question', this.props.question)
+            this.setState({
+                questionDetail: {
+                    ...this.state.questionDetail,
+                    pointValue: this.setPointValue(),
+                    questionDescription: this.setQuestionDescription(),
+                    correct: this.setCorrect(),
+                    answer: this.setAnswer()
+                }
+            })
+        }
     }
 
-    getCurrentHourQuestions(contest) {
-        this.props.dispatch({
-            type: 'FETCH_CURRENT_HOUR_QUESTIONS',
-            payload: contest
-        })
+    setPointValue() {
+        if (this.props.question.length > 0) {
+            console.log('i am ready!', this.props.question[this.props.selection - 1].point_value)
+            return this.props.question[this.props.selection - 1].point_value
+        }
     }
+
+    setQuestionDescription() {
+        if (this.props.question.length > 0) {
+            console.log('i am ready!', this.props.question[this.props.selection - 1].question_description)
+            return this.props.question[this.props.selection - 1].question_description
+        }
+    }
+
+    setCorrect() {
+        if (this.props.question.length > 0) {
+            console.log('i am ready!', this.props.question[this.props.selection - 1].correct)
+            return this.props.question[this.props.selection - 1].correct
+        }
+    }
+
+    setAnswer() {
+        if (this.props.question.length > 0) {
+            console.log('i am ready!', this.props.question[this.props.selection - 1].answer)
+            return this.props.question[this.props.selection - 1].answer
+        }
+    }
+
+    // componentDidMount() {
+    //     this.setState({
+    //         questionDetail: {
+    //             ...this.state.questionDetail,
+    //             pointValue: this.props.question
+    //         }
+    //     });
+    // }
 
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
@@ -111,25 +153,8 @@ class QuestionDetails extends Component {
 
         const { classes } = this.props
 
-        // if (this.props.selection == null || undefined) {
-        //     this.setState({
-        //         questionIsValid: false
-        //     })
-        // } else {
-        //     this.setState({
-        //         questionIsValid: true
-        //     })
-        // }
-
         return (
             <div>
-                {/* {JSON.stringify(this.props.selection)} */}
-                {/* <h2>{this.props.question[0]}</h2> */}
-                {/* {this.props.selection && this.props.question[this.props.selection - 1].correct} */}
-
-                {/* {!this.props.question[this.props.selection - 1] && <div>Sorry, no question exists.</div>}
-                {this.props.question[this.props.selection - 1] && <div>Yes, a question exists!</div>} */}
-
                 <Grid container spacing={3} justify="center" style={{ marginTop: 5 }}>
                     <Grid item sm={5} align="left" >
                         <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
@@ -166,7 +191,8 @@ class QuestionDetails extends Component {
                                         }
                                     }}
                                     InputLabelProps={{
-                                        className: classes.input
+                                        className: classes.input,
+                                        shrink: true 
                                     }}
                                 />
                             </CardContent>
@@ -197,7 +223,8 @@ class QuestionDetails extends Component {
                                         }
                                     }}
                                     InputLabelProps={{
-                                        className: classes.input
+                                        className: classes.input,
+                                        shrink: true 
                                     }}
                                 />
                             </CardContent>
@@ -232,6 +259,7 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
+                                        shrink: true 
                                     }}
                                 >
                                     <MenuItem key={'null'} value={null} className={classes.status}>
@@ -272,7 +300,8 @@ class QuestionDetails extends Component {
                                         }
                                     }}
                                     InputLabelProps={{
-                                        className: classes.input
+                                        className: classes.input,
+                                        shrink: true 
                                     }}
                                 />
                             </CardContent>

@@ -53,7 +53,7 @@ class Questions extends Component {
             contestId: 0,
             currentHour: 0
         },
-        selectedQuestion: null
+        selectedQuestion: 1
     }
 
     componentDidUpdate(prevProps) {
@@ -100,11 +100,7 @@ class Questions extends Component {
                     selectedQuestion: value
                 }
                 )}
-            else {
-                this.setState({
-                    selectedQuestion: null
-                })
-            }
+        
             }
             console.log('the SELECTED QUESTION STATE', this.state.selectedQuestion)
         }
@@ -117,24 +113,11 @@ class Questions extends Component {
 
                 let currentHour = this.props.slider
 
-                console.log('number of questions is', numberOfQuestions)
-                console.log('current hour is', currentHour)
-
                 let listOfQuestions = [];
 
                 for (let i = 1; i <= numberOfQuestions; i++) {
                     listOfQuestions.push(i);
                 }
-
-                console.log('the contest being sent to Axios:', this.props.contest)
-
-                console.log('the list of questions is', listOfQuestions)
-
-                console.log('the question details', this.props.question.question_description)
-
-                // let questionFabs = this.props.question.map(question => {
-                //     if (question.question_number === undefined)
-                // })
 
                 let fabClasses = []
                 let button = {}
@@ -181,7 +164,6 @@ class Questions extends Component {
                     <div>
                         <h2>Select a Question</h2>
                         {fabDisplay}
-                        <br /><br />
                         <QuestionDetails contest={this.state.currentHourContestData} selection={this.state.selectedQuestion} />
                     </div>
                 )
