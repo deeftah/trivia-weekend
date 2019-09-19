@@ -77,6 +77,13 @@ const styles = theme => ({
             borderColor: "white"
         }
     },
+    questionLabel: {
+        fontSize: 28,
+        color: theme.palette.primary.main
+    },
+    primary: {
+        color: theme.palette.primary.main
+    }
 });
 
 class QuestionDetails extends Component {
@@ -221,7 +228,7 @@ class QuestionDetails extends Component {
                          </Button>}
                     </Grid>
                     <Grid item sm={2} align="center" >
-                        <h2>Question {this.state.questionDetail.questionNumber}</h2>
+                        <span className={classes.questionLabel}>Question {this.state.questionDetail.questionNumber}</span>
                     </Grid>
                     <Grid item sm={5} align="right" >
                         <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
@@ -232,7 +239,7 @@ class QuestionDetails extends Component {
                     <Grid item sm={2} align="right" >
                         <Card className={classes.card}>
                             <CardContent>
-                                {!this.state.toggleEdit && <b>Points</b>}
+                                {!this.state.toggleEdit && <span className={classes.primary}><b>Points</b></span>}
                                 {!this.state.toggleEdit && <br/>}
                                 <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.pointValue}</span>
                                 {this.state.toggleEdit &&
@@ -265,7 +272,7 @@ class QuestionDetails extends Component {
                     <Grid item sm={10} align="center" >
                         <Card className={classes.card}>
                             <CardContent>
-                                {!this.state.toggleEdit && <b>Question</b>}
+                                {!this.state.toggleEdit && <span className={classes.primary}><b>Question</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.questionDescription}</span>
                                 {this.state.toggleEdit &&
@@ -301,7 +308,7 @@ class QuestionDetails extends Component {
                     <Grid item sm={3} align="left" >
                         <Card className={classes.card}>
                             <CardContent>
-                                {!this.state.toggleEdit && <b>Correct?</b>}
+                                {!this.state.toggleEdit && <span className={classes.primary}><b>Correct?</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.correct}</span>
                                 {this.state.toggleEdit &&
@@ -350,7 +357,7 @@ class QuestionDetails extends Component {
                     <Grid item sm={9} align="left">
                         <Card className={classes.card}>
                             <CardContent>
-                                {!this.state.toggleEdit && <b>Answer</b>}
+                                {!this.state.toggleEdit && <span className={classes.primary}><b>Answer</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.answer}</span>
                                 {this.state.toggleEdit &&

@@ -43,6 +43,9 @@ const styles = theme => ({
         margin: theme.spacing(2),
         fontSize: 22,
         textAlign: 'center'
+    },
+    selectQuestion: {
+        fontSize: 22
     }
 });
 
@@ -157,7 +160,8 @@ class Questions extends Component {
 
                 return (
                     <div>
-                        <h2>Select a Question</h2>
+                        <span className={classes.selectQuestion}>Select a Question</span>
+                        <br/>
                         {fabDisplay}
                         <QuestionDetails contest={this.state.currentHourContestData} selection={this.state.selectedQuestion} />
                     </div>
