@@ -79,12 +79,14 @@ class QuestionDetails extends Component {
     state = {
         questionIsValid: false,
         questionDetail: {
+            questionId: null,
             questionNumber: null,
             pointValue: null,
             questionDescription: null,
             correct: null,
             answer: null,
-        }
+        },
+        toggleEdit: false
     }
 
     componentDidUpdate(prevProps) {
@@ -97,7 +99,8 @@ class QuestionDetails extends Component {
                 this.setState({
                     questionDetail: {
                         ...this.state.questionDetail,
-                        questionNumber: question.question_number ? question.question_number : '',
+                        questionId: question.id,
+                        questionNumber: this.props.selection,
                         pointValue: question.point_value ? question.point_value : '',
                         questionDescription: question.question_description ? question.question_description : '',
                         correct: question.correct ? question.correct : '',
@@ -107,10 +110,11 @@ class QuestionDetails extends Component {
             } else {
                 console.log('question does not exist', this.props.selection)
                 this.setState({
-                    questiondetail: {
+                    questionDetail: {
                         ...this.state.questionDetail,
+                        questionId: '',
                         questionNumber: this.props.selection,
-                        ponitValue: '',
+                        pointValue: '',
                         questionDescription: '',
                         correct: '',
                         answer: ''
@@ -138,7 +142,18 @@ class QuestionDetails extends Component {
                 [propertyName]: event.target.value
             }
         });
-        console.log('user edits:', propertyName)
+        console.log('user edits:', event.target.value)
+    }
+
+    handleEdit = (id) => {
+        this.setState({
+            toggleEdit: !this.state.toggleEdit,
+            questionDetail: {
+                ...this.state.questionDetail,
+                questionId: id.id
+            }
+        })
+        console.log('the handle edit process produced QUESTION ID:', this.state.questionDetail.questionId)
     }
 
     render() {
@@ -147,9 +162,10 @@ class QuestionDetails extends Component {
 
         return (
             <div>
+                {JSON.stringify(this.props.contest)}
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
-                        <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
+                        <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Edit style={{ marginRight: 3 }} />Edit
                          </Button>
                     </Grid>
