@@ -99,7 +99,10 @@ class CountDown extends Component {
                 secondsWord = 'seconds'
             }
 
-            if (completed) {
+            if(this.props.currentContest.id == null) {
+                return `Visit the Admin page and create your first contest.  Then come back here for a countdown to the contest!`
+            }
+            else if (completed) {
                 // Render a completed state
                 return <Completionist />
             } else {

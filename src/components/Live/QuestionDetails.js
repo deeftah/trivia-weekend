@@ -11,7 +11,6 @@ const styles = theme => ({
         flexGrow: 1,
     },
     card: {
-
         textAlign: 'center',
         background: '#494A49',
         color: 'white',
@@ -118,7 +117,8 @@ class QuestionDetails extends Component {
                         questionDescription: '',
                         correct: '',
                         answer: ''
-                    }
+                    },
+                    toggleEdit: false,
                 })
             }
         } else {
@@ -130,9 +130,9 @@ class QuestionDetails extends Component {
         for (let each of this.props.question) {
             if (each.question_number == number) {
                 return each;
-
             }
         }
+        return null;
     }
 
     handleChangeFor = (propertyName) => (event) => {
@@ -146,14 +146,30 @@ class QuestionDetails extends Component {
     }
 
     handleEdit = (id) => {
-        this.setState({
-            toggleEdit: !this.state.toggleEdit,
-            questionDetail: {
-                ...this.state.questionDetail,
-                questionId: id.id
-            }
-        })
+        if (id == null) {
+            this.setState({
+                toggleEdit: !this.state.toggleEdit,
+                questionDetail: {
+                    ...this.state.questionDetail,
+                    questionId: id
+                }
+            })
+        } else {
+            this.setState({
+                toggleEdit: !this.state.toggleEdit,
+                questionDetail: {
+                    ...this.state.questionDetail,
+                    questionId: id.id
+                }
+            })
+        }
         console.log('the handle edit process produced QUESTION ID:', this.state.questionDetail.questionId)
+    }
+
+    toggleEdit = () => {
+        this.setState({
+            toggleEdit: !this.state.toggleEdit
+        })
     }
 
     render() {
@@ -162,12 +178,17 @@ class QuestionDetails extends Component {
 
         return (
             <div>
-                {JSON.stringify(this.props.contest)}
+                {/* {JSON.stringify(this.props.contest)} */}
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
+                        {!this.state.toggleEdit &&
                         <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Edit style={{ marginRight: 3 }} />Edit
-                         </Button>
+                         </Button>}
+                        {this.state.toggleEdit &&
+                            <Button color="secondary" onClick={this.toggleEdit} style={{ marginRight: 20, marginLeft: 0 }}>
+                                <Cancel style={{ marginRight: 3 }} />Cancel
+                         </Button>}
                     </Grid>
                     <Grid item sm={2} align="center" >
                         <h2>Question {this.state.questionDetail.questionNumber}</h2>
@@ -181,28 +202,32 @@ class QuestionDetails extends Component {
                     <Grid item sm={2} align="right" >
                         <Card className={classes.card}>
                             <CardContent>
-                                <TextField
-                                    align="left"
-                                    id="outlined-name"
-                                    label="points"
-                                    className={classes.score}
-                                    value={this.state.questionDetail.pointValue}
-                                    onChange={this.handleChangeFor('pointValue')}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input,
-                                        classes: {
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                    InputLabelProps={{
-                                        className: classes.input,
-                                        shrink: true
-                                    }}
-                                />
+                                {!this.state.toggleEdit && <b>Points</b>}
+                                {!this.state.toggleEdit && <br/>}
+                                {!this.state.toggleEdit && this.state.questionDetail.pointValue}
+                                {this.state.toggleEdit &&
+                                    <TextField
+                                        align="left"
+                                        id="outlined-name"
+                                        label="points"
+                                        className={classes.score}
+                                        value={this.state.questionDetail.pointValue}
+                                        onChange={this.handleChangeFor('pointValue')}
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{
+                                            className: classes.input,
+                                            classes: {
+                                                root: classes.cssOutlinedInput,
+                                                focused: classes.cssFocused,
+                                                notchedOutline: classes.notchedOutline,
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            className: classes.input,
+                                            shrink: true
+                                        }}
+                                    />}
                             </CardContent>
                         </Card>
                     </Grid>
@@ -210,34 +235,35 @@ class QuestionDetails extends Component {
                     <Grid item sm={10} align="center" >
                         <Card className={classes.card}>
                             <CardContent>
-                                <TextField
-                                    align="left"
-                                    id="outlined-multiline-flexible"
-                                    label="question"
-                                    color="white"
-                                    multiline
-                                    rowsMax="10"
-                                    value={this.state.questionDetail.questionDescription}
-                                    onChange={this.handleChangeFor('questionDescription')}
-                                    className={classes.question}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input,
-                                        classes: {
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                    InputLabelProps={{
-                                        className: classes.input,
-                                        shrink: true,
-                                        "&focused": {
-                                            color: "tomato"
-                                        }
-                                    }}
-                                />
+                                {!this.state.toggleEdit && <b>Question</b>}
+                                {!this.state.toggleEdit && <br />}
+                                {!this.state.toggleEdit && this.state.questionDetail.questionDescription}
+                                {this.state.toggleEdit &&
+                                    <TextField
+                                        align="left"
+                                        id="outlined-multiline-flexible"
+                                        label="question"
+                                        color="white"
+                                        multiline
+                                        rowsMax="10"
+                                        value={this.state.questionDetail.questionDescription}
+                                        onChange={this.handleChangeFor('questionDescription')}
+                                        className={classes.question}
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{
+                                            className: classes.input,
+                                            classes: {
+                                                root: classes.cssOutlinedInput,
+                                                focused: classes.cssFocused,
+                                                notchedOutline: classes.notchedOutline,
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            className: classes.input,
+                                            shrink: true,
+                                        }}
+                                    />}
                             </CardContent>
                         </Card>
                     </Grid>
@@ -245,76 +271,84 @@ class QuestionDetails extends Component {
                     <Grid item sm={3} align="left" >
                         <Card className={classes.card}>
                             <CardContent>
-                                <TextField
-                                    align="left"
-                                    id="outlined-name"
-                                    select
-                                    label="status"
-                                    className={classes.status}
-                                    value={this.state.questionDetail.correct}
-                                    onChange={this.handleChangeFor('correct')}
-                                    SelectProps={{
-                                        MenuProps: {
-                                            className: classes.status,
-                                        },
-                                    }}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input,
-                                        classes: {
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                    InputLabelProps={{
-                                        className: classes.input,
-                                        shrink: true
-                                    }}
-                                >
-                                    <MenuItem key={'null'} value={null} className={classes.status}>
-                                        n/a
+                                {!this.state.toggleEdit && <b>Correct?</b>}
+                                {!this.state.toggleEdit && <br />}
+                                {!this.state.toggleEdit && this.state.questionDetail.correct}
+                                {this.state.toggleEdit &&
+                                    <TextField
+                                        align="left"
+                                        id="outlined-name"
+                                        select
+                                        label="status"
+                                        className={classes.status}
+                                        value={this.state.questionDetail.correct}
+                                        onChange={this.handleChangeFor('correct')}
+                                        SelectProps={{
+                                            MenuProps: {
+                                                className: classes.status,
+                                            },
+                                        }}
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{
+                                            className: classes.input,
+                                            classes: {
+                                                root: classes.cssOutlinedInput,
+                                                focused: classes.cssFocused,
+                                                notchedOutline: classes.notchedOutline,
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            className: classes.input,
+                                            shrink: true
+                                        }}
+                                    >
+                                        <MenuItem key={'null'} value={null} className={classes.status}>
+                                            n/a
                                     </MenuItem>
-                                    <MenuItem key={'correct'} value={true} className={classes.status}>
-                                        correct
+                                        <MenuItem key={'correct'} value={true} className={classes.status}>
+                                            correct
                                     </MenuItem>
-                                    <MenuItem key={'incorrect'} value={false} className={classes.status}>
-                                        incorrect
+                                        <MenuItem key={'incorrect'} value={false} className={classes.status}>
+                                            incorrect
                                     </MenuItem>
 
-                                </TextField>
+                                    </TextField>}
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item sm={9} align="left">
                         <Card className={classes.card}>
                             <CardContent>
-                                <TextField
-                                    align="left"
-                                    id="outlined-multiline-flexible"
-                                    label="answer"
-                                    color="white"
-                                    multiline
-                                    rowsMax="10"
-                                    value={this.state.questionDetail.answer}
-                                    onChange={this.handleChangeFor('answer')}
-                                    className={classes.answer}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input,
-                                        classes: {
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline,
-                                        }
-                                    }}
-                                    InputLabelProps={{
-                                        className: classes.input,
-                                        shrink: true
-                                    }}
-                                />
+                                {!this.state.toggleEdit && <b>Answer</b>}
+                                {!this.state.toggleEdit && <br />}
+                                {!this.state.toggleEdit && this.state.questionDetail.answer}
+                                {this.state.toggleEdit &&
+                                    <TextField
+                                        align="left"
+                                        id="outlined-multiline-flexible"
+                                        label="answer"
+                                        color="white"
+                                        multiline
+                                        rowsMax="10"
+                                        value={this.state.questionDetail.answer}
+                                        onChange={this.handleChangeFor('answer')}
+                                        className={classes.answer}
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputProps={{
+                                            className: classes.input,
+                                            classes: {
+                                                root: classes.cssOutlinedInput,
+                                                focused: classes.cssFocused,
+                                                notchedOutline: classes.notchedOutline,
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            className: classes.input,
+                                            shrink: true
+                                        }}
+                                    />}
                             </CardContent>
                         </Card>
                     </Grid>
