@@ -129,7 +129,7 @@ class Questions extends Component {
                         }
                         if (questionMatch) {
                             // found my question, set its color appropriately                    
-                            if (questionMatch.correct == null || questionMatch.correct == 'NULL') {
+                            if (questionMatch.correct == null || questionMatch.correct == 'NULL' || questionMatch.correct == '') {
                                 fabClasses.push(button = { number: i + 1, color: classes.fabYellow })
                                 console.log('pushing yellow')
                             } else if (questionMatch.correct == 'true') {

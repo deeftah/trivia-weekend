@@ -54,4 +54,33 @@ router.get('/:contest', (req, res) => {
         })
 });
 
+router.post('/', (req, res) => {
+    console.log('the question req.body', req.body);
+    req.body.pointValue = Number(req.body.pointValue)
+    const sqlText = `INSERT INTO "questions" ("point_value", "question_description", "correct", "answer", "contest_id", "hour", "question_number") VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    pool.query(sqlText, [req.body.pointValue, req.body.questionDescription, req.body.correct, req.body.answer, req.body.contestId, req.body.questionHour, req.body.questionNumber])
+        .then(result => {
+            console.log('the response here is', result)
+            res.sendStatus(201)
+        })
+        .catch(error => {
+            res.sendStatus(500)
+        })
+})
+
+//VISUAL DATA POST (ADD IMAGE URL TO GALLERY)
+router.post('/', (req, res) => {
+    console.log('the req.body for the visual POST is:', req.body);
+    const sqlText = `INSERT INTO "visual" ("image_number", "url", "contest_id")
+    VALUES ($1, $2, $3);`;
+    pool.query(sqlText, [req.body.visualNumber, req.body.url, req.body.contestId])
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
+
 module.exports = router;

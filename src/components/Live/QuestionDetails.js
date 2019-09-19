@@ -53,6 +53,12 @@ const styles = theme => ({
             borderColor: "white"
         }
     },
+    pointsCorrectFormat: {
+        fontSize: 36
+    },
+    questionAnswerFormat: {
+        fontSize: 20
+    },
     status: {
         width: 200,
         '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
@@ -84,6 +90,8 @@ class QuestionDetails extends Component {
             questionDescription: null,
             correct: null,
             answer: null,
+            contestId: this.props.contest.contestId,
+            questionHour: this.props.contest.currentHour
         },
         toggleEdit: false
     }
@@ -103,7 +111,9 @@ class QuestionDetails extends Component {
                         pointValue: question.point_value ? question.point_value : '',
                         questionDescription: question.question_description ? question.question_description : '',
                         correct: question.correct ? question.correct : '',
-                        answer: question.answer ? question.answer : ''
+                        answer: question.answer ? question.answer : '',
+                        contestId: this.props.contest.contestId,
+                        questionHour: this.props.contest.currentHour
                     }
                 })
             } else {
@@ -151,7 +161,8 @@ class QuestionDetails extends Component {
                 toggleEdit: !this.state.toggleEdit,
                 questionDetail: {
                     ...this.state.questionDetail,
-                    questionId: id
+                    questionId: id,
+                    questionHour: this.props.contest.currentHour
                 }
             })
         } else {
@@ -159,14 +170,30 @@ class QuestionDetails extends Component {
                 toggleEdit: !this.state.toggleEdit,
                 questionDetail: {
                     ...this.state.questionDetail,
-                    questionId: id.id
+                    questionId: id.id,
+                    questionHour: this.props.contest.currentHour
                 }
             })
         }
-        console.log('the handle edit process produced QUESTION ID:', this.state.questionDetail.questionId)
     }
 
     toggleEdit = () => {
+        this.setState({
+            toggleEdit: !this.state.toggleEdit
+        })
+    }
+
+    handleSave = () => {
+        this.setState({
+            questionDetail: {
+                questionHour: this.props.contest.currentHour
+            }
+        })
+        console.log('THE HANDLE SAVE STATE is:', this.props.contest)
+        this.props.dispatch({
+            type: 'ADD_OR_UPDATE_QUESTION',
+            payload: this.state.questionDetail
+        })
         this.setState({
             toggleEdit: !this.state.toggleEdit
         })
@@ -178,7 +205,7 @@ class QuestionDetails extends Component {
 
         return (
             <div>
-                {/* {JSON.stringify(this.props.contest)} */}
+                {JSON.stringify(this.props.contest)}
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
                         {!this.state.toggleEdit &&
@@ -188,6 +215,10 @@ class QuestionDetails extends Component {
                         {this.state.toggleEdit &&
                             <Button color="secondary" onClick={this.toggleEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Cancel style={{ marginRight: 3 }} />Cancel
+                         </Button>}
+                        {this.state.toggleEdit &&
+                            <Button color="primary" onClick={this.handleSave} style={{ marginRight: 20, marginLeft: 0 }}>
+                                <Save style={{ marginRight: 3 }} />Save
                          </Button>}
                     </Grid>
                     <Grid item sm={2} align="center" >
@@ -204,7 +235,7 @@ class QuestionDetails extends Component {
                             <CardContent>
                                 {!this.state.toggleEdit && <b>Points</b>}
                                 {!this.state.toggleEdit && <br/>}
-                                {!this.state.toggleEdit && this.state.questionDetail.pointValue}
+                                <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.pointValue}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
                                         align="left"
@@ -237,7 +268,7 @@ class QuestionDetails extends Component {
                             <CardContent>
                                 {!this.state.toggleEdit && <b>Question</b>}
                                 {!this.state.toggleEdit && <br />}
-                                {!this.state.toggleEdit && this.state.questionDetail.questionDescription}
+                                <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.questionDescription}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
                                         align="left"
@@ -273,7 +304,7 @@ class QuestionDetails extends Component {
                             <CardContent>
                                 {!this.state.toggleEdit && <b>Correct?</b>}
                                 {!this.state.toggleEdit && <br />}
-                                {!this.state.toggleEdit && this.state.questionDetail.correct}
+                                <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.correct}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
                                         align="left"
@@ -322,7 +353,7 @@ class QuestionDetails extends Component {
                             <CardContent>
                                 {!this.state.toggleEdit && <b>Answer</b>}
                                 {!this.state.toggleEdit && <br />}
-                                {!this.state.toggleEdit && this.state.questionDetail.answer}
+                                <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.answer}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
                                         align="left"
