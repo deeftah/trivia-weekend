@@ -94,14 +94,9 @@ class Questions extends Component {
 
     handleFabClick = (value) => {
         console.log('the fab value is', value)
-        for (let each of this.props.question) {
-            if (each.question_number == value) {
-                this.setState({
-                    selectedQuestion: value
-                }
-                )}
-        
-            }
+        this.setState({
+            selectedQuestion: value
+        })
             console.log('the SELECTED QUESTION STATE', this.state.selectedQuestion)
         }
 

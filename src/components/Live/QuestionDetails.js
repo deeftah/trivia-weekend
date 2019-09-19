@@ -90,52 +90,44 @@ class QuestionDetails extends Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.question !== prevProps.question || this.props.selection !== prevProps.selection) {
-            console.log('this is the props dot question', this.props.question)
-            this.setState({
-                questionDetail: {
-                    ...this.state.questionDetail,
-                    questionNumber: this.setQuestionNumber(),
-                    pointValue: this.setPointValue(),
-                    questionDescription: this.setQuestionDescription(),
-                    correct: this.setCorrect(),
-                    answer: this.setAnswer()
-                }
-            })
+            let question = this.getQuestion(this.props.selection)
+            if (question) {
+                console.log('this is the props dot question', this.props.question)
+                console.log('question', question)
+                this.setState({
+                    questionDetail: {
+                        ...this.state.questionDetail,
+                        questionNumber: question.question_number ? question.question_number : '',
+                        pointValue: question.point_value ? question.point_value : '',
+                        questionDescription: question.question_description ? question.question_description : '',
+                        correct: question.correct ? question.correct : '',
+                        answer: question.answer ? question.answer : ''
+                    }
+                })
+            } else {
+                console.log('question does not exist', this.props.selection)
+                this.setState({
+                    questiondetail: {
+                        ...this.state.questionDetail,
+                        questionNumber: this.props.selection,
+                        ponitValue: '',
+                        questionDescription: '',
+                        correct: '',
+                        answer: ''
+                    }
+                })
+            }
+        } else {
+            console.log('else the question still do not work')
         }
     }
 
-    setQuestionNumber() {
-        if (this.props.question.length > 0) {
-            console.log('i am ready!', this.props.question[this.props.selection - 1].question_number)
-            return this.props.question[this.props.selection - 1].question_number
-        }
-    }
+    getQuestion(number) {
+        for (let each of this.props.question) {
+            if (each.question_number == number) {
+                return each;
 
-    setPointValue() {
-        if (this.props.question.length > 0) {
-            console.log('i am ready!', this.props.question[this.props.selection - 1].point_value)
-            return this.props.question[this.props.selection - 1].point_value
-        }
-    }
-
-    setQuestionDescription() {
-        if (this.props.question.length > 0) {
-            console.log('i am ready!', this.props.question[this.props.selection - 1].question_description)
-            return this.props.question[this.props.selection - 1].question_description
-        }
-    }
-
-    setCorrect() {
-        if (this.props.question.length > 0) {
-            console.log('i am ready!', this.props.question[this.props.selection - 1].correct)
-            return this.props.question[this.props.selection - 1].correct
-        }
-    }
-
-    setAnswer() {
-        if (this.props.question.length > 0) {
-            console.log('i am ready!', this.props.question[this.props.selection - 1].answer)
-            return this.props.question[this.props.selection - 1].answer
+            }
         }
     }
 
@@ -192,7 +184,7 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
-                                        shrink: true 
+                                        shrink: true
                                     }}
                                 />
                             </CardContent>
@@ -224,9 +216,10 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
-                                        shrink: true ,
+                                        shrink: true,
                                         "&focused": {
-                                            color: "tomato"}
+                                            color: "tomato"
+                                        }
                                     }}
                                 />
                             </CardContent>
@@ -261,7 +254,7 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
-                                        shrink: true 
+                                        shrink: true
                                     }}
                                 >
                                     <MenuItem key={'null'} value={null} className={classes.status}>
@@ -303,7 +296,7 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
-                                        shrink: true 
+                                        shrink: true
                                     }}
                                 />
                             </CardContent>
