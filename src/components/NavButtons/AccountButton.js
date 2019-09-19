@@ -30,7 +30,7 @@ export default function AccountButton(name) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} component={Link} to="/profile">Profile</MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/profile">Settings</MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/main">Logout</MenuItem>
             </Menu>
         </>
