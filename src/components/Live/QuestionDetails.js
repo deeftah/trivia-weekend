@@ -205,7 +205,6 @@ class QuestionDetails extends Component {
 
         return (
             <div>
-                {JSON.stringify(this.props.contest)}
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
                         {!this.state.toggleEdit &&

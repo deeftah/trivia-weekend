@@ -68,19 +68,20 @@ router.post('/', (req, res) => {
         })
 })
 
-//VISUAL DATA POST (ADD IMAGE URL TO GALLERY)
-router.post('/', (req, res) => {
-    console.log('the req.body for the visual POST is:', req.body);
-    const sqlText = `INSERT INTO "visual" ("image_number", "url", "contest_id")
-    VALUES ($1, $2, $3);`;
-    pool.query(sqlText, [req.body.visualNumber, req.body.url, req.body.contestId])
+router.put('/', (req, res) => {
+    console.log('the question req.body PUT', req.body);
+    req.body.pointValue = Number(req.body.pointValue)
+    const sqlText = `UPDATE "questions"
+                    SET "point_value" = $1, "question_description" = $2, "correct" = $3, "answer" = $4
+                    WHERE "questions".id = $5;`;
+    pool.query(sqlText, [req.body.pointValue, req.body.questionDescription, req.body.correct, req.body.answer, req.body.questionId])
         .then(result => {
-            res.sendStatus(201);
+            console.log('the response here is', result)
+            res.sendStatus(200)
         })
         .catch(error => {
-            res.sendStatus(500);
+            res.sendStatus(500)
         })
 })
-
 
 module.exports = router;

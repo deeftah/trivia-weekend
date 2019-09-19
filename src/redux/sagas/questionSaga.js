@@ -33,6 +33,19 @@ function* addOrUpdateQuestion(action) {
                 type: 'FETCH_CURRENT_HOUR_QUESTIONS',
                 payload: queryString
             })
+        } else {
+            let addOrUpdateQuestionResponse = yield axios.put(`/question`, action.payload)
+            console.log('question PUT saga response!', addOrUpdateQuestionResponse)
+            let contest = {
+                contestId: question.contestId,
+                currentHour: question.questionHour
+            }
+            let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
+            console.log('the saga query string is', queryString)
+            yield put({
+                type: 'FETCH_CURRENT_HOUR_QUESTIONS',
+                payload: queryString
+            })
         }
     } catch (err) {
         console.log('error in ADD OR UPDATE QUESTION', err)
