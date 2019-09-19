@@ -4,6 +4,15 @@ import { withTheme } from '@material-ui/styles';
 
 // Custom Theme for Trivia Weekend
 const theme = createMuiTheme({
+    overrides: {
+        MuiFormLabel: {
+            root: {
+                "&$focused": {
+                    color: '#55d685'
+                }
+            }
+        }
+    },
     palette: {
         primary: {
             main: '#55d685',
@@ -12,7 +21,7 @@ const theme = createMuiTheme({
             main: '#fff',
         },
         success: {
-            main: '#f7f78d',
+            main: '#55d685',
         },
         error: {
             main: red.A400,

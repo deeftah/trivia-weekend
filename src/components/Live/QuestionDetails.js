@@ -79,6 +79,7 @@ class QuestionDetails extends Component {
     state = {
         questionIsValid: false,
         questionDetail: {
+            questionNumber: null,
             pointValue: null,
             questionDescription: null,
             correct: null,
@@ -93,12 +94,20 @@ class QuestionDetails extends Component {
             this.setState({
                 questionDetail: {
                     ...this.state.questionDetail,
+                    questionNumber: this.setQuestionNumber(),
                     pointValue: this.setPointValue(),
                     questionDescription: this.setQuestionDescription(),
                     correct: this.setCorrect(),
                     answer: this.setAnswer()
                 }
             })
+        }
+    }
+
+    setQuestionNumber() {
+        if (this.props.question.length > 0) {
+            console.log('i am ready!', this.props.question[this.props.selection - 1].question_number)
+            return this.props.question[this.props.selection - 1].question_number
         }
     }
 
@@ -130,15 +139,6 @@ class QuestionDetails extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.setState({
-    //         questionDetail: {
-    //             ...this.state.questionDetail,
-    //             pointValue: this.props.question
-    //         }
-    //     });
-    // }
-
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             questionDetail: {
@@ -155,14 +155,14 @@ class QuestionDetails extends Component {
 
         return (
             <div>
-                <Grid container spacing={3} justify="center" style={{ marginTop: 5 }}>
+                <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
                         <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
                             <Edit style={{ marginRight: 3 }} />Edit
                          </Button>
                     </Grid>
                     <Grid item sm={2} align="center" >
-                        Correct/Incorrect
+                        <h2>Question {this.state.questionDetail.questionNumber}</h2>
                     </Grid>
                     <Grid item sm={5} align="right" >
                         <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
@@ -224,7 +224,9 @@ class QuestionDetails extends Component {
                                     }}
                                     InputLabelProps={{
                                         className: classes.input,
-                                        shrink: true 
+                                        shrink: true ,
+                                        "&focused": {
+                                            color: "tomato"}
                                     }}
                                 />
                             </CardContent>
