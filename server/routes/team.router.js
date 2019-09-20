@@ -54,6 +54,7 @@ router.put('/users', (req, res) => {
 
 //TEAM IMAGE PUT
 router.put('/image', (req, res) => {
+    console.log('the image put req.body is', req.body)
     const sqlText = `UPDATE "team"
     SET "logo_url" = $1
     WHERE "id" = $2;`;
