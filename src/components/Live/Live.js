@@ -30,9 +30,30 @@ const styles = theme => ({
     h1: {
         textAlign: 'right'
     },
+    currentScore: {
+        fontSize: 20
+    }
 });
 
 class Live extends Component {
+
+    state = {
+        pointTotal: null
+    }
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.currentContest !== prevProps.currentContest) {
+            this.getPointTotal(this.props.currentContest.id)
+        }
+    }
+
+    getPointTotal = (value) => {
+        this.props.dispatch({
+            type: 'FETCH_POINT_TOTAL',
+            payload: value
+        })
+    }
 
     componentDidMount() {
         this.getContestDetails();
@@ -52,9 +73,16 @@ class Live extends Component {
         return (
 
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
-                <h1 className={classes.h1}>Live<Radio className={classes.icon} /></h1>
+                <div>
                 <Grid container spacing={3}>
-                    <HourSlider/>
+                    <Grid item xs={12} align="right">
+                        <h1 className={classes.h1}>Live<Radio className={classes.icon} /></h1>
+                        <span className={classes.currentScore}>Current Score: {this.props.pointTotal.sum}</span>
+                    </Grid>
+                </Grid>
+                </div>
+                <Grid container spacing={3}>
+                    <HourSlider getPointTotal={this.getPointTotal} />
                 </Grid>
             </div >
         )
@@ -66,7 +94,8 @@ class Live extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     team: state.team,
-    currentContest: state.currentContest
+    currentContest: state.currentContest,
+    pointTotal: state.pointTotal
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Live)));

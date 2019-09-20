@@ -7,6 +7,7 @@ import visualSaga from './visualSaga';
 import currentContestSaga from './currentContestSaga';
 import allContestsSaga from './allContestsSaga';
 import questionSaga from './questionSaga';
+import pointTotalSaga from './pointTotalSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -24,6 +25,7 @@ export default function* rootSaga() {
     visualSaga(),
     currentContestSaga(),
     allContestsSaga(),
-    questionSaga()
+    questionSaga(),
+    pointTotalSaga(),
   ]);
 }

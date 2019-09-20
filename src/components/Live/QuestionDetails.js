@@ -82,7 +82,8 @@ const styles = theme => ({
         color: theme.palette.primary.main
     },
     primary: {
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+        fontSize: 20
     }
 });
 
@@ -121,7 +122,7 @@ class QuestionDetails extends Component {
                         answer: question.answer ? question.answer : '',
                         contestId: this.props.contest.contestId,
                         questionHour: this.props.contest.currentHour
-                    }
+                    },
                 })
             } else {
                 console.log('question does not exist', this.props.selection)
@@ -206,6 +207,17 @@ class QuestionDetails extends Component {
         })
     }
 
+    convertCorrect = (value) => {
+        console.log('we are hitting the function!', value)
+        if (value == 'true') {
+            return 'correct'
+        } else if (value == 'false') {
+            return 'incorrect'
+        } else {
+            return ''
+        }
+    }
+
     render() {
 
         const { classes } = this.props
@@ -215,8 +227,8 @@ class QuestionDetails extends Component {
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
                         {!this.state.toggleEdit &&
-                        <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
-                            <Edit style={{ marginRight: 3 }} />Edit
+                            <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
+                                <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                         {this.state.toggleEdit &&
                             <Button color="secondary" onClick={this.toggleEdit} style={{ marginRight: 20, marginLeft: 0 }}>
@@ -231,16 +243,16 @@ class QuestionDetails extends Component {
                         <span className={classes.questionLabel}>Question {this.state.questionDetail.questionNumber}</span>
                     </Grid>
                     <Grid item sm={5} align="right" >
-                        <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
+                        {/* <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>
                             Speed Round
-                         </Button>
+                         </Button> */}
                     </Grid>
 
                     <Grid item sm={2} align="right" >
                         <Card className={classes.card}>
                             <CardContent>
                                 {!this.state.toggleEdit && <span className={classes.primary}><b>Points</b></span>}
-                                {!this.state.toggleEdit && <br/>}
+                                {!this.state.toggleEdit && <br />}
                                 <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.pointValue}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
@@ -308,9 +320,9 @@ class QuestionDetails extends Component {
                     <Grid item sm={3} align="left" >
                         <Card className={classes.card}>
                             <CardContent>
-                                {!this.state.toggleEdit && <span className={classes.primary}><b>Correct?</b></span>}
+                                {!this.state.toggleEdit && <span className={classes.primary}><b>Status</b></span>}
                                 {!this.state.toggleEdit && <br />}
-                                <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.correct}</span>
+                                <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.convertCorrect(this.state.questionDetail.correct)}</span>
                                 {this.state.toggleEdit &&
                                     <TextField
                                         align="left"
@@ -402,7 +414,7 @@ const mapStateToProps = state => ({
     currentContest: state.currentContest,
     user: state.user,
     team: state.team,
-    question: state.question
+    question: state.question,
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(QuestionDetails)));

@@ -19,7 +19,7 @@ router.get('/:contest', (req, res) => {
         }
     }
 
-     //LOGIC FOR CONTEST ID
+    //LOGIC FOR CONTEST ID
     let newContestIdArray = contestAsArray.slice(10, ampersandIndex)
 
     for (let each of newContestIdArray) {
@@ -54,6 +54,7 @@ router.get('/:contest', (req, res) => {
         })
 });
 
+//ADDING NEW TRIVIA QUESTION
 router.post('/', (req, res) => {
     console.log('the question req.body', req.body);
     req.body.pointValue = Number(req.body.pointValue)
@@ -68,6 +69,7 @@ router.post('/', (req, res) => {
         })
 })
 
+//UPDATING EXISTING TRIVIA QUESTION
 router.put('/', (req, res) => {
     console.log('the question req.body PUT', req.body);
     req.body.pointValue = Number(req.body.pointValue)
@@ -78,6 +80,22 @@ router.put('/', (req, res) => {
         .then(result => {
             console.log('the response here is', result)
             res.sendStatus(200)
+        })
+        .catch(error => {
+            res.sendStatus(500)
+        })
+})
+
+//GET POINT TOTAL
+router.get('/total/:id', (req, res) => {
+    console.log('the req.params is for the point total', req.params.id);
+    const sqlText = `SELECT SUM(point_value)
+                    FROM "questions"
+                    WHERE "contest_id" = $1 AND correct = 'true';`;
+    pool.query(sqlText, [req.params.id])
+        .then(result => {
+            console.log('the response here is', result.rows)
+            res.send(result.rows);
         })
         .catch(error => {
             res.sendStatus(500)

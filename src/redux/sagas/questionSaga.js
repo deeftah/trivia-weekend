@@ -11,6 +11,10 @@ function* fetchCurrentHourQuestions(action) {
             type: 'SET_QUESTION_DETAILS',
             payload: currentHourQuestionsResponse.data
         })
+        yield put({
+            type: 'FETCH_POINT_TOTAL',
+            payload: currentHourQuestionsResponse.data[0].contest_id
+        })
     } catch (err) {
         console.log('error in QUESTION GET', err)
     }

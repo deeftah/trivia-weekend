@@ -8,6 +8,7 @@ import currentContest from './currentContestReducer';
 import allContests from './allContestsReducer';
 import teamUsers from './teamUsersReducer';
 import question from './questionReducer';
+import pointTotal from'./pointTotalReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   currentContest,
   allContests,
   teamUsers,
-  question
+  question,
+  pointTotal
 });
 
 export default rootReducer;
