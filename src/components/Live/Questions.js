@@ -52,10 +52,6 @@ const styles = theme => ({
 class Questions extends Component {
 
     state = {
-        currentHourContestData: {
-            contestId: 0,
-            currentHour: 0
-        },
         selectedQuestion: 1
     }
 
@@ -87,12 +83,6 @@ class Questions extends Component {
             type: 'FETCH_CURRENT_HOUR_QUESTIONS',
             payload: contest
         })
-        this.setState({
-            currentHourContestData: {
-                contestId: this.props.contest,
-                currentHour: this.props.slider
-            }
-        })
     }
 
     handleFabClick = (value) => {
@@ -104,8 +94,13 @@ class Questions extends Component {
         }
 
             render() {
-
+                
                 const { classes } = this.props
+
+                let currentHourContestData = {
+                    contestId: this.props.currentContest.id,
+                    currentHour: this.props.slider
+                }
 
                 let numberOfQuestions = this.props.currentContest.number_of_questions
 
@@ -163,7 +158,7 @@ class Questions extends Component {
                         <span className={classes.selectQuestion}>Select a Question</span>
                         <br/>
                         {fabDisplay}
-                        <QuestionDetails contest={this.state.currentHourContestData} selection={this.state.selectedQuestion} />
+                        <QuestionDetails contest={currentHourContestData} selection={this.state.selectedQuestion} />
                     </div>
                 )
 

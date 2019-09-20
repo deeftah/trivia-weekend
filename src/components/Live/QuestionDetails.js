@@ -194,10 +194,11 @@ class QuestionDetails extends Component {
     handleSave = () => {
         this.setState({
             questionDetail: {
+                ...this.state.questionDetail,
                 questionHour: this.props.contest.currentHour
             }
         })
-        console.log('THE HANDLE SAVE STATE is:', this.props.contest)
+        console.log('THE HANDLE SAVE STATE is:', this.state.questionDetail)
         this.props.dispatch({
             type: 'ADD_OR_UPDATE_QUESTION',
             payload: this.state.questionDetail

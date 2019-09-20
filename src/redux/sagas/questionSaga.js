@@ -5,6 +5,27 @@ function* fetchCurrentHourQuestions(action) {
     try {
         let contest = action.payload
         console.log('the contest ID in the saga is', contest)
+
+        let newContestId = ''
+        //ARRAY
+        let contestAsArray = []
+        let ampersandIndex;
+        for (let each of contest) {
+            contestAsArray.push(each)
+            if (each == '&') {
+                ampersandIndex = contestAsArray.indexOf(each)
+            }
+        }
+        //LOGIC FOR CONTEST ID
+        let newContestIdArray = contestAsArray.slice(10, ampersandIndex)
+        for (let each of newContestIdArray) {
+            newContestId += each
+        }
+        newContestId = Number(newContestId)
+        console.log('the very new contest id is', newContestId);
+        
+
+
         let currentHourQuestionsResponse = yield axios.get(`/question/${contest}`)
         console.log('question get saga response!', currentHourQuestionsResponse);
         yield put({
@@ -13,7 +34,7 @@ function* fetchCurrentHourQuestions(action) {
         })
         yield put({
             type: 'FETCH_POINT_TOTAL',
-            payload: currentHourQuestionsResponse.data[0].contest_id
+            payload: newContestId
         })
     } catch (err) {
         console.log('error in QUESTION GET', err)

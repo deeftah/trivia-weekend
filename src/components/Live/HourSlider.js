@@ -155,7 +155,7 @@ class HourSlider extends Component {
                             valueLabelDisplay="auto"
                             onChange={(event, value) => this.handleSliderChange(value)}
                         />
-                        the contest is currently in hour: {this.state.slider.sliderStartingValue}
+                        live hour: {this.state.slider.sliderStartingValue}
                     </Grid>
                     <Grid item xs={.5} className={classes.sliderMinAndMaxNum}>
                         {this.props.currentContest.number_of_hours}
