@@ -20,7 +20,7 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    login: {
+    newImage: {
         width: 300,
         '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
             borderColor: "white"
@@ -109,7 +109,7 @@ class TeamLogo extends Component {
                                         align="left"
                                         id="outlined-name"
                                         label="enter image url"
-                                        className={classes.login}
+                                        className={classes.newImage}
                                         value={this.state.newImage}
                                         onChange={this.handleChangeFor('newImage')}
                                         margin="normal"
@@ -159,10 +159,3 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(TeamLogo)));
-
-// {
-//     this.state.editVisual &&
-//     <Button color="primary" onClick={this.handleVisualSave} style={{ marginLeft: "auto", marginRight: 0 }}>
-//         <Save style={{ marginRight: 3 }} />Save
-//                          </Button>
-// }
