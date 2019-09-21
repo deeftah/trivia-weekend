@@ -13,6 +13,48 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    card: {
+        textAlign: 'center',
+        background: '#494A49',
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    visualNumber: {
+        width: 100,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white",
+        },
+        marginLeft: 20,
+    },
+    input: {
+        color: "white"
+    },
+    muiFields: {
+        marginBottom: 20,
+    },
+    cssLabel: {
+        '&$cssFocused': {
+            color: "white",
+        },
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: "white",
+        },
+    },
+    cssFocused: {},
+    notchedOutline: { borderColor: "white" },
+    h1: {
+        color: "#55d685"
+    }
+});
 
 class VisualItems extends Component {
 
@@ -70,6 +112,8 @@ class VisualItems extends Component {
 
     render() {
         console.log('the state on page load is', this.state.userEdits)
+
+        const { classes } = this.props
 
         return (
             <Grid item sm={4} align="center" >
@@ -139,4 +183,4 @@ class VisualItems extends Component {
     }
 }
 
-export default withRouter(connect()(VisualItems));
+export default withRouter(connect()(withStyles(styles)(VisualItems)))

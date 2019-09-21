@@ -121,7 +121,6 @@ class Visual extends Component {
         })
         this.setState({
             addVisual: {
-                ...this.state.addVisualaddVisual,
                 visualNumber: '',
                 url: '',
             }

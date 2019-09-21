@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import { useSpring, animated } from 'react-spring';
-import { Button, Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
+import { AddCircle } from '@material-ui/icons';
 
 const styles = theme => ({
     modal: {
@@ -25,7 +26,47 @@ const styles = theme => ({
     },
     h1: {
         color: theme.palette.primary.main
-    }
+    },
+    contestText: {
+        width: 450,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    contestDateTime: {
+        width: 215,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    timeOptions: {
+        width: 215,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    contestNumber: {
+        width: 150,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    input: {
+        color: "white"
+    },
+
+    cssLabel: {
+        '&$cssFocused': {
+            color: "white",
+        },
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: "white",
+        },
+    },
+    cssFocused: {},
+    notchedOutline: { borderColor: "white" },
 });
 
 const Fade = (props, ref) => {
@@ -82,6 +123,15 @@ class NewContestForm extends Component {
 
         })
         this.handleClose();
+        this.setState({
+            newContest: {
+                contestName: '',
+                startDate: '',
+                startTime: '',
+                numberOfHours: 0,
+                numberOfQuestions: 0,
+            }
+        })
     }
 
     handleOpen = () => {
@@ -147,76 +197,159 @@ class NewContestForm extends Component {
                         <h1 className={classes.h1}>Enter Contest Details</h1>
                         <form onSubmit={this.addContest}>
                             <div>
-                                <label htmlFor="contestName">
-                                    Name Your Contest:
-                                <input
-                                        type="text"
-                                        name="contestName"
-                                        onChange={this.handleInputChangeFor('contestName')}
-                                    />
-                                </label>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="name your contest"
+                                    className={classes.contestText}
+                                    value={this.state.newContest.contestName}
+                                    onChange={this.handleInputChangeFor('contestName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
                             </div>
                             <div>
-                                <label htmlFor="startDate">
-                                    Contest Start Date:
-                                <input
-                                        type="date"
-                                        name="startDate"
-                                        onChange={this.handleInputChangeFor('startDate')}
-                                    />
-                                </label>
+                                <TextField
+                                    align="left"
+                                    type="date"
+                                    id="outlined-name"
+                                    label="contest start date"
+                                    className={classes.contestDateTime}
+                                    value={this.state.newContest.startDate}
+                                    onChange={this.handleInputChangeFor('startDate')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    style={{ marginRight: 20 }}
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    select
+                                    label="contest start time"
+                                    className={classes.contestDateTime}
+                                    value={this.state.newContest.startTime}
+                                    onChange={this.handleInputChangeFor('startTime')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.status,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                >
+                                    {hourSelection.map((hour) =>
+                                        <MenuItem key={hour.sqlValue} value={hour.sqlValue} className={classes.timeOptions}>
+                                            {hour.displayValue}
+                                        </MenuItem>
+                                    )}
+                                </TextField>
                             </div>
                             <div>
-                                <label htmlFor="startTime">
-                                    Contest Start Time:
-                                <select
-                                        name="startTime"
-                                        onChange={this.handleInputChangeFor('startTime')}
-                                    >
-                                        {hourSelection.map((hour) =>
-                                            <option key={hour.sqlValue} value={hour.sqlValue}>{hour.displayValue}</option>
-                                        )}
-                                    </select>
-                                </label>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    type="number"
+                                    label="number of hours"
+                                    className={classes.contestNumber}
+                                    value={this.state.newContest.numberOfHours}
+                                    onChange={this.handleInputChangeFor('numberOfHours')}
+                                    margin="normal"
+                                    style={{ marginRight: 20 }}
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    type="number"
+                                    label="questions per hour"
+                                    className={classes.contestNumber}
+                                    value={this.state.newContest.numberOfQuestions}
+                                    onChange={this.handleInputChangeFor('numberOfQuestions')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                </div>
+                                <div>
+                                <Button color="primary"
+                                    variant="contained"
+                                    type="submit"
+                                    name="submit"
+                                    className="contestAddButton"
+                                    style={{ marginTop: 10 }}>
+                                    <AddCircle style={{ marginRight: 3 }} />Add Contest
+                         </Button>
                             </div>
-                            <div>
-                                <label htmlFor="numberOfHours">
-                                    Number of Hours:
-                                <input
-                                        type="number"
-                                        name="numberOfHours"
-                                        onChange={this.handleInputChangeFor('numberOfHours')}
-                                    />
-                                </label>
-                            </div>
-                            <div>
-                                <label htmlFor="numberOfQuestions">
-                                    Questions per Hour:
-                                <input
-                                        type="number"
-                                        name="numberOfQuestions"
-                                        onChange={this.handleInputChangeFor('numberOfQuestions')}
-                                    />
-                                </label>
-                            </div>
-                            <div>
+                            {/* <div>
                                 <input
                                     className="contestAddButton"
                                     type="submit"
                                     name="submit"
                                     value="Add Contest"
                                 />
-                            </div>
+                            </div> */}
                         </form>
 
                     </CardContent>
-
-                    {/* <Fade in={this.state.open}>
-                        <div className={classes.paper}>
-                            <h2 id="spring-modal-title">Spring modal</h2>
-                            <p id="spring-modal-description">react-spring animates me.</p>
-                        </div>
-                    </Fade> */}
                 </Modal>
             </div>
 
