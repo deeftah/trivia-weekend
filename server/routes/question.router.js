@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/:contest', (req, res) => {
+router.get('/:contest', rejectUnauthenticated, (req, res) => {
     console.log('the question req.body', req.params.contest)
 
     let newContestId = ''
@@ -55,7 +56,7 @@ router.get('/:contest', (req, res) => {
 });
 
 //ADDING NEW TRIVIA QUESTION
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('the question req.body', req.body);
     req.body.pointValue = Number(req.body.pointValue)
     const sqlText = `INSERT INTO "questions" ("point_value", "question_description", "correct", "answer", "contest_id", "hour", "question_number") VALUES ($1, $2, $3, $4, $5, $6, $7);`;
@@ -70,7 +71,7 @@ router.post('/', (req, res) => {
 })
 
 //UPDATING EXISTING TRIVIA QUESTION
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     console.log('the question req.body PUT', req.body);
     req.body.pointValue = Number(req.body.pointValue)
     const sqlText = `UPDATE "questions"
@@ -87,7 +88,7 @@ router.put('/', (req, res) => {
 })
 
 //GET POINT TOTAL
-router.get('/total/:id', (req, res) => {
+router.get('/total/:id', rejectUnauthenticated, (req, res) => {
     console.log('the req.params is for the point total', req.params.id);
     const sqlText = `SELECT SUM(point_value)
                     FROM "questions"

@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //VISUAL DATA GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('this is the GET req.user.team_id', req.user.team_id);
     let teamId = req.user.team_id
     const sqlText = `SELECT "visual"."id", "url", "contest_id", "image_number", "match_level", "comment" FROM "visual"
@@ -22,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 //VISUAL DATA PUT (MATCH LEVEL AND COMMENT)
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     console.log('the req.body for the visual data put is:', req.body);
     const sqlText = `UPDATE "visual"
     SET "match_level" = $1, "comment" = $2
@@ -37,7 +38,7 @@ router.put('/', (req, res) => {
 })
 
 //VISUAL DATA POST (ADD IMAGE URL TO GALLERY)
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('the req.body for the visual POST is:', req.body);
     const sqlText = `INSERT INTO "visual" ("image_number", "url", "contest_id")
     VALUES ($1, $2, $3);`;
@@ -51,7 +52,7 @@ router.post('/', (req, res) => {
 })
 
 //VISUAL DELETE (REMOVE IMAGE FROM GALLERY)
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `DELETE FROM "visual" WHERE id=$1;`;
     pool.query(sqlText, [req.params.id])
     .then(result => {

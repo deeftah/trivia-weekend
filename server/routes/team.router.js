@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //TEAM DATA GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT * FROM "team" WHERE id = $1;`;
     pool.query(sqlText, [req.user.team_id])
     .then((result) => {
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 //TEAM USERS GET
-router.get('/users', (req, res) => {
+router.get('/users', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT "user".id, "user".first_name, "user".last_name, "user".username, "user".clearance_id FROM "user"
                     WHERE "user".team_id = $1
                     ORDER BY "user".first_name ASC;`;
@@ -32,7 +33,7 @@ router.get('/users', (req, res) => {
 })
 
 //TEAM USERS CAPTAIN PUT
-router.put('/users', (req, res) => {
+router.put('/users', rejectUnauthenticated, (req, res) => {
     if (req.body.clearanceId == 1) {
         req.body.clearanceId = 2
     } else {
@@ -53,7 +54,7 @@ router.put('/users', (req, res) => {
 })
 
 //TEAM IMAGE PUT
-router.put('/image', (req, res) => {
+router.put('/image', rejectUnauthenticated, (req, res) => {
     console.log('the image put req.body is', req.body)
     const sqlText = `UPDATE "team"
     SET "logo_url" = $1
@@ -68,7 +69,7 @@ router.put('/image', (req, res) => {
 })
 
 //TEAM BOILERPLATE PUT
-router.put('/boilerplate', (req, res) => {
+router.put('/boilerplate', rejectUnauthenticated, (req, res) => {
     console.log('this is the boilerplate req.body', req.body);
     
     const sqlText = `UPDATE "team"
@@ -84,7 +85,7 @@ router.put('/boilerplate', (req, res) => {
 })
 
 //TEAM ACCESS ID PUT
-router.put('/accessId', (req, res) => {
+router.put('/accessId', rejectUnauthenticated, (req, res) => {
     console.log('this is the access id req.body', req.body);
     const sqlText = `UPDATE "team"
                     SET "access_id" = $1
@@ -99,7 +100,7 @@ router.put('/accessId', (req, res) => {
 })
 
 //TEAM NAME PUT
-router.put('/teamName', (req, res) => {
+router.put('/teamName', rejectUnauthenticated, (req, res) => {
     console.log('this is the teamName req.body', req.user.team_id);
     const sqlText = `UPDATE "team"
                     SET "name" = $1
@@ -114,7 +115,7 @@ router.put('/teamName', (req, res) => {
 })
 
 //TEAM USER DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `DELETE FROM "user" WHERE id=$1;`;
     pool.query(sqlText, [req.params.id])
         .then(result => {

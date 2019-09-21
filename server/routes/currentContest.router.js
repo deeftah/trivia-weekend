@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //CURRENT CONTEST DETAILS GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('this is the CURRENT CONTEST DETAILS req', req.user.id);
     const sqlText = `SELECT "contest".id, "contest".contest_name, "contest".start_date, "contest".start_time, "contest".number_of_hours, "contest".number_of_questions, "contest".team_id FROM "contest"
                     JOIN "team" ON "contest".id = "team".current_contest
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 //CURRENT CONTEST UPDATE
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     console.log('this is the UPDATE CURRENT CONTEST req', req.body);
     const sqlText = `UPDATE "team"
                     SET "current_contest" = $1
@@ -36,7 +37,7 @@ router.put('/', (req, res) => {
 })
 
 //CURRENT CONTEST DETAILS UPDATE
-router.put('/details', (req, res) => {
+router.put('/details', rejectUnauthenticated, (req, res) => {
     console.log('this is the UPDATE CURRENT CONTEST DETAILS req', req.body);
     let startTimeNumber = Number(req.body.newStartTime);
     let numberOfHoursNumber = Number(req.body.newNumberOfHours);
