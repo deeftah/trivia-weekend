@@ -42,7 +42,41 @@ const styles = theme => ({
         "&:hover": { backgroundColor: '#3fa163' },
         margin: theme.spacing(2),
         fontSize: 22,
-        textAlign: 'center'
+        textAlign: 'center',
+    },
+    fabSelected: {
+        margin: theme.spacing(2),
+        fontSize: 28,
+        textAlign: 'center',
+        width: 70,
+        height: 70
+    },
+    fabGreenSelected: {
+        backgroundColor: '#55d685',
+        "&:hover": { backgroundColor: '#3fa163' },
+        margin: theme.spacing(2),
+        fontSize: 28,
+        textAlign: 'center',
+        width: 70,
+        height: 70
+    },
+    fabRedSelected: {
+        backgroundColor: '#f56c64',
+        "&:hover": { backgroundColor: '#b05145' },
+        margin: theme.spacing(2),
+        fontSize: 28,
+        textAlign: 'center',
+        width: 70,
+        height: 70
+    },
+    fabYellowSelected: {
+        backgroundColor: '#f7f78d',
+        "&:hover": { backgroundColor: '#abab61' },
+        margin: theme.spacing(2),
+        fontSize: 28,
+        textAlign: 'center',
+        width: 70,
+        height: 70
     },
     selectQuestion: {
         fontSize: 22
@@ -150,8 +184,21 @@ class Questions extends Component {
 
                 let fabDisplay;
                 fabDisplay = (fabClasses.map((fab) => {
+                    if (fab.number == this.state.selectedQuestion) {
+                        if (fab.color.includes('fabGreen')) {
+                            return <Fab key={fab.number} value={fab.number} className={classes.fabGreenSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                        } else if (fab.color.includes('fabRed')) {
+                            return <Fab key={fab.number} value={fab.number} className={classes.fabRedSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                        } else if (fab.color.includes('fabYellow')) {
+                            return <Fab key={fab.number} value={fab.number} className={classes.fabYellowSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                        } else {
+                            return <Fab key={fab.number} value={fab.number} className={classes.fabSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                        }
+                    } else
                     return <Fab key={fab.number} value={fab.number} className={fab.color} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
                 }))
+                // console.log('the fab display is', fabDisplay)
+                // fabDiplay[2].key
 
                 return (
                     <div>
