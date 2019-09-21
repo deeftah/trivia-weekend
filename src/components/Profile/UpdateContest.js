@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
-import { Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
+import { Card, CardActions, CardContent, Grid, MenuItem, TextField, Typography, } from '@material-ui/core';
 import { Cancel, Edit, Save } from '@material-ui/icons';
 import NewContestForm from './NewContestForm';
 
@@ -17,6 +17,46 @@ const styles = theme => ({
         fontSize: 18,
         color: theme.palette.primary.main
     },
+    contestText: {
+        width: 450,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    contestDateTime: {
+        width: 215,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    timeOptions: {
+        width: 215,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    contestNumber: {
+        width: 150,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    input: {
+        color: "white"
+    },
+
+    cssLabel: {
+        '&$cssFocused': {
+            color: "white",
+        },
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: "white",
+        },
+    },
+    cssFocused: {},
+    notchedOutline: { borderColor: "white" },
 });
 
 class UpdateContest extends Component {
@@ -138,8 +178,6 @@ class UpdateContest extends Component {
         let formattedDate = String(originalDate).substring(0, 10);
 
         console.log('formatted date is', this.props.currentContest.start_date);
-        
-        // let hoursAsNummber = Number(this.props.currentContest.number_of_hours);
 
         let hours = this.props.currentContest.number_of_hours;
 
@@ -161,34 +199,148 @@ class UpdateContest extends Component {
             <div>
                 <CardContent>
                     <h2>{this.props.currentContest.contest_name}</h2>
-                    {console.log('the state upon refresh is:', this.state.contestEdits)}
                     <span className={classes.currentContest}>
                         {nameCapitalized} hours long, {numberOfQuestionsAsWords} questions per hour.
-                    <br/>Beginning <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date}/> at {contestTime}.</span>
+                    <br />Beginning <Moment format="MM/DD/YYYY" date={this.props.currentContest.start_date} /> at {contestTime}.</span>
                     <Typography color="secondary">
-                        {this.state.editContest && <br/>}
-                        {this.state.editContest && 
-                        <div><input type="text" style={{ width: "50%" }} onChange={this.handleChangeFor('newContestName')}
-                            defaultValue={this.props.currentContest.contest_name} /></div>}
+                        {this.state.editContest && <br />}
                         {this.state.editContest &&
-                            <div><input type="date" style={{ width: "50%" }} onChange={this.handleChangeFor('newStartDate')}
-                            defaultValue={formattedDate}/></div>}
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="name your contest"
+                                    className={classes.contestText}
+                                    value={this.state.contestEdits.newContestName}
+                                    onChange={this.handleChangeFor('newContestName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>}
                         {this.state.editContest &&
-                            <div><select
-                                onChange={this.handleChangeFor('newStartTime')}
-                                defaultValue={this.props.currentContest.start_time}
-                                style={{ width: "50%"}}
-                            >
-                                {hourSelection.map((hour) =>
-                                    <option key={hour.sqlValue} value={hour.sqlValue}>{hour.displayValue}</option>
-                                )}
-                            </select></div>}
+                            <div>
+                                <TextField
+                                    align="left"
+                                    type="date"
+                                    id="outlined-name"
+                                    label="contest start date"
+                                    className={classes.contestDateTime}
+                                    value={this.state.contestEdits.newStartDate}
+                                    onChange={this.handleChangeFor('newStartDate')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    style={{ marginRight: 20 }}
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    select
+                                    label="contest start time"
+                                    className={classes.contestDateTime}
+                                    value={this.state.contestEdits.newStartTime}
+                                    onChange={this.handleChangeFor('newStartTime')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.status,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                >
+                                    {hourSelection.map((hour) =>
+                                        <MenuItem key={hour.sqlValue} value={hour.sqlValue} className={classes.timeOptions}>
+                                            {hour.displayValue}
+                                        </MenuItem>
+                                    )}
+                                </TextField>
+
+                            </div>}
                         {this.state.editContest &&
-                            <div><input type="number" style={{ width: "50%" }} onChange={this.handleChangeFor('newNumberOfHours')}
-                                defaultValue={this.props.currentContest.number_of_hours} /></div>}
-                        {this.state.editContest &&
-                            <div><input type="number" style={{ width: "50%" }} onChange={this.handleChangeFor('newNumberOfQuestions')}
-                                defaultValue={this.props.currentContest.number_of_questions} /></div>}
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    type="number"
+                                    label="number of hours"
+                                    className={classes.contestNumber}
+                                    value={this.state.contestEdits.newNumberOfHours}
+                                    onChange={this.handleChangeFor('newNumberOfHours')}
+                                    margin="normal"
+                                    style={{ marginRight: 20 }}
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    type="number"
+                                    label="questions per hour"
+                                    className={classes.contestNumber}
+                                    value={this.state.contestEdits.newNumberOfQuestions}
+                                    onChange={this.handleChangeFor('newNumberOfQuestions')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>}
                     </Typography>
                 </CardContent>
                 <CardActions>

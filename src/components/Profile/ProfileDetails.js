@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Card, CardActions, CardContent, Grid, Typography, } from '@material-ui/core';
+import { Card, CardActions, CardContent, Grid, TextField, Typography, } from '@material-ui/core';
 import { Cancel, Edit, Save } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -15,6 +15,28 @@ const styles = theme => ({
         fontSize: 36,
         color: theme.palette.primary.main
     },
+    teamText: {
+        width: 450,
+        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+            borderColor: "white"
+        }
+    },
+    input: {
+        color: "white"
+    },
+
+    cssLabel: {
+        '&$cssFocused': {
+            color: "white",
+        },
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: "white",
+        },
+    },
+    cssFocused: {},
+    notchedOutline: { borderColor: "white" },
 });
 
 class ProfileDetails extends Component {
@@ -35,6 +57,9 @@ class ProfileDetails extends Component {
     }
 
     toggleTeamNameEdit = () => {
+        this.setState({
+            teamName: this.props.team.name
+        })
         this.setState({
             teamNameEdit: !this.state.teamNameEdit
         })
@@ -65,8 +90,34 @@ class ProfileDetails extends Component {
                 <h2>Team Name</h2>
                 <span className={classes.teamName}>{this.props.team.name}</span>
                     <Typography color="secondary">
-                        {this.state.teamNameEdit && <input type="text" style={{ width: "95%" }} onChange={this.handleChangeFor('teamName')}
-                            defaultValue={this.props.team.name} />}
+                        {this.state.teamNameEdit && 
+                        
+                            <TextField
+                                align="left"
+                                id="outlined-name"
+                                label="team name"
+                                className={classes.teamText}
+                                value={this.state.teamName}
+                                onChange={this.handleChangeFor('teamName')}
+                                margin="normal"
+                                variant="outlined"
+                                InputProps={{
+                                    className: classes.input,
+                                    classes: {
+                                        root: classes.cssOutlinedInput,
+                                        focused: classes.cssFocused,
+                                        notchedOutline: classes.notchedOutline,
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    className: classes.input,
+                                    shrink: true
+                                }}
+                            />
+                        
+                        // <input type="text" style={{ width: "95%" }} onChange={this.handleChangeFor('teamName')}
+                        //     defaultValue={this.props.team.name} />
+                            }
                     </Typography>
                 </CardContent>
                 <CardActions>
