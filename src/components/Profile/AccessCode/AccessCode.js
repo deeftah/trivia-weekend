@@ -61,12 +61,15 @@ class AccessCode extends Component {
             <div>
                 <CardContent>
                     <AccessCodeInfo />
-                    <span className={classes.accessId}>{this.props.team.access_id}</span>
+                     {(this.props.user.clearance_id > 1) 
+                     ? <span className={classes.accessId}>{this.props.team.access_id}</span>
+                    :<span>Please consult with your team captain for the team access code, which will allow others to join this team.</span>}
                 </CardContent>
                 <CardActions>
+                    {(this.props.user.clearance_id > 1) &&
                     <Button color="primary" onClick={() => this.handleResetCode()} style={{ marginLeft: "auto", marginRight: 0 }}>
                         <Refresh style={{ marginRight: 3 }} />Reset Code
-                         </Button>
+                         </Button>}
                 </CardActions>
             </div>
         )

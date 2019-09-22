@@ -1,30 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Home, Photo, Schedule, Settings, Radio } from '@material-ui/icons';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-
-// function TabContainer(props) {
-//     return (
-//         <Typography component="div" style={{ padding: 8 * 3 }}>
-//             {props.children}
-//         </Typography>
-//     );
-// }
-
-// TabContainer.propTypes = {
-//     children: PropTypes.node.isRequired,
-// };
 
 function TabContainer(props) {
     const { children, value, index, ...other } = props;
@@ -60,14 +44,18 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         width: '80%',
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main
     },
+    background: {
+        backgroundColor: theme.palette.primary.main
+    }
 });
 
 class ScrollableTabsButtonForce extends React.Component {
 
     state = {
         value: false,
+        color: 'green',
     };
 
     handleChange = (event, value) => {
@@ -77,6 +65,16 @@ class ScrollableTabsButtonForce extends React.Component {
     componentDidMount() {
         this.handleSetDefaultValue();
     }
+
+    // componentDidUpdate(prevProps) {
+    //     // Typical usage (don't forget to compare props):
+    //     if (this.props.user.color !== prevProps.user.color) {
+    //         this.setState({
+    //             color: this.props.user.color
+    //         })
+    //     }
+    //     console.log('the tab bar did update is hitting', this.props.user)
+    // }
 
     handleSetDefaultValue() {
         console.log('the url is', window.location.href)
@@ -107,9 +105,11 @@ class ScrollableTabsButtonForce extends React.Component {
         const { classes } = this.props;
         const { value } = this.state;
 
+    console.log('what is on tab bar', this.props.user)
+
         return (
             <div className={classes.root}>
-                <AppBar position="static" color="default">
+                <AppBar position="static" color="primary">
                     <Tabs
                         value={value}
                         onChange={this.handleChange}
@@ -117,6 +117,7 @@ class ScrollableTabsButtonForce extends React.Component {
                         scrollButtons="on"
                         indicatorColor="secondary"
                         textColor="secondary"
+                        className={classes.background}
                     >
                         <Tab value={0} label="Home" component={Link} to="/home" icon={<Home />} />
                         <Tab value={1} label="Visual" component={Link} to="/visual" icon={<Photo />} />
@@ -133,4 +134,8 @@ ScrollableTabsButtonForce.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ScrollableTabsButtonForce);
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(ScrollableTabsButtonForce));

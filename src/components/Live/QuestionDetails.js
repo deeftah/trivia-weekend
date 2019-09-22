@@ -230,15 +230,15 @@ class QuestionDetails extends Component {
             <div>
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
                     <Grid item sm={5} align="left" >
-                        {!this.state.toggleEdit &&
+                        {!this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                             <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
-                        {this.state.toggleEdit &&
+                        {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                             <Button color="secondary" onClick={this.toggleEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
-                        {this.state.toggleEdit &&
+                        {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                             <Button color="primary" onClick={this.handleSave} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Save style={{ marginRight: 3 }} />Save
                          </Button>}
@@ -258,7 +258,7 @@ class QuestionDetails extends Component {
                                 {!this.state.toggleEdit && <span className={classes.primary}><b>Points</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.state.questionDetail.pointValue}</span>
-                                {this.state.toggleEdit &&
+                                {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                                     <TextField
                                         align="left"
                                         id="outlined-name"
@@ -291,7 +291,7 @@ class QuestionDetails extends Component {
                                 {!this.state.toggleEdit && <span className={classes.primary}><b>Question</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.questionDescription}</span>
-                                {this.state.toggleEdit &&
+                                {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                                     <TextField
                                         align="left"
                                         id="outlined-multiline-flexible"
@@ -327,7 +327,7 @@ class QuestionDetails extends Component {
                                 {!this.state.toggleEdit && <span className={classes.primary}><b>Status</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.pointsCorrectFormat}>{!this.state.toggleEdit && this.convertCorrect(this.state.questionDetail.correct)}</span>
-                                {this.state.toggleEdit &&
+                                {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                                     <TextField
                                         align="left"
                                         id="outlined-name"
@@ -376,7 +376,7 @@ class QuestionDetails extends Component {
                                 {!this.state.toggleEdit && <span className={classes.primary}><b>Answer</b></span>}
                                 {!this.state.toggleEdit && <br />}
                                 <span className={classes.questionAnswerFormat}>{!this.state.toggleEdit && this.state.questionDetail.answer}</span>
-                                {this.state.toggleEdit &&
+                                {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                                     <TextField
                                         align="left"
                                         id="outlined-multiline-flexible"

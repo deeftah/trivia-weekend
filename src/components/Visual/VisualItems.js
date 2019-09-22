@@ -146,7 +146,8 @@ class VisualItems extends Component {
                     />
                     <CardContent>
                         <Typography color="secondary">
-                            {this.state.editVisual && <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
+                            {this.state.editVisual && (this.props.user.clearance_id > 1) && 
+                            <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
                                 defaultValue={this.props.visual.match_level}>
                                 <option value="Found">Found</option>
                                 <option value="Maybe Found">Maybe Found</option>
@@ -164,7 +165,7 @@ class VisualItems extends Component {
                             <Button color="secondary" onClick={() => this.handleEditVisual(this.props.visual.id)} style={{ marginRight: 20, marginLeft: 0 }}>
                                 <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
-                        {!this.state.editVisual &&
+                        {!this.state.editVisual && (this.props.user.clearance_id > 1) &&
                             <Button color="primary" onClick={() => this.handleDeleteVisual(this.props.visual.id)} style={{ marginLeft: "auto", marginRight: 0 }}>
                                 <Delete style={{ marginRight: 3 }} />Delete
                          </Button>}
@@ -183,4 +184,8 @@ class VisualItems extends Component {
     }
 }
 
-export default withRouter(connect()(withStyles(styles)(VisualItems)))
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(VisualItems)));

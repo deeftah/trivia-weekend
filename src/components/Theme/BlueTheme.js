@@ -1,28 +1,27 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 
 // Custom Theme for Trivia Weekend
 
-const theme = createMuiTheme({
+const blueTheme = createMuiTheme({
     overrides: {
         MuiFormLabel: {
             root: {
                 "&$focused": {
-                    color: '#55d685'
+                    color: '#0fefff'
                 }
             }
         }
     },
     palette: {
         primary: {
-            main: '#55d685',
+            main: '#0fefff',
         },
         secondary: {
             main: '#fff',
         },
         success: {
-            main: '#55d685',
+            main: '#0fefff',
         },
         error: {
             main: red.A400,
@@ -36,4 +35,4 @@ const theme = createMuiTheme({
     },
 });
 
-export default (theme);
+export default blueTheme;

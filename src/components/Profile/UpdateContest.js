@@ -344,15 +344,15 @@ class UpdateContest extends Component {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    {!this.state.editContest &&
+                    {!this.state.editContest && (this.props.user.clearance_id > 1) &&
                         <Button color="secondary" onClick={() => this.handleEditContest(this.props.currentContest.id)} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
-                    {this.state.editContest &&
+                    {this.state.editContest && (this.props.user.clearance_id > 1) &&
                         <Button color="secondary" onClick={this.toggleContestEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
-                    {this.state.editContest &&
+                    {this.state.editContest && (this.props.user.clearance_id > 1) &&
                         <Button color="primary" onClick={this.handleContestSave} style={{ marginLeft: "auto", marginRight: 0 }}>
                             <Save style={{ marginRight: 3 }} />Save
                             </Button>}

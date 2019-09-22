@@ -58,7 +58,8 @@ class Profile extends Component {
         return (
             <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
                 <h1 className={classes.h1}>Settings<Settings className={classes.icon}/></h1>
-                <div className={classes.newContestButton}><NewContestForm /></div>
+                 {(this.props.user.clearance_id > 1) &&
+                <div className={classes.newContestButton}><NewContestForm /></div>}
                 <h2>Contest<LaptopMac className={classes.icon} /></h2>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
@@ -82,9 +83,10 @@ class Profile extends Component {
                     </Grid>
                     <Grid item xs={1}> 
                     </Grid>
+                     {(this.props.user.clearance_id > 1) &&
                     <Grid item xs={10}>
                         <Card className={classes.card}><TeamMembers/></Card>
-                    </Grid>
+                    </Grid>}
                     <Grid item xs={1}>
                     </Grid>
                 </Grid>

@@ -138,15 +138,15 @@ class CurrentContest extends Component {
                     </TextField>
                     }      
                 <CardActions>
-                    {!this.state.currentContestEdit &&
+                    {!this.state.currentContestEdit && (this.props.user.clearance_id > 1) &&
                         <Button color="secondary" onClick={this.toggleCurrentContestEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
-                    {this.state.currentContestEdit &&
+                    {this.state.currentContestEdit && (this.props.user.clearance_id > 1) &&
                         <Button color="secondary" onClick={this.toggleCurrentContestEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                             <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
-                    {this.state.currentContestEdit &&
+                    {this.state.currentContestEdit && (this.props.user.clearance_id > 1) &&
                         <Button color="primary" onClick={this.handleCurrentContestSave} style={{ marginLeft: "auto", marginRight: 0 }}>
                             <Save style={{ marginRight: 3 }} />Save
                             </Button>}

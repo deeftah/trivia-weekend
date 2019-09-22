@@ -17,6 +17,7 @@ import Profile from '../Profile/Profile';
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
 import theme from '../Theme/Theme.js';
+import blueTheme from '../Theme/BlueTheme.js';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -25,18 +26,46 @@ import 'typeface-roboto';
 
 class App extends Component {
 
+  state = {
+    color: '#55d685'
+  }
+
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
   }
 
+  // componentDidUpdate(prevProps) {
+  //   // Typical usage (don't forget to compare props):
+  //   if (this.props.user.color !== prevProps.user.color) {
+  //     this.setState({
+  //       color: this.props.user.color
+  //     })
+  //     // this.colorScheme();
+  //   }
+  //   console.log('the component did update is hitting', this.props.user.color)
+  // }
+
+  // colorScheme() {
+  //   if (this.state.color == '#0fefff') {
+  //     theme.palette.primary.main = '#0fefff'
+  //   }
+  // }
+
   render() {
+
+    // if (this.state.color == '#0fefff') {
+    // theme.palette.primary.main = '#0fefff'
+    // theme.palette.success.main = '#0fefff'
+    // }
+
+    console.log('this is what we have on users', theme)
 
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
           <div>
-            <NavBar />
+            <NavBar/>
             {/* <Switch> */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             {/* <Redirect exact from="/" to="/home" /> */}
@@ -101,4 +130,8 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(App);

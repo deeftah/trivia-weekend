@@ -42,7 +42,7 @@ export default function ButtonAppBar() {
           </Typography>
 
                     {/* <TabPanel/> */}
-                    <ScrollableTabsButtonForce />
+                    <ScrollableTabsButtonForce/>
 
                     <LoginButton />
                     <RegisterButton />

@@ -71,20 +71,21 @@ class Home extends Component {
                                 <br /><br />
                                 <Typography color="secondary">
                                     {this.props.team.boilerplate}
-                                    {this.state.editBoilerplate && <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('boilerplate')}
+                                    {this.state.editBoilerplate && (this.props.user.clearance_id > 1) &&
+                                    <textarea style={{ width: "95%" }} onChange={this.handleChangeFor('boilerplate')}
                                     placeholder="What do you want your team to know?" defaultValue={this.props.team.boilerplate} />}
                                 </Typography>
                             </CardContent >
                             <CardActions>
-                                {!this.state.editBoilerplate &&
+                                {!this.state.editBoilerplate && (this.props.user.clearance_id > 1) &&
                                     <Button color="secondary" onClick={this.toggleBoilerplateEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                         <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
-                                {this.state.editBoilerplate &&
+                                {this.state.editBoilerplate && (this.props.user.clearance_id > 1) &&
                                     <Button color="secondary" onClick={this.toggleBoilerplateEdit} style={{ marginRight: 20, marginLeft: 0 }}>
                                         <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
-                                {this.state.editBoilerplate &&
+                                {this.state.editBoilerplate && (this.props.user.clearance_id > 1) &&
                                     <Button color="primary" onClick={this.handleBoilerplateSave} style={{ marginLeft: "auto", marginRight: 0 }}>
                                         <Save style={{ marginRight: 3 }} />Save
                             </Button>}
@@ -101,4 +102,5 @@ const mapStateToProps = state => ({
     user: state.user,
     team: state.team
 });
+
 export default withRouter(connect(mapStateToProps)(Home));
