@@ -5,7 +5,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { AccountCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom'
 
-export default function AccountButton(name) {
+// export default function
+
+const AccountButton = ({firstName}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {
@@ -18,11 +20,13 @@ export default function AccountButton(name) {
 
     {/* <AccountCircle style={{ marginRight: 5 }}/>{this.props.user.first_name}</Button> */ }
 
+    const example = (props) => <h1>Hello, {props.user}!</h1>
+
     return (
         <>
-            {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} style={{maxWidth: '5px'}}> */}
-                <AccountCircle aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} style={{ marginRight: 5, marginTop: 5}}/>
-      {/* </Button> */}
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <AccountCircle style={{ marginRight: 5}}/>{firstName}
+       </Button>
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -35,3 +39,5 @@ export default function AccountButton(name) {
         </>
     );
 }
+
+export default AccountButton;

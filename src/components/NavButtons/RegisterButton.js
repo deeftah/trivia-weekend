@@ -20,7 +20,7 @@ state = {
         return (
             <div>
                 {!this.props.user.first_name && <Button onClick={this.handleRegister}>Register</Button>}
-                {this.props.user.first_name && <AccountButton name={this.state.name}/>}
+                {this.props.user.first_name && <AccountButton name={this.state.name} firstName={this.props.user.first_name}/>}
                 
                 {/* <Button aria-controls="simple-menu" aria-haspopup="true"><AccountCircle style={{ marginRight: 5 }}/>{this.props.user.first_name}</Button> */}
             </div>
