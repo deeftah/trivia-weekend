@@ -28,10 +28,14 @@ const styles = theme => ({
         marginBottom: -4,
     },
     h1: {
-        textAlign: 'right'
+        textAlign: 'right',
+        marginBottom: 8
     },
     currentScore: {
-        fontSize: 20
+        fontSize: 23
+    },
+    pointView: {
+        fontSize: 46
     }
 });
 
@@ -72,14 +76,14 @@ class Live extends Component {
 
         return (
 
-            <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
+            <div className={classes.root} style={{ marginTop: 50, padding: 30 }}>
                 <div>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} align="right">
-                        <h1 className={classes.h1}>Live<Radio className={classes.icon} /></h1>
-                        <span className={classes.currentScore}>Current Score: {this.props.pointTotal.sum}</span>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} align="right">
+                            <h1 className={classes.h1}>Live<Radio className={classes.icon} /></h1>
+                            <span style={{ marginTop: 20}} className={classes.currentScore}>Score: {this.props.pointTotal.sum}</span>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </div>
                 <Grid container spacing={3}>
                     <HourSlider getPointTotal={this.getPointTotal} />

@@ -89,6 +89,22 @@ class Questions extends Component {
         selectedQuestion: 1
     }
 
+    componentDidMount() {
+        this.interval = setInterval(() => 
+            {let contest = {
+                contestId: this.props.contest,
+                currentHour: this.props.slider
+            }
+            console.log('the current hour stands at', contest.currentHour)
+            let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
+        this.getCurrentHourQuestions(queryString)}, 3000);
+
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.contest !== prevProps.contest) {
@@ -201,12 +217,12 @@ class Questions extends Component {
                 // fabDiplay[2].key
 
                 return (
-                    <div>
+                    <>
                         <span className={classes.selectQuestion}>Select a Question</span>
                         <br/>
                         {fabDisplay}
                         <QuestionDetails contest={currentHourContestData} selection={this.state.selectedQuestion} />
-                    </div>
+                    </>
                 )
 
             }

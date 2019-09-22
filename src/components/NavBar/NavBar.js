@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import LoginButton from '../NavButtons/LoginButton';
 import RegisterButton from '../NavButtons/RegisterButton';
-import TabPanel from './Tab'
+import TabPanel from './Tab';
+import ScrollableTabsButtonForce from './TabBar';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default function ButtonAppBar() {
 
     const classes = useStyles();
-    
+
     return (
         <div className={classes.root}>
             <AppBar position="fixed">
@@ -35,13 +36,16 @@ export default function ButtonAppBar() {
                     {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon/>
                     </IconButton> */}
+
                     <Typography variant="h6" className={classes.title}>
                         Trivia Weekend
           </Typography>
-                    <TabPanel/>
-                    
-                    <LoginButton/>
-                    <RegisterButton/>
+
+                    {/* <TabPanel/> */}
+                    <ScrollableTabsButtonForce />
+
+                    <LoginButton />
+                    <RegisterButton />
                 </Toolbar>
             </AppBar>
         </div>

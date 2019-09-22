@@ -107,6 +107,9 @@ class QuestionDetails extends Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.question !== prevProps.question || this.props.selection !== prevProps.selection) {
+            if (this.state.toggleEdit) {
+                return
+            }
             let question = this.getQuestion(this.props.selection)
             if (question) {
                 console.log('this is the props dot question', this.props.question)
