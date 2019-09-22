@@ -56,7 +56,7 @@ class Profile extends Component {
         const { classes } = this.props
 
         return (
-            <div className={classes.root} style={{ marginTop: 80, padding: 30 }}>
+            <div className={classes.root} style={{ marginTop: 50, padding: 30 }}>
                 <h1 className={classes.h1}>Settings<Settings className={classes.icon}/></h1>
                  {(this.props.user.clearance_id > 1) &&
                 <div className={classes.newContestButton}><NewContestForm /></div>}

@@ -17,6 +17,21 @@ const styles = theme => ({
         fontSize: 16,
         color: theme.palette.secondary.main
     },
+    firstName: {
+        width: 100
+    },
+    lastName: {
+        width: 200
+    },
+    email: {
+        width: 250
+    },
+    admin: {
+        width: 150
+    },
+    delete: {
+        width: 150
+    },
 });
 
 class TeamMembers extends Component {
@@ -85,11 +100,11 @@ class TeamMembers extends Component {
                     <table className="center">
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Admin Access</th>
-                                <th>Delete</th>
+                                <th className={classes.firstName}>First Name</th>
+                                <th className={classes.lastName}>Last Name</th>
+                                <th className={classes.email}>Email</th>
+                                <th className={classes.admin}>Admin Access</th>
+                                <th className={classes.delete}>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
