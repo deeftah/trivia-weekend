@@ -128,7 +128,7 @@ class HourSlider extends Component {
 
         if (this.state.slider.sliderStartingValue !== this.state.slider.sliderCurrentHour) {
 
-            currentHourButton = <Button color="primary" onClick={this.handleCurrent}>Jump to Current Hour</Button>
+            currentHourButton = <Button style={{color: this.props.user.color}} onClick={this.handleCurrent}>Jump to Current Hour</Button>
         }
 
         return (
