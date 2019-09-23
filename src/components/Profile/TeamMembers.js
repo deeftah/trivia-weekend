@@ -5,6 +5,10 @@ import { AddCircle, Delete, RemoveCircle } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 const styles = theme => ({
     root: {
@@ -53,11 +57,51 @@ class TeamMembers extends Component {
         })
     }
 
-    handleDeleteTeamMember = (id) => {
-        this.props.dispatch({
-            type: 'DELETE_TEAM_MEMBER',
-            payload: id
+    handleDeleteTeamMember = (id, name) => {
+
+        MySwal.fire({
+            title: `Delete ${name} from your team?`,
+            text: `${name} can register again with a valid Team Access Code.`,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_TEAM_MEMBER',
+                    payload: id
+                })
+                Swal.fire(
+                    'Deleted!',
+                    `${name} has been deleted from your team.`,
+                    'success'
+                )
+            }
         })
+
+        // MySwal.fire({
+        //     title: <p>Hello World</p>,
+        //     footer: 'Copyright 2018',
+        //     onOpen: () => {
+        //         // `MySwal` is a subclass of `Swal`
+        //         //   with all the same instance & static methods
+        //         MySwal.clickConfirm()
+        //     }
+        // }).then(() => {
+        //     return MySwal.fire(<p>Shorthand works too</p>)
+        //     this.props.dispatch({
+        //         type: 'DELETE_TEAM_MEMBER',
+        //         payload: id
+        //     })
+        // })
+
+
+        // this.props.dispatch({
+        //     type: 'DELETE_TEAM_MEMBER',
+        //     payload: id
+        // })
     }
 
     render() {
@@ -81,8 +125,8 @@ class TeamMembers extends Component {
                     {captain == true && <td><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><RemoveCircle style={{ marginRight: 3}}/>Revoke</Button></td>}
                     {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><AddCircle style={{ marginRight: 3 }} />Add</Button></td>}
                     {captain == null && <td>Team Captain</td>}
-                    {captain == true && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
-                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
+                    {captain == true && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
+                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
                     {captain == null && <td></td>}
                 </tr>
 
