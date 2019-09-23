@@ -13,7 +13,7 @@ class LoginButton extends Component {
 
         return (
             
-            <div>
+            <div style={{backgroundColor: this.props.color}}>
                 {!this.props.user.first_name && <Button onClick={this.handleLogin}>Login</Button>}
                 {!this.props.user.first_name && <span>/</span>}
             </div>

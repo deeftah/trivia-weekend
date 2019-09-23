@@ -64,4 +64,18 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+//USER GET AFTER COLOR UPDATE
+router.get('/color', rejectUnauthenticated, (req, res) => {
+  const sqlText = `SELECT * FROM "user" WHERE id = $1;`;
+  pool.query(sqlText, [req.user.id])
+    .then((result) => {
+      console.log('User Detail GET from database:', result);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`Error in User Detail GET`, error);
+      res.sendStatus(500);
+    })
+});
+
 module.exports = router;

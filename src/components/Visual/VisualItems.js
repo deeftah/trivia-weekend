@@ -166,7 +166,7 @@ class VisualItems extends Component {
                                 <Edit style={{ marginRight: 3 }} />Edit
                          </Button>}
                         {!this.state.editVisual && (this.props.user.clearance_id > 1) &&
-                            <Button color="primary" onClick={() => this.handleDeleteVisual(this.props.visual.id)} style={{ marginLeft: "auto", marginRight: 0 }}>
+                            <Button onClick={() => this.handleDeleteVisual(this.props.visual.id)} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                                 <Delete style={{ marginRight: 3 }} />Delete
                          </Button>}
                         {this.state.editVisual &&
@@ -174,7 +174,7 @@ class VisualItems extends Component {
                                 <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                         {this.state.editVisual &&
-                            <Button color="primary" onClick={this.handleVisualSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                            <Button onClick={this.handleVisualSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                                 <Save style={{ marginRight: 3 }} />Save
                          </Button>}
                     </CardActions>

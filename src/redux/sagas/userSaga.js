@@ -24,8 +24,36 @@ function* fetchUser() {
   }
 }
 
+function* updateUserColor(action) {
+  try {
+    let updateUserColorResponse = yield axios.put('/team/color', action.payload)
+    console.log('update user color saga response!', action.payload);
+    yield put({
+      type: 'FETCH_USER_DETAILS',
+      payload: updateUserColorResponse.data
+    })
+  } catch (err) {
+    console.log('error in USER COLOR PUT', err);
+  }
+}
+
+function* fetchUserDetails(action) {
+  try {
+    let userDetailsResponse = yield axios.get('/api/user/color')
+    console.log('fetch user details response!', action.payload);
+    yield put({
+      type: 'SET_USER_DETAILS',
+      payload: userDetailsResponse.data
+    })
+  } catch (err) {
+    console.log('error in USER DETAILS GET', err);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('UPDATE_USER_COLOR', updateUserColor)
+  yield takeLatest('FETCH_USER_DETAILS', fetchUserDetails)
 }
 
 export default userSaga;

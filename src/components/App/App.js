@@ -34,29 +34,28 @@ class App extends Component {
     this.props.dispatch({ type: 'FETCH_USER' })
   }
 
-  // componentDidUpdate(prevProps) {
-  //   // Typical usage (don't forget to compare props):
-  //   if (this.props.user.color !== prevProps.user.color) {
-  //     this.setState({
-  //       color: this.props.user.color
-  //     })
-  //     // this.colorScheme();
-  //   }
-  //   console.log('the component did update is hitting', this.props.user.color)
-  // }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.user.color !== prevProps.user.color) {
+      this.setState({
+        color: this.props.user.color
+      })
+      this.colorScheme();
+    }
+    console.log('the component did update is hitting', this.props.user.color)
+  }
 
-  // colorScheme() {
-  //   if (this.state.color == '#0fefff') {
-  //     theme.palette.primary.main = '#0fefff'
-  //   }
-  // }
+  colorScheme() {
+    if (this.state.color == '#0fefff') {
+      theme.palette.primary.main = '#0fefff'
+    } else if (this.state.color == '#ff99f6') {
+      theme.palette.primary.main = '#ff99f6'
+    }
+  }
 
   render() {
 
-    // if (this.state.color == '#0fefff') {
-    // theme.palette.primary.main = '#0fefff'
-    // theme.palette.success.main = '#0fefff'
-    // }
+    this.colorScheme()
 
     console.log('this is what we have on users', theme)
 
@@ -65,7 +64,7 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            <NavBar/>
+            <NavBar color={this.state.color}/>
             {/* <Switch> */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             {/* <Redirect exact from="/" to="/home" /> */}

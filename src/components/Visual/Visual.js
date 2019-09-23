@@ -136,7 +136,7 @@ class Visual extends Component {
                 <h1>Visual Trivia</h1>
                 <h3><i>{this.props.currentContest.contest_name}</i></h3>
                 {(this.props.visual.length == 0) && <h3>Let's upload this contest's visual trivia.  Click + to get started.</h3>}
-                {!this.state.toggleAdd && (this.props.user.clearance_id > 1) ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={() => this.handleAddClick(this.props.team.current_contest)}>
+                {!this.state.toggleAdd && (this.props.user.clearance_id > 1) ? <Fab color="primary" aria-label="add" style={{ marginTop: 15, backgroundColor: this.props.user.color }} onClick={() => this.handleAddClick(this.props.team.current_contest)}>
                     <Add />
                 </Fab> :
                     (this.props.user.clearance_id > 1) &&
@@ -198,7 +198,7 @@ class Visual extends Component {
                     </span>
                 }
                 {this.state.toggleAdd &&
-                    <Button color="primary" onClick={this.handleVisualAdd} style={{ marginTop: 15, marginLeft: 10 }}>
+                    <Button onClick={this.handleVisualAdd} style={{ marginTop: 15, marginLeft: 10, color: this.props.user.color }}>
                         <AddCircle style={{ marginRight: 3 }} />Add To Gallery
                          </Button>}
 

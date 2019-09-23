@@ -108,8 +108,8 @@ class ScrollableTabsButtonForce extends React.Component {
     console.log('what is on tab bar', this.props.user)
 
         return (
-            <div className={classes.root}>
-                <AppBar position="static" color="primary">
+            <div className={classes.root} style={{backgroundColor: this.props.user.color}}>
+                <AppBar position="static" style={{ backgroundColor: this.props.user.color }}>
                     <Tabs
                         value={value}
                         onChange={this.handleChange}
@@ -117,7 +117,8 @@ class ScrollableTabsButtonForce extends React.Component {
                         scrollButtons="on"
                         indicatorColor="secondary"
                         textColor="secondary"
-                        className={classes.background}
+                        className={classes.root}
+                        style={{ backgroundColor: this.props.user.color }}
                     >
                         <Tab value={0} label="Home" component={Link} to="/home" icon={<Home />} />
                         <Tab value={1} label="Visual" component={Link} to="/visual" icon={<Photo />} />

@@ -65,7 +65,7 @@ class Home extends Component {
                     <Grid item sm={6}>
                         <Card style={{ backgroundColor: "#494A49" }}>
                             <CardContent>
-                                <Typography color="primary" align="center" style={{ fontSize: 20 }}>
+                                <Typography align="center" style={{ fontSize: 20, color: this.props.user.color }}>
                                     Team News
                                 </Typography>
                                 <br /><br />
@@ -86,7 +86,7 @@ class Home extends Component {
                                         <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                                 {this.state.editBoilerplate && (this.props.user.clearance_id > 1) &&
-                                    <Button color="primary" onClick={this.handleBoilerplateSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                                    <Button color="primary" onClick={this.handleBoilerplateSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                                         <Save style={{ marginRight: 3 }} />Save
                             </Button>}
                             </CardActions>

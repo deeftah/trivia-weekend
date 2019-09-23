@@ -130,7 +130,7 @@ class ProfileDetails extends Component {
                             <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                     {this.state.teamNameEdit && (this.props.user.clearance_id > 1) &&
-                        <Button color="primary" onClick={this.handleTeamNameSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                        <Button onClick={this.handleTeamNameSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                             <Save style={{ marginRight: 3 }} />Save
                             </Button>}
                 </CardActions>

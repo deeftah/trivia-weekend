@@ -98,7 +98,7 @@ class TeamLogo extends Component {
                 <Grid item sm={6} align="center">
                     <Card style={{ backgroundColor: "#494A49" }}>
                         <CardContent>
-                            <Typography color="primary" style={{fontSize: 20}}>
+                            <Typography style={{ fontSize: 20, color: this.props.user.color}}>
                                 {!this.props.team.logo_url ? 'Upload a Logo' : this.props.team.name}
                                 <br /><br />
                                 {!this.props.team.logo_url ? <img src="https://mk0nationaltodayijln.kinstacdn.com/wp-content/uploads/2019/01/national-trivia-day-640x514.jpg"/>
@@ -143,7 +143,7 @@ class TeamLogo extends Component {
                                     <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                             {this.state.editImage && (this.props.user.clearance_id > 1) &&
-                                <Button color="primary" onClick={this.handleImageSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                                <Button onClick={this.handleImageSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                                     <Save style={{ marginRight: 3 }} />Save
                             </Button>}
                         </CardActions>

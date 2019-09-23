@@ -353,7 +353,7 @@ class UpdateContest extends Component {
                             <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                     {this.state.editContest && (this.props.user.clearance_id > 1) &&
-                        <Button color="primary" onClick={this.handleContestSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                        <Button onClick={this.handleContestSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                             <Save style={{ marginRight: 3 }} />Save
                             </Button>}
                 </CardActions>

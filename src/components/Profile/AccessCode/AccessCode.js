@@ -67,7 +67,7 @@ class AccessCode extends Component {
                 </CardContent>
                 <CardActions>
                     {(this.props.user.clearance_id > 1) &&
-                    <Button color="primary" onClick={() => this.handleResetCode()} style={{ marginLeft: "auto", marginRight: 0 }}>
+                        <Button onClick={() => this.handleResetCode()} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                         <Refresh style={{ marginRight: 3 }} />Reset Code
                          </Button>}
                 </CardActions>

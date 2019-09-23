@@ -18,7 +18,7 @@ state = {
     render() {
 
         return (
-            <div>
+            <div style={{backgroundColor: this.props.color}}>
                 {!this.props.user.first_name && <Button onClick={this.handleRegister}>Register</Button>}
                 {this.props.user.first_name && <AccountButton name={this.state.name} firstName={this.props.user.first_name}/>}
                 

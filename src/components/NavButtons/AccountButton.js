@@ -3,9 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { AccountCircle } from '@material-ui/icons';
-import { Link } from 'react-router-dom'
-
-// export default function
+import { Link } from 'react-router-dom';
 
 const AccountButton = ({firstName}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);

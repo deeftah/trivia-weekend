@@ -25,13 +25,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ButtonAppBar() {
+const ButtonAppBar = ({color}) => {
 
     const classes = useStyles();
 
+    // const example = (props) => {props.color}
+
     return (
         <div className={classes.root}>
-            <AppBar position="fixed">
+            <AppBar position="fixed" style={{backgroundColor: color}}>
                 <Toolbar>
                     {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon/>
@@ -42,12 +44,14 @@ export default function ButtonAppBar() {
           </Typography>
 
                     {/* <TabPanel/> */}
-                    <ScrollableTabsButtonForce/>
+                    <ScrollableTabsButtonForce selectedColor={color}/>
 
-                    <LoginButton />
-                    <RegisterButton />
+                    <LoginButton color={color}/>
+                    <RegisterButton color={color}/>
                 </Toolbar>
             </AppBar>
         </div>
     );
 }
+
+export default ButtonAppBar

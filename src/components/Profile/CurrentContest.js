@@ -147,7 +147,7 @@ class CurrentContest extends Component {
                             <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                     {this.state.currentContestEdit && (this.props.user.clearance_id > 1) &&
-                        <Button color="primary" onClick={this.handleCurrentContestSave} style={{ marginLeft: "auto", marginRight: 0 }}>
+                        <Button onClick={this.handleCurrentContestSave} style={{ marginLeft: "auto", marginRight: 0, color: this.props.user.color }}>
                             <Save style={{ marginRight: 3 }} />Save
                             </Button>}
                 </CardActions>

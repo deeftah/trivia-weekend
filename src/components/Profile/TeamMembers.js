@@ -53,7 +53,7 @@ class TeamMembers extends Component {
     handleCaptainChange = (id, clearanceId) => {
         this.props.dispatch({
             type: 'UPDATE_CAPTAIN',
-            payload: {id, clearanceId}
+            payload: { id, clearanceId }
         })
     }
 
@@ -80,28 +80,6 @@ class TeamMembers extends Component {
                 )
             }
         })
-
-        // MySwal.fire({
-        //     title: <p>Hello World</p>,
-        //     footer: 'Copyright 2018',
-        //     onOpen: () => {
-        //         // `MySwal` is a subclass of `Swal`
-        //         //   with all the same instance & static methods
-        //         MySwal.clickConfirm()
-        //     }
-        // }).then(() => {
-        //     return MySwal.fire(<p>Shorthand works too</p>)
-        //     this.props.dispatch({
-        //         type: 'DELETE_TEAM_MEMBER',
-        //         payload: id
-        //     })
-        // })
-
-
-        // this.props.dispatch({
-        //     type: 'DELETE_TEAM_MEMBER',
-        //     payload: id
-        // })
     }
 
     render() {
@@ -119,15 +97,15 @@ class TeamMembers extends Component {
 
             return (
                 <tr>
-                    <td>{member.first_name}</td>
-                    <td>{member.last_name}</td>
-                    <td>{member.username}</td>
-                    {captain == true && <td><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><RemoveCircle style={{ marginRight: 3}}/>Revoke</Button></td>}
-                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><AddCircle style={{ marginRight: 3 }} />Add</Button></td>}
-                    {captain == null && <td>Team Captain</td>}
-                    {captain == true && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
-                    {captain == false && <td><Button variant="contained" color="primary" onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
-                    {captain == null && <td></td>}
+                    <td style={{paddingBottom: 10}}>{member.first_name}</td>
+                    <td style={{ paddingBottom: 10 }}>{member.last_name}</td>
+                    <td style={{ paddingBottom: 10 }}>{member.username}</td>
+                    {captain == true && <td style={{ paddingBottom: 10 }}><Button variant="contained" color="secondary" onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><RemoveCircle style={{ marginRight: 3 }} />Revoke</Button></td>}
+                    {captain == false && <td style={{ paddingBottom: 10 }}><Button variant="contained" color="primary" style={{backgroundColor: this.props.user.color}} onClick={() => this.handleCaptainChange(member.id, member.clearance_id)}><AddCircle style={{ marginRight: 3 }} />Add</Button></td>}
+                    {captain == null && <td style={{ paddingBottom: 10 }}>Team Captain</td>}
+                    {captain == true && <td style={{ paddingBottom: 10 }}><Button variant="contained" color="primary" style={{ backgroundColor: this.props.user.color }} onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
+                    {captain == false && <td style={{ paddingBottom: 10 }}><Button variant="contained" color="primary" style={{ backgroundColor: this.props.user.color }} onClick={() => this.handleDeleteTeamMember(member.id, member.first_name)}><Delete style={{ marginRight: 3 }} />Delete</Button></td>}
+                    {captain == null && <td style={{ paddingBottom: 10 }}></td>}
                 </tr>
 
 

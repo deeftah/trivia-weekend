@@ -126,4 +126,19 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
+//UPDATE USER PREFERRED COLOR
+router.put('/color', rejectUnauthenticated, (req, res) => {
+    console.log('the req.body for the color update is:', req.body);
+    const sqlText = `UPDATE "user"
+                  SET "color" = $1
+                  WHERE "id" = $2;`;
+    pool.query(sqlText, [req.body.color, req.user.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;

@@ -177,7 +177,7 @@ class NewContestForm extends Component {
         return (
 
             <div>
-                <Button variant="contained" color="primary" onClick={this.handleOpen}>
+                <Button variant="contained" style={{backgroundColor: this.props.user.color}} onClick={this.handleOpen}>
                     New Contest
                 </Button>
                 <Modal
@@ -194,7 +194,7 @@ class NewContestForm extends Component {
                 >
                     <CardContent className={classes.form}>
 
-                        <h1 className={classes.h1}>Enter Contest Details</h1>
+                        <h1 className={classes.h1} style={{ color: this.props.user.color}}>Enter Contest Details</h1>
                         <form onSubmit={this.addContest}>
                             <div>
                                 <TextField
@@ -330,12 +330,12 @@ class NewContestForm extends Component {
                                 />
                                 </div>
                                 <div>
-                                <Button color="primary"
+                                <Button
                                     variant="contained"
                                     type="submit"
                                     name="submit"
                                     className="contestAddButton"
-                                    style={{ marginTop: 10 }}>
+                                    style={{ marginTop: 10, backgroundColor: this.props.user.color}}>
                                     <AddCircle style={{ marginRight: 3 }} />Add Contest
                          </Button>
                             </div>
