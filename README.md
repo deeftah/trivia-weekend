@@ -46,12 +46,12 @@ And so on...
 
 ## Screen Shot
 
-![screenshot1](tw1.png)
-![screenshot2](tw2.png)
-![screenshot3](tw3.png)
-![screenshot4](tw4.png)
-![screenshot5](tw5.png)
-![screenshot6](tw6.png)
+![screenshot1](/tw1.png)
+![screenshot2](/tw2.png)
+![screenshot3](/tw3.png)
+![screenshot4](/tw4.png)
+![screenshot5](/tw5.png)
+![screenshot6](/tw6.png)
 
 ## Author
 
