@@ -42,8 +42,6 @@ Follow these steps to get the development environment running.
 4. `npm run server`
 5. `npm run client`
 
-And so on...
-
 ## Screen Shot
 
 ![screenshot1](/tw1.png)
