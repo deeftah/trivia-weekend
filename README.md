@@ -51,6 +51,9 @@ Follow these steps to get the development environment running.
 ![screenshot5](/tw5.png)
 ![screenshot6](/tw6.png)
 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
 ## Author
 
 - Max Maher
