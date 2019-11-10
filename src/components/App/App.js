@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
     if (this.props.user.color !== prevProps.user.color) {
       this.setState({
         color: this.props.user.color
@@ -48,16 +47,16 @@ class App extends Component {
   colorScheme() {
     if (this.state.color == '#0fefff') {
       theme.palette.primary.main = '#0fefff'
-    } else if (this.state.color == '#ff99f6') {
-      theme.palette.primary.main = '#ff99f6'
+    } else {
+      theme.palette.primary.main = this.state.color
     }
   }
 
   render() {
 
-    this.colorScheme()
+    this.colorScheme();
 
-    console.log('this is what we have on users', theme)
+    console.log('this is what we have on users', theme);
 
     return (
       <ThemeProvider theme={theme}>

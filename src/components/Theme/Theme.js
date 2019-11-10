@@ -3,13 +3,12 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 // Custom Theme for Trivia Weekend
-
 const theme = createMuiTheme({
     overrides: {
         MuiFormLabel: {
             root: {
                 "&$focused": {
-                    color: '#55d685'
+                    color: 'white'
                 }
             }
         }

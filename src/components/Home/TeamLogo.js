@@ -27,7 +27,7 @@ const styles = theme => ({
         }
     },
     input: {
-        color: "white"
+        color: "white",
     },
 
     cssLabel: {
@@ -125,7 +125,7 @@ class TeamLogo extends Component {
                                         }}
                                         InputLabelProps={{
                                             className: classes.input,
-                                            shrink: true
+                                            shrink: true,
                                         }}
                                     />
                                 </div>}

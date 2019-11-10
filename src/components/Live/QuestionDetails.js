@@ -239,7 +239,7 @@ class QuestionDetails extends Component {
                                 <Cancel style={{ marginRight: 3 }} />Cancel
                          </Button>}
                         {this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
-                            <Button color="primary" onClick={this.handleSave} style={{ marginRight: 20, marginLeft: 0 }}>
+                            <Button color="primary" onClick={this.handleSave} style={{ marginRight: 20, marginLeft: 0, color: this.props.user.color }}>
                                 <Save style={{ marginRight: 3 }} />Save
                          </Button>}
                     </Grid>

@@ -6,7 +6,7 @@ Launch application: https://trivia-weekend.herokuapp.com/
 
 ## Built With
 
-This project was built with React, Redux, Redux-Sagas, Node, Express, PostgresQL, Material-UI, and MomentJS.
+This project was built with React, Redux, Redux-Sagas, Node, Express, PostgreSQL, Material-UI, and MomentJS.
 
 ## Getting Started
 
