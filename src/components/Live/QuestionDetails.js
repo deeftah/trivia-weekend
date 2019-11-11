@@ -222,6 +222,16 @@ class QuestionDetails extends Component {
         }
     }
 
+    handleDemo = () => {
+        this.setState({
+            questionDetail: {
+                ...this.state.questionDetail,
+                pointValue: 25,
+                questionDescription: `What was the name of Elvis Presley's pet turkey?`
+            }
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -244,7 +254,7 @@ class QuestionDetails extends Component {
                          </Button>}
                     </Grid>
                     <Grid item sm={2} align="center" >
-                        <span className={classes.questionLabel}>Question {this.state.questionDetail.questionNumber}</span>
+                        <span onClick={() => this.handleDemo()} className={classes.questionLabel}>Question {this.state.questionDetail.questionNumber}</span>
                     </Grid>
                     <Grid item sm={5} align="right" >
                         {/* <Button color="secondary" style={{ marginRight: 20, marginLeft: 0 }}>

@@ -148,7 +148,6 @@ class NewContestForm extends Component {
 
     //DEMO PURPOSES
     handleDemo = () => {
-        console.log('handle demo hitting');
         this.setState({
             newContest: {
                 ...this.state.newContest,
