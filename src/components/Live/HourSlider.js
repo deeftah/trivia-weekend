@@ -60,7 +60,8 @@ class HourSlider extends Component {
         slider: {
             sliderStartingValue: 1,
             sliderCurrentHour: 1
-        }
+        },
+        speedRound: false,
     };
 
     componentDidUpdate(prevProps) {
@@ -156,6 +157,7 @@ class HourSlider extends Component {
                             onChange={(event, value) => this.handleSliderChange(value)}
                         />
                         live hour: {this.state.slider.sliderStartingValue}
+                        <br/>
                     </Grid>
                     <Grid item xs={.5} className={classes.sliderMinAndMaxNum}>
                         {this.props.currentContest.number_of_hours}

@@ -239,6 +239,7 @@ class QuestionDetails extends Component {
         return (
             <div>
                 <Grid container spacing={3} justify="center" style={{ marginTop: 10 }}>
+                    <br />
                     <Grid item sm={5} align="left" >
                         {!this.state.toggleEdit && (this.props.user.clearance_id > 1) &&
                             <Button color="secondary" onClick={() => this.handleEdit(this.getQuestion(this.props.selection))} style={{ marginRight: 20, marginLeft: 0 }}>
