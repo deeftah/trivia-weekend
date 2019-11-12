@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Fab, Grid, Paper as Card, Switch, Typography } from '@material-ui/core';
+import { Fab, FormControlLabel, Grid, Paper as Card, Switch, Typography } from '@material-ui/core';
 import QuestionDetails from './QuestionDetails';
 
 const styles = theme => ({
@@ -227,19 +227,25 @@ class Questions extends Component {
         }))
         // console.log('the fab display is', fabDisplay)
         // fabDiplay[2].key
-        let speedRoundSelector = <Switch
-            checked={this.state.speedRound}
-            onChange={this.handleSpeedRoundChange('speedRound')}
-            value="speedRound"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
-            color="primary"
+
+
+        let speedRoundSelector = <FormControlLabel control={
+            <Switch
+                checked={this.state.speedRound}
+                onChange={this.handleSpeedRoundChange('speedRound')}
+                value="speedRound"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                color="primary"
+            />
+        }
+            label="Speed Round"
         />
 
         return (
             <>
                 {this.props.user.clearance_id > 1 &&
                     <div className={classes.speedRound}>
-                        {speedRoundSelector} Speed Round
+                        {speedRoundSelector}
                     </div>}
                 <span className={classes.selectQuestion}>Select a Question</span>
                 <br />
