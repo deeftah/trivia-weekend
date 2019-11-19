@@ -149,11 +149,28 @@ class Questions extends Component {
     }
 
     handleSpeedRoundChange = name => event => {
+        this.speedRoundResponse();
         this.setState({
             ...this.state,
             [name]: event.target.checked
         });
     };
+
+    speedRoundResponse() {
+        if (!this.state.speedRound) {
+            console.log('this is actually a speed round');
+            let speedRoundInfo = {
+                currentContest: this.props.contest,
+                contestHour: this.props.slider
+            }
+            this.props.dispatch({
+                type: 'ADD_SPEED_ROUND',
+                payload: speedRoundInfo
+            })
+        } else if (this.state.speedRound) {
+            console.log('this is no longer a speed round');
+        }
+    }
 
     render() {
 

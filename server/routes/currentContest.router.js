@@ -54,4 +54,20 @@ router.put('/details', rejectUnauthenticated, (req, res) => {
         })
 })
 
+//ADD SPEED ROUND POST
+router.post('/addSpeedRound', rejectUnauthenticated, (req, res) => {
+    console.log('this is the ADD SPEED ROUND req.body', req.body);
+    const sqlText = `INSERT INTO "hour" ("hour", "speed_round", "contest_id")
+                    VALUES ($1, $2, $3);`;
+    pool.query(sqlText, [req.body.contestHour, true, req.body.currentContest])
+        .then((result) => {
+            console.log('ADD SPEED ROUND from database:', result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error POSTing new speed round: ${sqlText}`, error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;
