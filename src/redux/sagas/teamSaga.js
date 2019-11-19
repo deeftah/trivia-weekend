@@ -94,6 +94,8 @@ function* updateTeamName(action) {
 
 function* deleteTeamMember(action) {
     try {
+        console.log('THE TEAM MEMBER ACTION', action)
+        console.log('THE TEAM MEMBER ACTION.PAYLOAD', action.payload)
         let deleteTeamMemberResponse = yield axios.delete(`team/${action.payload}`)
         console.log('delete team member saga response!', action.payload);
         yield put({

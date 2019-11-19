@@ -43,10 +43,26 @@ function* addSpeedRound(action) {
         let addSpeedRoundResponse = yield axios.post('/currentContest/addSpeedRound', action.payload)
         console.log('add speed round saga response!', addSpeedRoundResponse);
         yield put({
-            type: 'FETCH_CURRENT_CONTEST'
+            type: 'FETCH_SPEED_ROUND',
+            payload: action.payload
         })
     } catch (err) {
         console.log('error in ADD SPEED ROUND POST', err);
+    }
+}
+
+function* fetchSpeedRound(action) {
+    try {
+        let currentHour = action.payload.contestHour;
+        console.log('the currrent hour after the speed round add is', currentHour)
+        let fetchSpeedRoundResponse = yield axios.get(`/currentContest/fetchSpeedRound/${currentHour}`)
+        console.log('speed round saga response!', fetchSpeedRoundResponse);
+        yield put({
+            type: 'SET_SPEED_ROUND',
+            payload: fetchSpeedRoundResponse.data[0]
+        })
+    } catch (err) {
+        console.log('error in SPEED ROUND GET', err);
     }
 }
 
@@ -55,6 +71,7 @@ function* currentContestSaga() {
     yield takeEvery('UPDATE_CURRENT_CONTEST', updateCurrentContest);
     yield takeLatest('UPDATE_CURRENT_CONTEST_DETAILS', updateCurrentContestDetails);
     yield takeEvery('ADD_SPEED_ROUND', addSpeedRound);
+    yield takeEvery('FETCH_SPEED_ROUND', fetchSpeedRound);
 }
 
 export default currentContestSaga;

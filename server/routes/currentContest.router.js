@@ -70,4 +70,23 @@ router.post('/addSpeedRound', rejectUnauthenticated, (req, res) => {
         })
 })
 
+//SPEED ROUND GET
+router.get(`/fetchSpeedRound/:id`, rejectUnauthenticated, (req, res) => {
+    console.log('this is the FETCH SPEED ROUND req', req.params.id);
+    const sqlText = `SELECT "hour", "speed_round", "contest_id" FROM "hour"
+                    JOIN "contest" ON "hour".contest_id = "contest".id
+                    JOIN "team" ON "contest".id = "team".current_contest
+                    JOIN "user" ON "team".id = "user".team_id
+                    WHERE "user".id = $1 AND "hour"."hour" = $2;`;
+    pool.query(sqlText, [req.user.id, req.params.id])
+        .then((result) => {
+            console.log('SPEED ROUND GET from database:', result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error making database query ${sqlText}`, error);
+            res.sendStatus(500);
+        })
+});
+
 module.exports = router;

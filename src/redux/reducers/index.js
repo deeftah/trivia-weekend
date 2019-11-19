@@ -10,6 +10,7 @@ import teamUsers from './teamUsersReducer';
 import question from './questionReducer';
 import pointTotal from'./pointTotalReducer';
 import userDetails from './userDetailsReducer';
+import speedRound from './speedRoundReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   teamUsers,
   question,
   pointTotal,
-  userDetails
+  userDetails,
+  speedRound
 });
 
 export default rootReducer;
