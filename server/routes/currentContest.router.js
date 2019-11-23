@@ -81,7 +81,15 @@ router.get(`/fetchSpeedRound/:id`, rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, [req.user.id, req.params.id])
         .then((result) => {
             console.log('SPEED ROUND GET from database:', result);
-            res.send(result.rows);
+            if (result.rows.length === 0) {
+                let nonSpeedRoundResult = [{
+                    hour: req.params.id,
+                    speed_round: false
+                }]
+                res.send(nonSpeedRoundResult);
+            } else {
+                res.send(result.rows);
+            }
         })
         .catch((error) => {
             console.log(`Error making database query ${sqlText}`, error);

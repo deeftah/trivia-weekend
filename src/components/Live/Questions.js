@@ -143,7 +143,7 @@ class Questions extends Component {
             type: 'FETCH_SPEED_ROUND',
             payload: this.props.slider
         })
-        console.log('the speed round is getting collected');
+        console.log('the speed round is getting collected', this.props.slider);
     }
 
 
@@ -282,7 +282,6 @@ class Questions extends Component {
 
         return (
             <>
-                {JSON.stringify(this.props.speedRound.speed_round)}
                 {this.props.user.clearance_id > 1 &&
                     <div className={classes.speedRound}>
                         {speedRoundSelector}
