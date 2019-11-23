@@ -198,6 +198,12 @@ class Questions extends Component {
             listOfQuestions.push(i);
         }
 
+        if (this.props.speedRound.speed_round) {
+            for (let i = numberOfQuestions + 1; i <= numberOfQuestions * 2; i++) {
+                listOfQuestions.push(i);
+            }
+        }
+
         let fabClasses = []
         let button = {}
 
@@ -248,6 +254,7 @@ class Questions extends Component {
                 }
             } else
                 return <Fab key={fab.number} value={fab.number} className={fab.color} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+
         }))
         // console.log('the fab display is', fabDisplay)
         // fabDiplay[2].key
@@ -288,7 +295,9 @@ class Questions extends Component {
                     </div>}
                 <span className={classes.selectQuestion}>Select a Question</span>
                 <br />
-                {fabDisplay}
+                {fabDisplay.slice(0, numberOfQuestions)}
+                <br/>
+                {fabDisplay.slice(numberOfQuestions, numberOfQuestions * 2)}
                 <QuestionDetails contest={currentHourContestData} selection={this.state.selectedQuestion} />
             </>
         )
