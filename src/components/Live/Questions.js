@@ -103,7 +103,7 @@ class Questions extends Component {
             let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
             this.getCurrentHourQuestions(queryString)
         }, 3000);
-        // this.getSpeedRoundInfo();
+        this.getSpeedRoundInfo();
     }
 
     componentWillUnmount() {
@@ -121,19 +121,14 @@ class Questions extends Component {
             this.getCurrentHourQuestions(queryString)
         }
         if (this.props.slider !== prevProps.slider) {
-            console.log('this is triggering')
             let contest = {
                 contestId: this.props.contest,
                 currentHour: this.props.slider
             }
-            console.log('FINAL CONTEST ID:', contest.contestId)
-            console.log('FINAL CURRENT HOUR:', contest.currentHour)
             let queryString = Object.keys(contest).map(key => key + '=' + contest[key]).join('&');
-            this.getCurrentHourQuestions(queryString)
+            this.getCurrentHourQuestions(queryString);
+            this.getSpeedRoundInfo();
         }
-        // if (this.props.speedRound !== prevProps.speedRound) {
-        //     this.getSpeedRoundInfo();
-        // }
     }
 
     getCurrentHourQuestions(contest) {
@@ -145,7 +140,8 @@ class Questions extends Component {
 
     getSpeedRoundInfo() {
         this.props.dispatch({
-            type: 'FETCH_SPEED_ROUND'
+            type: 'FETCH_SPEED_ROUND',
+            payload: this.props.slider
         })
         console.log('the speed round is getting collected');
     }
@@ -166,123 +162,139 @@ class Questions extends Component {
                 ...this.state,
                 speedRound: !this.state.speedRound
             });
-        let speedRoundInfo = {
-            currentContest: this.props.contest,
-            contestHour: this.props.slider
+            let speedRoundInfo = {
+                currentContest: this.props.contest,
+                contestHour: this.props.slider
+            }
+            this.props.dispatch({
+                type: 'ADD_SPEED_ROUND',
+                payload: speedRoundInfo
+            })
+        } else if (this.state.speedRound) {
+            this.setState({
+                ...this.state,
+                speedRound: !this.state.speedRound
+            });
+            console.log('this is no longer a speed round');
         }
-        this.props.dispatch({
-            type: 'ADD_SPEED_ROUND',
-            payload: speedRoundInfo
-        })
-    } else if(this.state.speedRound) {
-        this.setState({
-            ...this.state,
-            speedRound: !this.state.speedRound
-        });
-        console.log('this is no longer a speed round');
-    }
-}
-
-render() {
-
-    const { classes } = this.props
-
-    let currentHourContestData = {
-        contestId: this.props.currentContest.id,
-        currentHour: this.props.slider
     }
 
-    let numberOfQuestions = this.props.currentContest.number_of_questions
+    render() {
 
-    let currentHour = this.props.slider
+        const { classes } = this.props
 
-    let listOfQuestions = [];
+        let currentHourContestData = {
+            contestId: this.props.currentContest.id,
+            currentHour: this.props.slider
+        }
 
-    for (let i = 1; i <= numberOfQuestions; i++) {
-        listOfQuestions.push(i);
-    }
+        let numberOfQuestions = this.props.currentContest.number_of_questions
 
-    let fabClasses = []
-    let button = {}
+        let currentHour = this.props.slider
 
-    if (this.props.question[0]) {
-        for (let i = 0; i < listOfQuestions.length; i++) {
-            // find the question that is number "i+1"
-            let questionMatch = null;
-            for (let each of this.props.question) {
-                if (each.question_number == i + 1) {
-                    questionMatch = each;
-                    break;
+        let listOfQuestions = [];
+
+        for (let i = 1; i <= numberOfQuestions; i++) {
+            listOfQuestions.push(i);
+        }
+
+        let fabClasses = []
+        let button = {}
+
+        if (this.props.question[0]) {
+            for (let i = 0; i < listOfQuestions.length; i++) {
+                // find the question that is number "i+1"
+                let questionMatch = null;
+                for (let each of this.props.question) {
+                    if (each.question_number == i + 1) {
+                        questionMatch = each;
+                        break;
+                    }
+                }
+                if (questionMatch) {
+                    // found my question, set its color appropriately                    
+                    if (questionMatch.correct == null || questionMatch.correct == 'NULL' || questionMatch.correct == '') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabYellow })
+                        console.log('pushing yellow')
+                    } else if (questionMatch.correct == 'true') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabGreen })
+                        console.log('pushing green')
+                    } else if (questionMatch.correct == 'false') {
+                        fabClasses.push(button = { number: i + 1, color: classes.fabRed })
+                        console.log('pushing red')
+                    }
+                } else {
+                    // no question in the DB for i+1, so use default color
+                    fabClasses.push(button = { number: i + 1, color: classes.fab })
                 }
             }
-            if (questionMatch) {
-                // found my question, set its color appropriately                    
-                if (questionMatch.correct == null || questionMatch.correct == 'NULL' || questionMatch.correct == '') {
-                    fabClasses.push(button = { number: i + 1, color: classes.fabYellow })
-                    console.log('pushing yellow')
-                } else if (questionMatch.correct == 'true') {
-                    fabClasses.push(button = { number: i + 1, color: classes.fabGreen })
-                    console.log('pushing green')
-                } else if (questionMatch.correct == 'false') {
-                    fabClasses.push(button = { number: i + 1, color: classes.fabRed })
-                    console.log('pushing red')
+        } else {
+            for (let each of listOfQuestions) {
+                fabClasses.push(button = { number: each, color: classes.fab })
+            }
+        }
+
+        let fabDisplay;
+        fabDisplay = (fabClasses.map((fab) => {
+            if (fab.number == this.state.selectedQuestion) {
+                if (fab.color.includes('fabGreen')) {
+                    return <Fab key={fab.number} value={fab.number} className={classes.fabGreenSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                } else if (fab.color.includes('fabRed')) {
+                    return <Fab key={fab.number} value={fab.number} className={classes.fabRedSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                } else if (fab.color.includes('fabYellow')) {
+                    return <Fab key={fab.number} value={fab.number} className={classes.fabYellowSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                } else {
+                    return <Fab key={fab.number} value={fab.number} className={classes.fabSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
                 }
-            } else {
-                // no question in the DB for i+1, so use default color
-                fabClasses.push(button = { number: i + 1, color: classes.fab })
+            } else
+                return <Fab key={fab.number} value={fab.number} className={fab.color} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+        }))
+        // console.log('the fab display is', fabDisplay)
+        // fabDiplay[2].key
+
+        let speedRoundSelector;
+
+        if (this.props.speedRound.speed_round) {
+            speedRoundSelector = <FormControlLabel control={
+                <Switch
+                    checked={true}
+                    onChange={() => this.speedRoundResponse()}
+                    value="speedRound"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    color="primary"
+                />
             }
-        }
-    } else {
-        for (let each of listOfQuestions) {
-            fabClasses.push(button = { number: each, color: classes.fab })
-        }
-    }
-
-    let fabDisplay;
-    fabDisplay = (fabClasses.map((fab) => {
-        if (fab.number == this.state.selectedQuestion) {
-            if (fab.color.includes('fabGreen')) {
-                return <Fab key={fab.number} value={fab.number} className={classes.fabGreenSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
-            } else if (fab.color.includes('fabRed')) {
-                return <Fab key={fab.number} value={fab.number} className={classes.fabRedSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
-            } else if (fab.color.includes('fabYellow')) {
-                return <Fab key={fab.number} value={fab.number} className={classes.fabYellowSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
-            } else {
-                return <Fab key={fab.number} value={fab.number} className={classes.fabSelected} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
+                label="Speed Round"
+            />
+        } else {
+            speedRoundSelector = <FormControlLabel control={
+                <Switch
+                    checked={false}
+                    onChange={() => this.speedRoundResponse()}
+                    value="speedRound"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    color="primary"
+                />
             }
-        } else
-            return <Fab key={fab.number} value={fab.number} className={fab.color} onClick={() => this.handleFabClick(fab.number)}>{fab.number}</Fab>
-    }))
-    // console.log('the fab display is', fabDisplay)
-    // fabDiplay[2].key
+                label="Speed Round"
+            />
+        }
 
+        return (
+            <>
+                {JSON.stringify(this.props.speedRound.speed_round)}
+                {this.props.user.clearance_id > 1 &&
+                    <div className={classes.speedRound}>
+                        {speedRoundSelector}
+                    </div>}
+                <span className={classes.selectQuestion}>Select a Question</span>
+                <br />
+                {fabDisplay}
+                <QuestionDetails contest={currentHourContestData} selection={this.state.selectedQuestion} />
+            </>
+        )
 
-    let speedRoundSelector = <FormControlLabel control={
-        <Switch
-            checked={this.props.speedRound.speed_round}
-            onChange={() => this.speedRoundResponse()}
-            value="speedRound"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
-            color="primary"
-        />
     }
-        label="Speed Round"
-    />
-
-    return (
-        <>
-            {this.props.user.clearance_id > 1 &&
-                <div className={classes.speedRound}>
-                    {speedRoundSelector}
-                </div>}
-            <span className={classes.selectQuestion}>Select a Question</span>
-            <br />
-            {fabDisplay}
-            <QuestionDetails contest={currentHourContestData} selection={this.state.selectedQuestion} />
-        </>
-    )
-
-}
 
 }
 

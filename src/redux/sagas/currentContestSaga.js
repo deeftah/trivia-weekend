@@ -53,10 +53,10 @@ function* addSpeedRound(action) {
 
 function* fetchSpeedRound(action) {
     try {
-        let currentHour = action.payload.contestHour;
-        console.log('the currrent hour after the speed round add is', currentHour)
+        let currentHour = action.payload;
+        console.log('the current hour after the speed round add is', currentHour)
         let fetchSpeedRoundResponse = yield axios.get(`/currentContest/fetchSpeedRound/${currentHour}`)
-        console.log('speed round saga response!', fetchSpeedRoundResponse);
+        console.log('speed round saga response!', fetchSpeedRoundResponse.data[0]);
         yield put({
             type: 'SET_SPEED_ROUND',
             payload: fetchSpeedRoundResponse.data[0]
