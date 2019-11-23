@@ -156,12 +156,12 @@ class Questions extends Component {
     }
 
     speedRoundResponse() {
-        if (!this.state.speedRound) {
-            console.log('this is actually a speed round');
-            this.setState({
-                ...this.state,
-                speedRound: !this.state.speedRound
-            });
+        if (!this.props.speedRound.speed_round) {
+            console.log('this will actually a speed round');
+            // this.setState({
+            //     ...this.state,
+            //     speedRound: !this.state.speedRound
+            // });
             let speedRoundInfo = {
                 currentContest: this.props.contest,
                 contestHour: this.props.slider
@@ -170,11 +170,11 @@ class Questions extends Component {
                 type: 'ADD_SPEED_ROUND',
                 payload: speedRoundInfo
             })
-        } else if (this.state.speedRound) {
-            this.setState({
-                ...this.state,
-                speedRound: !this.state.speedRound
-            });
+        } else if (this.props.speedRound.speed_round) {
+            // this.setState({
+            //     ...this.state,
+            //     speedRound: !this.state.speedRound
+            // });
             console.log('this is no longer a speed round');
         }
     }

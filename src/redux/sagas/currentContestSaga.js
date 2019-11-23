@@ -44,7 +44,7 @@ function* addSpeedRound(action) {
         console.log('add speed round saga response!', addSpeedRoundResponse);
         yield put({
             type: 'FETCH_SPEED_ROUND',
-            payload: action.payload
+            payload: action.payload.contestHour
         })
     } catch (err) {
         console.log('error in ADD SPEED ROUND POST', err);
