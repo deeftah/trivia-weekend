@@ -50,6 +50,8 @@ class CountDown extends Component {
             contestStartTime += 3600000
         } else if (daylightSavingCheckNow === false && daylightSavingCheckContest === true) {
             contestStartTime -= 3600000
+        } else if (daylightSavingCheckNow === false && daylightSavingCheckContest === false) {
+            contestStartTime += 3600000
         }
 
             //when creating contest:  midnight is -3600000 (to fix Eastern Time to Central), 1 am is 0, 2 am is 3600000, 3 am is 7200000, etc.
