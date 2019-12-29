@@ -119,6 +119,7 @@ class RegisterPage extends Component {
     const { classes } = this.props;
 
     return (
+      <div style={{ marginTop: 70, padding: 30 }}>
       <Box textAlign="center">
         <div>
           {this.props.errors.registrationMessage && (
@@ -132,60 +133,75 @@ class RegisterPage extends Component {
 
           <form onSubmit={this.registerTeam}>
             <h1>Register</h1>
-            {/* <div>
-              <label htmlFor="firstname">
-                First Name:
-              <input
-                  type="text"
-                  name="firstname"
-                  value={this.state.firstName}
-                  onChange={this.handleInputChangeFor('firstName')}
-                />
-              </label>
-            </div> */}
-            <TextField
-              align="left"
-              id="outlined-name"
-              label="first name"
-              className={classes.fieldMedium}
-              value={this.state.firstName}
-              onChange={this.handleInputChangeFor("firstName")}
-              margin="normal"
-              variant="outlined"
-              InputProps={{
-                className: classes.input,
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                className: classes.input,
-                shrink: true
-              }}
-            />
             <div>
-              <label htmlFor="lastname">
-                Last Name:
-              <input
-                  type="text"
-                  name="lastname"
-                  value={this.state.lastName}
-                  onChange={this.handleInputChangeFor('lastName')}
-                />
-              </label>
+              <TextField
+                align="left"
+                id="outlined-name"
+                label="first name"
+                className={classes.fieldMedium}
+                value={this.state.firstName}
+                onChange={this.handleInputChangeFor("firstName")}
+                margin="normal"
+                variant="outlined"
+                InputProps={{
+                  className: classes.input,
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+                InputLabelProps={{
+                  className: classes.input,
+                  shrink: true
+                }}
+              />
+              <TextField
+                align="left"
+                id="outlined-name"
+                label="last name"
+                className={classes.fieldMedium}
+                value={this.state.lastName}
+                onChange={this.handleInputChangeFor("lastName")}
+                margin="normal"
+                variant="outlined"
+                InputProps={{
+                  className: classes.input,
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+                InputLabelProps={{
+                  className: classes.input,
+                  shrink: true
+                }}
+              />
             </div>
             <div>
-              <label htmlFor="username">
-                Email Address:
-              <input
-                  type="text"
-                  name="username"
+                <TextField
+                  align="left"
+                  id="outlined-name"
+                  label="email address"
+                  className={classes.fieldLarge}
                   value={this.state.username}
-                  onChange={this.handleInputChangeFor('username')}
+                  onChange={this.handleInputChangeFor("username")}
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{
+                    className: classes.input,
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    className: classes.input,
+                    shrink: true
+                  }}
                 />
-              </label>
             </div>
             <div>
               <label htmlFor="password">
@@ -254,6 +270,7 @@ class RegisterPage extends Component {
           </form>
         </div>
       </Box>
+      </div>
     );
   }
 }
@@ -267,6 +284,5 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-// export default withRouter(connect(mapStateToProps)(RegisterPage));
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(RegisterPage)));
 
