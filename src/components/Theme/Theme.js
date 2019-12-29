@@ -33,6 +33,9 @@ const theme = createMuiTheme({
             default: '#fff',
         },
     },
+    // formControl: {
+    //     color: "white"
+    // }
 });
 
 export default (theme);

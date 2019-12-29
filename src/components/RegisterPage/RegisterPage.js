@@ -33,7 +33,8 @@ const styles = theme => ({
     fontSize: 20
   },
   radio: {
-    margin: theme.spacing(3)
+    margin: theme.spacing(3),
+    color: "white",
   },
   input: {
     color: "white"
@@ -82,6 +83,7 @@ class RegisterPage extends Component {
           teamName: this.state.teamName,
           username: this.state.username,
           password: this.state.password,
+          confirmPassword: this.state.confirmPassword,
           firstName: this.state.firstName,
           lastName: this.state.lastName,
           clearanceId: this.state.clearanceId,
@@ -120,66 +122,66 @@ class RegisterPage extends Component {
 
     return (
       <div style={{ marginTop: 70, padding: 30 }}>
-      <Box textAlign="center">
-        <div>
-          {this.props.errors.registrationMessage && (
-            <h2
-              className="alert"
-              role="alert"
-            >
-              {this.props.errors.registrationMessage}
-            </h2>
-          )}
+        <Box textAlign="center">
+          <div>
+            {this.props.errors.registrationMessage && (
+              <h2
+                className="alert"
+                role="alert"
+              >
+                {this.props.errors.registrationMessage}
+              </h2>
+            )}
 
-          <form onSubmit={this.registerTeam}>
-            <h1>Register</h1>
-            <div>
-              <TextField
-                align="left"
-                id="outlined-name"
-                label="first name"
-                className={classes.fieldMedium}
-                value={this.state.firstName}
-                onChange={this.handleInputChangeFor("firstName")}
-                margin="normal"
-                variant="outlined"
-                InputProps={{
-                  className: classes.input,
-                  classes: {
-                    root: classes.cssOutlinedInput,
-                    focused: classes.cssFocused,
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-                InputLabelProps={{
-                  className: classes.input,
-                  shrink: true
-                }}
-              />
-              <TextField
-                align="left"
-                id="outlined-name"
-                label="last name"
-                className={classes.fieldMedium}
-                value={this.state.lastName}
-                onChange={this.handleInputChangeFor("lastName")}
-                margin="normal"
-                variant="outlined"
-                InputProps={{
-                  className: classes.input,
-                  classes: {
-                    root: classes.cssOutlinedInput,
-                    focused: classes.cssFocused,
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-                InputLabelProps={{
-                  className: classes.input,
-                  shrink: true
-                }}
-              />
-            </div>
-            <div>
+            <form onSubmit={this.registerTeam}>
+              <h1>Register</h1>
+              <div>
+                <TextField
+                  align="left"
+                  id="outlined-name"
+                  label="first name"
+                  className={classes.fieldMedium}
+                  value={this.state.firstName}
+                  onChange={this.handleInputChangeFor("firstName")}
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{
+                    className: classes.input,
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    className: classes.input,
+                    shrink: true
+                  }}
+                />
+                <TextField
+                  align="left"
+                  id="outlined-name"
+                  label="last name"
+                  className={classes.fieldMedium}
+                  value={this.state.lastName}
+                  onChange={this.handleInputChangeFor("lastName")}
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{
+                    className: classes.input,
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    className: classes.input,
+                    shrink: true
+                  }}
+                />
+              </div>
+              <div>
                 <TextField
                   align="left"
                   id="outlined-name"
@@ -202,8 +204,8 @@ class RegisterPage extends Component {
                     shrink: true
                   }}
                 />
-            </div>
-            <div>
+              </div>
+              {/* <div>
               <label htmlFor="password">
                 Password:
               <input
@@ -213,63 +215,176 @@ class RegisterPage extends Component {
                   onChange={this.handleInputChangeFor('password')}
                 />
               </label>
-            </div>
-            <div>
-              <label htmlFor="newteam">
-                Are you creating a new team?
-              <input
-                  type="radio"
-                  name="newteam"
-                  value="2"
-                  onChange={this.handleInputChangeFor('clearanceId')}
+            </div> */}
+              <div>
+                <TextField
+                  type="password"
+                  align="left"
+                  id="outlined-name"
+                  label="password"
+                  className={classes.fieldMedium}
+                  value={this.state.password}
+                  onChange={this.handleInputChangeFor("password")}
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{
+                    className: classes.input,
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    className: classes.input,
+                    shrink: true
+                  }}
                 />
-                <label for="newteam">Yes</label>
-                <input
-                  type="radio"
-                  name="newteam"
-                  value="1"
-                  onChange={this.handleInputChangeFor('clearanceId')}
+                <TextField
+                  type="password"
+                  align="left"
+                  id="outlined-name"
+                  label="confirm password"
+                  className={classes.fieldMedium}
+                  value={this.state.confirmPassword}
+                  onChange={this.handleInputChangeFor("confirmPassword")}
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{
+                    className: classes.input,
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    className: classes.input,
+                    shrink: true
+                  }}
                 />
-                <label for="newteam">No</label>
-              </label>
-            </div>
-            <div>
-              {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
-              {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
-            </div>
-            <div>
-              {this.state.clearanceId == 2 && <label htmlFor="teamName">
-                Enter your Team Name:
+              </div>
+              <br /><br />
+              <div>
+                <FormControl
+                  component="fieldset"
+                  className={classes.radio}
+                >
+                  <FormLabel
+                    component="legend"
+                    style={{ color: "white" }}
+                  >
+                    Are you creating a new team?
+                  </FormLabel>
+                  <RadioGroup
+                    aria-label="newTeam"
+                    name="newTeam"
+                    onChange={this.handleInputChangeFor("clearanceId")}
+                  >
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+              {/* <div>
+                <label htmlFor="newteam">
+                  Are you creating a new team?
               <input
-                  type="text"
-                  name="teamname"
-                  value={this.state.teamName}
-                  onChange={this.handleInputChangeFor('teamName')}
-                />
-              </label>}
-            </div>
-            <div>
-              {this.state.clearanceId == 1 && <label htmlFor="teamName">
-                Enter your team's Access Code:
-              <input
-                  type="text"
-                  name="accessid"
-                  value={this.state.accessId}
-                  onChange={this.handleInputChangeFor('accessId')}
-                />
-              </label>}
-            </div>
-            <div>
-              <input
-                className="register"
-                type="submit"
-                name="submit"
-                value="Register Team"
-              />
-            </div>
-          </form>
-        </div>
-      </Box>
+                    type="radio"
+                    name="newteam"
+                    value="2"
+                    onChange={this.handleInputChangeFor('clearanceId')}
+                  />
+                  <label for="newteam">Yes</label>
+                  <input
+                    type="radio"
+                    name="newteam"
+                    value="1"
+                    onChange={this.handleInputChangeFor('clearanceId')}
+                  />
+                  <label for="newteam">No</label>
+                </label>
+              </div> */}
+              <div>
+                {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
+                {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
+              </div>
+              <br />
+              <div>
+                {this.state.clearanceId == 2 &&
+                  <TextField
+                    align="left"
+                    id="outlined-name"
+                    label="enter a new team name"
+                    className={classes.fieldLarge}
+                    value={this.state.teamName}
+                    onChange={this.handleInputChangeFor("teamName")}
+                    margin="normal"
+                    variant="outlined"
+                    InputProps={{
+                      className: classes.input,
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline
+                      }
+                    }}
+                    InputLabelProps={{
+                      className: classes.input,
+                      shrink: true
+                    }}
+                  />
+                }
+              </div>
+              <div>
+                {this.state.clearanceId == 1 && 
+                  <TextField
+                    align="left"
+                    id="outlined-name"
+                    label="enter team access code"
+                    className={classes.fieldMedium}
+                    value={this.state.accessId}
+                    onChange={this.handleInputChangeFor("accessId")}
+                    margin="normal"
+                    variant="outlined"
+                    InputProps={{
+                      className: classes.input,
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline
+                      }
+                    }}
+                    InputLabelProps={{
+                      className: classes.input,
+                      shrink: true
+                    }}
+                  />
+                }
+              </div>
+              <br/>
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  name="submit"
+                  value="Register"
+                >
+                  Register
+                        </Button>
+              </div>
+            </form>
+          </div>
+        </Box>
       </div>
     );
   }
