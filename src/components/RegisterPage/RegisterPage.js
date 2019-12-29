@@ -1,7 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
+import { Button, Box, Card, CardContent, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, MenuItem, Radio, RadioGroup, TextField, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  card: {
+    textAlign: 'center',
+    background: '#494A49',
+    color: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fieldMedium: {
+    margin: 5,
+    width: 240,
+    '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+      borderColor: "white"
+    }
+  },
+  fieldLarge: {
+    margin: 5,
+    width: 490,
+    '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+      borderColor: "white"
+    }
+  },
+  question: {
+    fontSize: 20
+  },
+  radio: {
+    margin: theme.spacing(3)
+  },
+  input: {
+    color: "white"
+  },
+  cssLabel: {
+    '&$cssFocused': {
+      color: "white",
+    },
+  },
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: "white",
+    },
+  },
+  cssFocused: {},
+  notchedOutline: { borderColor: "white" },
+  h1: {
+    color: "#55d685"
+  }
+}
+)
 
 class RegisterPage extends Component {
 
@@ -63,6 +116,8 @@ class RegisterPage extends Component {
 
   render() {
 
+    const { classes } = this.props;
+
     return (
       <Box textAlign="center">
         <div>
@@ -77,7 +132,7 @@ class RegisterPage extends Component {
 
           <form onSubmit={this.registerTeam}>
             <h1>Register</h1>
-            <div>
+            {/* <div>
               <label htmlFor="firstname">
                 First Name:
               <input
@@ -87,7 +142,29 @@ class RegisterPage extends Component {
                   onChange={this.handleInputChangeFor('firstName')}
                 />
               </label>
-            </div>
+            </div> */}
+            <TextField
+              align="left"
+              id="outlined-name"
+              label="first name"
+              className={classes.fieldMedium}
+              value={this.state.firstName}
+              onChange={this.handleInputChangeFor("firstName")}
+              margin="normal"
+              variant="outlined"
+              InputProps={{
+                className: classes.input,
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline
+                }
+              }}
+              InputLabelProps={{
+                className: classes.input,
+                shrink: true
+              }}
+            />
             <div>
               <label htmlFor="lastname">
                 Last Name:
@@ -190,5 +267,6 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default withRouter(connect(mapStateToProps)(RegisterPage));
+// export default withRouter(connect(mapStateToProps)(RegisterPage));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(RegisterPage)));
 
