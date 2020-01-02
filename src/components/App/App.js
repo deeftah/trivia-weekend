@@ -13,6 +13,7 @@ import Visual from '../Visual/Visual';
 import Schedule from '../Schedule/Schedule';
 import Live from '../Live/Live';
 import Profile from '../Profile/Profile';
+import Welcome from '../Welcome/Welcome';
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -176,6 +177,10 @@ class App extends Component {
                   exact path="/register"
                   component={RegisterPage}
                 />
+                <Route
+                  exact path="/"
+                  component={Welcome}
+                />
                 {/* If none of the other routes matched, we will show a 404. */}
                 {/* <Route render={() => <h1>404</h1>} /> */}
               </Typography>
@@ -183,19 +188,6 @@ class App extends Component {
             {/* </Switch> */}
           </div>
         </Router>
-        <div style={{ marginTop: 70, padding: 30 }}>
-          <Box textAlign="center">
-            <h1 className={classes.h1}>Welcome to Trivia Weekend!</h1>
-            <h4 className={classes.h4}>Please use the links in the upper right to Register for a new team (or into an existing team) or Login to your account. </h4>
-            <br/>
-            <h2 className={classes.h2}>About Trivia Weekend</h2>
-            <h4 className={classes.h4}>Trivia Weekend is a trivia team management system designed to support teams in KVSC's annual 50-hour trivia contest, as well as 90FM's 54-hour trivia contest.  However, it has been designed in a way that can support any trivia marathon event.  This platform is admittedly in a very nascent stage for 2020, and while you are welcome to sign up and use this, please expect many changes to come in contests for future years.  2020 is the very first time this platform will be used, and we anticipate many issues can arise.  Please send any feedback or bug reports to <a target="_blank" href="mailto:maxwmaher@gmail.com?subject=Inquiry about Trivia Weekend&body=Hello Max"><span style={{color: "aqua"}}>maxwmaher@gmail.com</span></a>.</h4>
-            <br />
-            <h2 className={classes.h2}>Trivia Weekend Demo</h2>
-            <br/>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/epKYc3GDALY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </Box>
-        </div>
       </ThemeProvider>
     )
   }
