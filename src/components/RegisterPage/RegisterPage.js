@@ -116,6 +116,20 @@ class RegisterPage extends Component {
     this.state.accessId = Math.floor(Math.random() * 90000000) + 10000000;
   }
 
+  passwordValidation() {
+    
+    if (this.state.password.length < 8) {
+      alert("Please ensure your password is at least eight characters.");
+      return false;
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      alert("The passwords do not match.  Please try again.");
+      return false;
+    }
+
+    this.registerTeam();
+  }
+
   fieldValidation = event => {
     event.preventDefault();
 
@@ -139,12 +153,20 @@ class RegisterPage extends Component {
       alert("Please enter a value for Confirm Password.");
       return false;
     }
-    if (this.state.clearanceId === "") {
+    if (this.state.clearanceId === '') {
       alert("Please select whether you are creating a new team or joining an existing team.");
       return false;
     }
+    if (this.state.clearanceId === '2' && !this.state.teamName) {
+      alert("Please enter a Team Name.");
+      return false;
+    }
+    if (this.state.clearanceId === '1' && !this.state.accessId) {
+      alert("Please enter your team's private Access Code.");
+      return false;
+    }
 
-    this.registerTeam();
+    this.passwordValidation();
     
   }
 
