@@ -69,9 +69,7 @@ class RegisterPage extends Component {
     accessId: ''
   };
 
-  registerTeam = (event) => {
-
-    event.preventDefault();
+  registerTeam() {
 
     if (this.state.clearanceId === '2') {
 
@@ -110,10 +108,23 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+    console.log('changing the first name:', this.state.firstName)
   }
 
   generateAccessId() {
     this.state.accessId = Math.floor(Math.random() * 90000000) + 10000000;
+  }
+
+  fieldValidation = event => {
+    event.preventDefault();
+
+    if (!this.state.firstName) {
+      alert("Please enter a value for First Name.");
+      return false;
+    }
+
+    this.registerTeam();
+    
   }
 
   render() {
@@ -133,7 +144,7 @@ class RegisterPage extends Component {
               </h2>
             )}
 
-            <form onSubmit={this.registerTeam}>
+            <form onSubmit={this.fieldValidation}>
               <h1>Register</h1>
               <div>
                 <TextField
@@ -205,17 +216,6 @@ class RegisterPage extends Component {
                   }}
                 />
               </div>
-              {/* <div>
-              <label htmlFor="password">
-                Password:
-              <input
-                  type="password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.handleInputChangeFor('password')}
-                />
-              </label>
-            </div> */}
               <div>
                 <TextField
                   type="password"
@@ -264,7 +264,7 @@ class RegisterPage extends Component {
                   }}
                 />
               </div>
-              <br /><br />
+              <br />
               <div>
                 <FormControl
                   component="fieldset"
@@ -274,7 +274,6 @@ class RegisterPage extends Component {
                     component="legend"
                     style={{ color: "white" }}
                   >
-                    Are you creating a new team?
                   </FormLabel>
                   <RadioGroup
                     aria-label="newTeam"
@@ -284,38 +283,19 @@ class RegisterPage extends Component {
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
-                      label="Yes"
+                      label="Create a new team"
                     />
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
-                      label="No"
+                      label="Join an existing team"
                     />
                   </RadioGroup>
                 </FormControl>
               </div>
-              {/* <div>
-                <label htmlFor="newteam">
-                  Are you creating a new team?
-              <input
-                    type="radio"
-                    name="newteam"
-                    value="2"
-                    onChange={this.handleInputChangeFor('clearanceId')}
-                  />
-                  <label for="newteam">Yes</label>
-                  <input
-                    type="radio"
-                    name="newteam"
-                    value="1"
-                    onChange={this.handleInputChangeFor('clearanceId')}
-                  />
-                  <label for="newteam">No</label>
-                </label>
-              </div> */}
               <div>
-                {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">You are joining an existing team!</span>}
-                {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">You are creating a new team!</span>}
+                {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">Enter your team's private access code!</span>}
+                {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">Enter a name for your new team!</span>}
               </div>
               <br />
               <div>
