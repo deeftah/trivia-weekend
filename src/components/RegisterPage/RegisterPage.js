@@ -56,7 +56,6 @@ const styles = theme => ({
   }
 }
 )
-
 class RegisterPage extends Component {
 
   state = {
@@ -117,7 +116,7 @@ class RegisterPage extends Component {
   }
 
   passwordValidation() {
-    
+
     if (this.state.password.length < 8) {
       alert("Please ensure your password is at least eight characters.");
       return false;
@@ -337,8 +336,8 @@ class RegisterPage extends Component {
                 </FormControl>
               </div>
               <div>
-                {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam">Enter your team's private access code!</span>}
-                {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam">Enter a name for your new team!</span>}
+                {this.state.clearanceId == 1 && <span className="span-toggle span-joinTeam"><b>Enter your team's private access code!</b></span>}
+                {this.state.clearanceId == 2 && <span className="span-toggle span-joinTeam"><b>Enter a name for your new team!</b></span>}
               </div>
               <br />
               <div>
