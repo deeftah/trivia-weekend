@@ -64,6 +64,7 @@ class RegisterPage extends Component {
     lastName: '',
     username: '',
     password: '',
+    confirmPassword: '',
     clearanceId: '',
     teamName: '',
     accessId: ''
@@ -120,6 +121,26 @@ class RegisterPage extends Component {
 
     if (!this.state.firstName) {
       alert("Please enter a value for First Name.");
+      return false;
+    }
+    if (!this.state.lastName) {
+      alert("Please enter a value for Last Name.");
+      return false;
+    }
+    if (!this.state.username) {
+      alert("Please enter a value for Email Address.");
+      return false;
+    }
+    if (!this.state.password) {
+      alert("Please enter a value for Password.");
+      return false;
+    }
+    if (!this.state.confirmPassword) {
+      alert("Please enter a value for Confirm Password.");
+      return false;
+    }
+    if (this.state.clearanceId === "") {
+      alert("Please select whether you are creating a new team or joining an existing team.");
       return false;
     }
 
