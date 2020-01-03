@@ -59,6 +59,9 @@ const styles = theme => ({
     },
     h2: {
         color: "#55d685"
+    },
+    p: {
+        color: "white"
     }
 }
 )
@@ -187,7 +190,7 @@ class Welcome extends Component {
                     <h4 className={classes.h4}>Please use the links in the upper right to Register for a new team (or into an existing team) or Login to your account. </h4>
                     <br />
                     <h2 className={classes.h2}>About Trivia Weekend</h2>
-                    <h4 className={classes.h4}>Trivia Weekend is a trivia team management system designed to support teams in KVSC's annual 50-hour trivia contest, as well as 90FM's 54-hour trivia contest.  However, it has been designed in a way that can support any trivia marathon event.  This platform is admittedly in a very nascent stage for 2020, and while you are welcome to sign up and use this, please expect many changes to come in contests for future years.  2020 is the very first time this platform will be used, and we anticipate many issues can arise.  Please send any feedback or bug reports to Max at <a target="_blank" href="mailto:triviaweekendapp@gmail.com?subject=Inquiry about Trivia Weekend&body=Hello Max"><span style={{ color: "aqua" }}>triviaweekendapp@gmail.com</span></a>.</h4>
+                    <p className={classes.h4}>Trivia Weekend is a trivia team management system designed to support teams in KVSC's annual 50-hour trivia contest, as well as 90FM's 54-hour trivia contest.  However, it has been designed in a way that can support any trivia marathon event.  This platform is admittedly in a very nascent stage for 2020, and while you are welcome to sign up and use this, please expect many changes to come in contests for future years.  2020 is the very first time this platform will be used, and we anticipate many issues can arise.  Please send any feedback or bug reports to Max at <a target="_blank" href="mailto:triviaweekendapp@gmail.com?subject=Inquiry about Trivia Weekend&body=Hello Max"><span style={{ color: "aqua" }}>triviaweekendapp@gmail.com</span></a>.</p>
                     <br />
                     <h2 className={classes.h2}>Trivia Weekend Demo</h2>
                     <br />
