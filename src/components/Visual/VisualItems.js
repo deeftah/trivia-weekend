@@ -131,28 +131,32 @@ class VisualItems extends Component {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <Typography color="secondary">
-                                        <br/>{this.props.visual.comment}
+                                        <br />{this.props.visual.comment}
                                     </Typography>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </CardActionArea>
                     </CardContent>
-                    <CardMedia
-                        component="img"
-                        alt={this.props.visual.comment}
-                        style={{ width: '90%', marginTop: 10 }}
-                        image={this.props.visual.url}
-                        title={this.props.visual.comment}
-                    />
+
+                    <a href={this.props.visual.url} target="_blank">
+                        <CardMedia
+                            component="img"
+                            alt={this.props.visual.comment}
+                            style={{ width: '90%', marginTop: 10 }}
+                            image={this.props.visual.url}
+                            title={this.props.visual.comment}
+                        />
+                    </a>
+
                     <CardContent>
                         <Typography color="secondary">
-                            {this.state.editVisual && (this.props.user.clearance_id > 1) && 
-                            <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
-                                defaultValue={this.props.visual.match_level}>
-                                <option value="Found">Found</option>
-                                <option value="Maybe Found">Maybe Found</option>
-                                <option value="Not Found">Not Found</option>
-                            </select>}
+                            {this.state.editVisual && (this.props.user.clearance_id > 1) &&
+                                <select name="match_level" onChange={this.handleChangeFor('newMatchLevel')}
+                                    defaultValue={this.props.visual.match_level}>
+                                    <option value="Found">Found</option>
+                                    <option value="Maybe Found">Maybe Found</option>
+                                    <option value="Not Found">Not Found</option>
+                                </select>}
                             {this.state.editVisual && <br />}
                             {this.state.editVisual && <br />}
                             {this.state.editVisual &&
